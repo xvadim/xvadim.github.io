@@ -11,7 +11,7 @@
   <title>μBarometer :: Simple, useful and nice barometer</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="device-mockups/device-mockups.min.css">
 
   <!-- Custom styles for this template -->
-  <link href="css/new-age.min.css" rel="stylesheet">
+  <link href="css/new-age.css" rel="stylesheet">
 
 </head>
 
@@ -52,6 +52,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#tips">Tips &amp; tricks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#faq">FAQ</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
@@ -111,7 +117,7 @@
       </div>
       <div class="row">
         <div class="col-lg-4 my-auto">
-            <h4 align="center">Themes</h4>
+            <h3 align="center">Themes</h3>
             <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval=2000>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -149,7 +155,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="feature-item">
-                  <h4>Pressure units</h4>
+                  <h3>Pressure units</h3>
                   <ul align="left">
                       <li>mBar</li>
                       <li>mmHg</li>
@@ -161,7 +167,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="feature-item">
-                  <h4>Altitude units</h4>
+                  <h3>Altitude units</h3>
                   <ul align="left">
                       <li>meters</li>
                       <li>feet</li>
@@ -172,7 +178,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="feature-item">
-                  <h4>Pressure Graph</h4>
+                  <h3>Pressure Graph</h3>
                     <ul align="left">
                       <li>mini graph</li>
                       <li>detailed graph</li>
@@ -182,7 +188,7 @@
               </div>
               <div class="col-lg-6">
                 <div class="feature-item">
-                  <h4>Widgets</h4>
+                  <h3>Widgets</h3>
                   <ul align="left">
                       <li>simple 1x1</li>
                       <li>simple 2x1 with weather icons</li>
@@ -196,41 +202,114 @@
       </div>
     </div>
   </section>
-
-  <section class="cta">
-    <div class="cta-content">
-      <div class="container">
-        <h2>Stop waiting.<br>Start building.</h2>
-        <a href="#contact" class="btn btn-outline btn-xl js-scroll-trigger">Let's Get Started!</a>
+  
+  <section class="features" id="tips">
+    <div class="container">
+      <div class="section-heading text-center">
+        <h2>Tips & tricks</h2>
       </div>
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Pressure/altitude indicators</h3>
+                  <p align="left">For quick switching between pressure/altitude indicators just tap on the indicator
+                      icon.</p>
+                    <p align="left"> You can measure the relative altitude.
+                      Just tap on the altitude indicator text (i.e. "Abs.") and it will show the 
+                      relative altitude from the current point. Tap once more (on the "Rel." text) 
+                      to return back to the absolute values.
+                  </p>
+                  <p  align="left">The altitude value are based on the current pressure value. 
+                      That's why it is not so accurate.</p>
+              </div>
+          </div>
+           <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>The data logger</h3>
+                  <p align="left">To collect data μBarometer runs a small service which saves the pressure values.</p>
+              </div>
+           </div>
     </div>
-    <div class="overlay"></div>
   </section>
+
+  <section class="features" id="faq">
+    <div class="container">
+      <div class="section-heading text-center">
+        <h2>FAQ</h2>
+      </div>
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Why does μBarometer not collect data?</h3>
+                  <div align="left">
+                  <p>There are several reasons:
+                      <ul>
+                      <li>Doze mode - μBarometer can't collect data when a device is in Doze mode</li>
+                      <li>Some kind of task killers/battery savers can kill μBarometer. Exclude μBarometer from the list of
+                          killed apps</li>
+                      <li>Some tools like Zapper Task Killer, Clean Master, Greenify or any Antivirus software can kill
+                          μBarometer</li>
+                      </ul>
+                    It μBarometer stopped to collect data try to change the tracking interval or just turn off and turn
+                    on again tracking. Also you can put on the home screen any widget - it tries to restart logger if it
+                    needed.
+                  </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Why is μBarometer show a notification?</h3>
+                  <div align="left">
+                      <p>Beginning with Android 8.0 (Oreo), Google changed the way you’re notified 
+                          about apps running in the background on your phone. An application which runs background processes should
+                          sent a notification to users.
+                          μBarometer runs a such process for tracking air pressure data.
+                          <p/>
+                  </div>
+              </div>
+           </div>
+           <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Can I turn off the notification?</h3>
+                  <div align="left">
+                      <p>You cann't turn off the notification, but can hide it:
+                          <ol>
+                              <li>Press and hold on the notification.</li>
+                              <li>Turn the notification off. </li>
+                              <li>Tap <b>Done</b>.</li>
+                          </ol>
+                      </p>
+                      <p>The μBarometer app continues to run the tracking process but won't send the notification. 
+                      </p>
+                      <p>
+                          If you hide the μBarometer notification, you’ll receive a different notification from the Android 
+                          letting you know the μBarometer app is using battery resources. All apps that run in the background 
+                          affect your phone’s battery life. You can hide this notification as well.
+                      </p>
+                  </div>
+              </div>
+           </div>
+    </div>
+  </section>
+
 
   <section class="contact bg-primary" id="contact">
     <div class="container">
-      <h2>We
-        <i class="fas fa-heart"></i>
-        new friends!</h2>
+      <h2>Follow us!</h2>
       <ul class="list-inline list-social">
         <li class="list-inline-item social-twitter">
-          <a href="#">
-            <i class="fab fa-twitter"></i>
-          </a>
+          <a href="https://twitter.com/xbasoft"><i class="fab fa-twitter"></i></a>
         </li>
         <li class="list-inline-item social-facebook">
-          <a href="#">
+          <a href="https://www.facebook.com/XBASoft/">
             <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="list-inline-item social-google-plus">
-          <a href="#">
-            <i class="fab fa-google-plus-g"></i>
           </a>
         </li>
       </ul>
     </div>
   </section>
+
 
   <footer>
     <div class="container">
