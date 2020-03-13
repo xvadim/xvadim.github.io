@@ -108,9 +108,7 @@ http://mobile-d.openx.net/v/1.0/rc?ts=2DAABBgABAAECAAIBAAsAAgAAAKIcGApnZ2F4WHVrY
                         </VideoClicks>
                         <MediaFiles>
                             <MediaFile delivery="progressive" height="480" id="539733616" type="video/mp4" width="320">
-                                <![CDATA[
-https://xvadim.github.io/xbasoft/vertical_video_example.mp4
-]]>
+                                <![CDATA[http://i.cdn.openx.com/videos/mobile/vertical_video_example.mp4]]>
                             </MediaFile>
                         </MediaFiles>
                     </Linear>
