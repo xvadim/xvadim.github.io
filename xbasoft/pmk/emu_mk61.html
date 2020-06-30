@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Эмулятор МК-61</title>
+  <style>
+    html { overflow: hidden; }
+
+    body {
+      margin: 0;
+      background-color: #181818;
+      color: #F8F8F8;
+    }
+
+    table {
+      margin: auto;
+    }
+
+    td {
+      text-align: center;
+    }
+
+    #Общая_таблица {
+      width: 100%;
+      height: 600px;
+    }
+
+    #Таблица_регистров {
+      border: inset #CCC;
+      border-radius: 15px;
+      border-width: 3px;
+      background: #333 linear-gradient(to bottom right, #222, #333);
+      padding: 5px 0;
+      margin: 0 10px;
+    }
+
+    #Таблица_регистров td {
+      vertical-align: bottom;
+    }
+
+    #Таблица_регистров input[type="text"] {
+      font-family: monospace;
+      max-width: 145px;
+      font-size: 14px;
+      padding: 0 3px;
+      border: none;
+      background-color: #203830;
+      color: #73FBDE;
+    }
+
+    label, input[type="radio"] {
+      cursor: pointer;
+    }
+
+    .МК-61 button {
+      height: 40px;
+      width: 58px;
+      background: #D0D0D0;
+      color: #3D4242;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: monospace;
+      text-align: center;
+      border: solid 1px #707070;
+      cursor: pointer;
+      line-height: 12px;
+      margin-top: 0px; margin-bottom: 3px;
+      border-radius: 5px;
+      box-shadow: 0px 4px 0px #707070;
+    }
+
+    .МК-61 button:active {
+      margin-top: 3px; margin-bottom: 0px;
+      box-shadow: 0px 1px 0px #707070;
+    }
+
+    .МК-61 .верхняя_кнопка {
+      background: #3A434B;
+      color: #F8F8F8;
+      box-shadow: 0px 4px 0px #1A232B;
+    }
+
+    .МК-61 .верхняя_кнопка:active {
+      box-shadow: 0px 1px 0px #1A232B;
+    }
+
+    .МК-61 .кнопка_F {
+      background: #F1DF44;
+      box-shadow: 0px 4px 0px #B19F04;
+    }
+
+    .МК-61 .кнопка_F:active {
+      box-shadow: 0px 1px 0px #B19F04;
+    }
+
+    .МК-61 .кнопка_K {
+      background: #5BC8EC;
+      color: #F8F8F8;
+      box-shadow: 0px 4px 0px #389DBA;
+    }
+
+    .МК-61 .кнопка_K:active {
+      box-shadow: 0px 1px 0px #389DBA;
+    }
+
+    .МК-61 .кнопка_Сx {
+      background: #F03945;
+      color: #F8F8F8;
+      box-shadow: 0px 4px 0px #B02935;
+    }
+
+    .МК-61 .кнопка_Сx:active {
+      box-shadow: 0px 1px 0px #B02935;
+    }
+
+    .МК-61 .индикатор {
+      height: 50px;
+      width: 350px;
+      background: #203830;
+      border: solid 1px #C0C0C0;
+      vertical-align: middle;
+    }
+
+    .МК-61 .знакоместо {
+      height: 40px;
+      width: 28px;
+      background: #203830;
+      color: #73FBDE;
+      border: 0px;
+      font-size: 25px;
+      font-style: oblique;
+    }
+
+    .МК-61 .переключатель {
+      padding: 5px 10px;
+      text-align: left;
+    }
+
+    .МК-61 .переключатель {
+      padding: 5px 10px;
+      text-align: left;
+    }
+
+    .МК-61 .бел_т {
+      color: #F8F8F8;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .чёр_т {
+      color: #181818;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .крас_т {
+      color: #C04040;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: sans-serif;
+    }
+
+    .МК-61 .жёл_т {
+      color: #C6C73F;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: sans-serif;
+    }
+
+    .син_т {
+      color: #4681B4;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: sans-serif;
+    }
+
+    .надпись {
+      vertical-align: middle;
+    }
+
+    #верхняя_часть {
+      border: solid #808080 1px;
+      background-color: #8EACAB;
+    }
+
+    #каретка {
+      border: solid #C0C0C0 1px;
+      background-color: #8EACAB;
+      position: relative;
+      left: -163px;
+    }
+
+    a {
+      font-weight: bold;
+    }
+
+    a:link {
+      color: #C0FFFF;
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: #C0FFFF;
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: #FFFFFF;
+      text-decoration: underline;
+    }
+
+    a:active {
+      color: #FFFFFF;
+      text-decoration: none;
+    }
+
+    #Код {
+      text-align: left;
+      vertical-align: top;
+      overflow: auto;
+      background-color: #FFFFFF;
+      color: #000000;
+      width: auto;
+      margin: 0 10px;
+      box-sizing: border-box;
+      font-size: 15px;
+      height: 223px;
+      font-family: monospace;
+      border: 2px ridge #CCC;
+      padding: 5px;
+      border-radius: 10px;
+    }
+
+    #Код p {
+      margin: 0;
+    }
+
+    .подсв_ном {
+      font-size: small;
+      color: #A0A0A0;
+    }
+
+    .подсв_адр {
+      text-decoration: underline;
+      color: #A000A0;
+    }
+
+    .подсв_0 {
+      color: #000000;
+    }
+
+    .подсв_1 {
+      color: #A0A000;
+    }
+
+    .подсв_2 {
+      color: #00A000;
+    }
+
+    .подсв_3 {
+      color: #A00000;
+    }
+
+    .подсв_4 {
+      color: #0000A0;
+    }
+
+    .подсв_преф {
+      font-weight: lighter;
+      font-size: 90%;
+      color: #404040;
+    }
+
+    .прозр_кнопка {
+      background-image: none; 
+      background-color: transparent;
+      position: absolute;
+      border-radius: 3px;
+      width: 32px;
+      height: 22px;
+      cursor: pointer;
+    }
+
+    .прозр_перекл {
+      position: absolute;
+      height: 12px;
+      cursor: pointer;
+    }
+
+    .перекл {
+      position: absolute;
+      cursor: pointer;
+    }
+
+    .разряд {
+      position: absolute;
+    }
+
+  </style>
+</head>
+<body>
+	<div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;">
+		<table id="Общая_таблица">
+			<tbody>
+        <tr>
+          <td rowspan="2" id="Калькулятор" style="width: 50%; vertical-align: middle; text-align: center;"></td>
+          <td style="vertical-align: middle; text-align: center;">
+            <div id="Таблица_регистров">
+              <table>
+                <tr>
+                  <td style="width: 45%; text-align: center;"><span class="бел_т">Регистры:</span></td>
+                  <td style="width: 25%; text-align: center;"><span class="бел_т">Стек:</span></td>
+                  <td style="text-align: center;"><span class="бел_т">Возвраты:</span></td>
+                  <td style="text-align: center;"><span class="бел_т">Состояние:</span></td>
+                </tr>
+                <tr>
+                  <td rowspan="2" style="vertical-align: top;">
+                    <table>
+                      <tr>
+                        <td style="vertical-align: top;">
+                          <table>
+                            <tr><td>0:</td><td><input type="text" id="Р0" readonly="readonly"></td></tr>
+                            <tr><td>1:</td><td><input type="text" id="Р1" readonly="readonly"></td></tr>
+                            <tr><td>2:</td><td><input type="text" id="Р2" readonly="readonly"></td></tr>
+                            <tr><td>3:</td><td><input type="text" id="Р3" readonly="readonly"></td></tr>
+                            <tr><td>&nbsp;</td></tr>
+                            <tr><td>4:</td><td><input type="text" id="Р4" readonly="readonly"></td></tr>
+                            <tr><td>5:</td><td><input type="text" id="Р5" readonly="readonly"></td></tr>
+                            <tr><td>6:</td><td><input type="text" id="Р6" readonly="readonly"></td></tr>
+                          </table>
+                        </td>
+                        <td style="vertical-align: top;">
+                          <table>
+                            <tr><td>7:</td><td><input type="text" id="Р7" readonly="readonly"></td></tr>
+                            <tr><td>8:</td><td><input type="text" id="Р8" readonly="readonly"></td></tr>
+                            <tr><td>9:</td><td><input type="text" id="Р9" readonly="readonly"></td></tr>
+                            <tr><td>A:</td><td><input type="text" id="Р10" readonly="readonly"></td></tr>
+                            <tr><td>B:</td><td><input type="text" id="Р11" readonly="readonly"></td></tr>
+                            <tr><td>C:</td><td><input type="text" id="Р12" readonly="readonly"></td></tr>
+                            <tr><td>D:</td><td><input type="text" id="Р13" readonly="readonly"></td></tr>
+                            <tr><td>E:</td><td><input type="text" id="Р14" readonly="readonly"></td></tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td style="vertical-align: top; border-left: dashed 1px #C0C0C0;">
+                    <table>
+                      <tr><td>T:</td><td><input type="text" id="С_4" readonly="readonly"></td></tr>
+                      <tr><td>Z:</td><td><input type="text" id="С_3" readonly="readonly"></td></tr>
+                      <tr><td>Y:</td><td><input type="text" id="С_2" readonly="readonly"></td></tr>
+                      <tr><td>X:</td><td><input type="text" id="С_1" readonly="readonly"></td></tr>
+                      <tr></tr>
+                      <tr></tr>
+                      <tr><td>X1:</td><td><input type="text" id="С_0" readonly="readonly"></td></tr>
+                    </table>
+                  </td>
+                  <td style="vertical-align: top; border-left: dashed 1px #C0C0C0;">
+                    <table>
+                      <tr><td><input type="text" id="В_4" size="2" readonly="readonly"></td></tr>
+                      <tr><td><input type="text" id="В_3" size="2" readonly="readonly"></td></tr>
+                      <tr><td><input type="text" id="В_2" size="2" readonly="readonly"></td></tr>
+                      <tr><td><input type="text" id="В_1" size="2" readonly="readonly"></td></tr>
+                      <tr><td><input type="text" id="В_0" size="2" readonly="readonly"></td></tr>
+                    </table>
+                  </td>
+                  <td rowspan="2" style="vertical-align: top; border-left: dashed 1px #C0C0C0;">
+                    <input type="button" onclick="Прочитать_состояние();" value="Прочитать" style="width: 80px; height: 25px; margin: 5px 3px; border-radius: 10px;">
+                    <input type="button" onclick="Ввести_состояние();" value="Ввести" style="width: 80px; height: 25px; margin: 5px 3px; border-radius: 10px;">
+                    <input type="button" id="Пауза" onclick="Приостановить();" value="Стоп" style="margin-top: 25px;">
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="vertical-align: middle; border: dashed 1px #C0C0C0; border-width: 1px 0 0 1px;">
+                    <div class="бел_т" style="margin: auto;">Счётчик команд: <input type="text" id="СК" style="font-family: monospace;" size="2" readonly="readonly"></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </td>
+			</tr>
+			<tr>
+				<td style="vertical-align: middle;">
+					<table style="width: 100%;">
+            <tr><td><span class="бел_т">Код программы:</span></td></tr>
+            <tr><td><div id="Код" spellcheck="false" contenteditable=""><br></div></td></tr>
+            <tr>
+              <td>
+                <label><input type="checkbox" id="Простой_код" checked="checked">Простой код</label>
+                <label><input type="checkbox" id="Подсветка" checked="checked">Подсветка</label>
+                <label><input type="checkbox" id="Числовые_значения">Числовые значения</label>
+                <div style="margin-top: 5px;">
+                  <input type="button" onclick="Прочитать_код();" value="Прочитать из памяти">
+                  <input type="button" onclick="Ввести_код();" value="Ввести в память">
+                </div>
+              </td>
+            </tr>
+					</table>
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+
+	<div id="_МК-61" style="display: none;">
+		<div style="position: relative; margin: auto; width: 275px; height: 580px;">
+			<img src="data:image/jpg;base64,/9j/4QE2RXhpZgAATU0AKgAAAAgABwESAAMAAAABAAEAAAEaAAUAAAABAAAAYgEbAAUAAAABAAAAagEoAAMAAAABAAIAAAExAAIAAAAeAAAAcgEyAAIAAAAUAAAAkIdpAAQAAAABAAAApAAAANAACvzaAAAnEAAK/NoAACcQQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykAMjAxOTowMTozMSAyMDoxMjoxOQAAA6ABAAMAAAABAAEAAKACAAQAAAABAAABD6ADAAQAAAABAAACPwAAAAAAAAAGAQMAAwAAAAEABgAAARoABQAAAAEAAAEeARsABQAAAAEAAAEmASgAAwAAAAEAAgAAAgEABAAAAAEAAAEuAgIABAAAAAEAAAAAAAAAAAAAAEgAAAABAAAASAAAAAH/7QkOUGhvdG9zaG9wIDMuMAA4QklNBCUAAAAAABAAAAAAAAAAAAAAAAAAAAAAOEJJTQQ6AAAAAAD3AAAAEAAAAAEAAAAAAAtwcmludE91dHB1dAAAAAUAAAAAUHN0U2Jvb2wBAAAAAEludGVlbnVtAAAAAEludGUAAAAAQ2xybQAAAA9wcmludFNpeHRlZW5CaXRib29sAAAAAAtwcmludGVyTmFtZVRFWFQAAAABAAAAAAAPcHJpbnRQcm9vZlNldHVwT2JqYwAAABUEHwQwBEAEMAQ8BDUEQgRABEsAIARGBDIENQRCBD4EPwRABD4EMQRLAAAAAAAKcHJvb2ZTZXR1cAAAAAEAAAAAQmx0bmVudW0AAAAMYnVpbHRpblByb29mAAAACXByb29mQ01ZSwA4QklNBDsAAAAAAi0AAAAQAAAAAQAAAAAAEnByaW50T3V0cHV0T3B0aW9ucwAAABcAAAAAQ3B0bmJvb2wAAAAAAENsYnJib29sAAAAAABSZ3NNYm9vbAAAAAAAQ3JuQ2Jvb2wAAAAAAENudENib29sAAAAAABMYmxzYm9vbAAAAAAATmd0dmJvb2wAAAAAAEVtbERib29sAAAAAABJbnRyYm9vbAAAAAAAQmNrZ09iamMAAAABAAAAAAAAUkdCQwAAAAMAAAAAUmQgIGRvdWJAb+AAAAAAAAAAAABHcm4gZG91YkBv4AAAAAAAAAAAAEJsICBkb3ViQG/gAAAAAAAAAAAAQnJkVFVudEYjUmx0AAAAAAAAAAAAAAAAQmxkIFVudEYjUmx0AAAAAAAAAAAAAAAAUnNsdFVudEYjUHhsQFIAk4AAAAAAAAAKdmVjdG9yRGF0YWJvb2wBAAAAAFBnUHNlbnVtAAAAAFBnUHMAAAAAUGdQQwAAAABMZWZ0VW50RiNSbHQAAAAAAAAAAAAAAABUb3AgVW50RiNSbHQAAAAAAAAAAAAAAABTY2wgVW50RiNQcmNAWQAAAAAAAAAAABBjcm9wV2hlblByaW50aW5nYm9vbAAAAAAOY3JvcFJlY3RCb3R0b21sb25nAAAAAAAAAAxjcm9wUmVjdExlZnRsb25nAAAAAAAAAA1jcm9wUmVjdFJpZ2h0bG9uZwAAAAAAAAALY3JvcFJlY3RUb3Bsb25nAAAAAAA4QklNA+0AAAAAABAASAJOAAEAAgBIAk4AAQACOEJJTQQmAAAAAAAOAAAAAAAAAAAAAD+AAAA4QklNBA0AAAAAAAQAAAAeOEJJTQQZAAAAAAAEAAAAHjhCSU0D8wAAAAAACQAAAAAAAAAAAQA4QklNJxAAAAAAAAoAAQAAAAAAAAACOEJJTQP1AAAAAABIAC9mZgABAGxmZgAGAAAAAAABAC9mZgABAKGZmgAGAAAAAAABADIAAAABAFoAAAAGAAAAAAABADUAAAABAC0AAAAGAAAAAAABOEJJTQP4AAAAAABwAAD/////////////////////////////A+gAAAAA/////////////////////////////wPoAAAAAP////////////////////////////8D6AAAAAD/////////////////////////////A+gAADhCSU0EAAAAAAAAAgAAOEJJTQQCAAAAAAACAAA4QklNBDAAAAAAAAEBADhCSU0ELQAAAAAABgABAAAAAzhCSU0ECAAAAAAAEAAAAAEAAAJAAAACQAAAAAA4QklNBB4AAAAAAAQAAAAAOEJJTQQaAAAAAAM/AAAABgAAAAAAAAAAAAACPwAAAQ8AAAAFBBwEGgAtADYAMQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAABDwAAAj8AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAQAAAAAAAG51bGwAAAACAAAABmJvdW5kc09iamMAAAABAAAAAAAAUmN0MQAAAAQAAAAAVG9wIGxvbmcAAAAAAAAAAExlZnRsb25nAAAAAAAAAABCdG9tbG9uZwAAAj8AAAAAUmdodGxvbmcAAAEPAAAABnNsaWNlc1ZsTHMAAAABT2JqYwAAAAEAAAAAAAVzbGljZQAAABIAAAAHc2xpY2VJRGxvbmcAAAAAAAAAB2dyb3VwSURsb25nAAAAAAAAAAZvcmlnaW5lbnVtAAAADEVTbGljZU9yaWdpbgAAAA1hdXRvR2VuZXJhdGVkAAAAAFR5cGVlbnVtAAAACkVTbGljZVR5cGUAAAAASW1nIAAAAAZib3VuZHNPYmpjAAAAAQAAAAAAAFJjdDEAAAAEAAAAAFRvcCBsb25nAAAAAAAAAABMZWZ0bG9uZwAAAAAAAAAAQnRvbWxvbmcAAAI/AAAAAFJnaHRsb25nAAABDwAAAAN1cmxURVhUAAAAAQAAAAAAAG51bGxURVhUAAAAAQAAAAAAAE1zZ2VURVhUAAAAAQAAAAAABmFsdFRhZ1RFWFQAAAABAAAAAAAOY2VsbFRleHRJc0hUTUxib29sAQAAAAhjZWxsVGV4dFRFWFQAAAABAAAAAAAJaG9yekFsaWduZW51bQAAAA9FU2xpY2VIb3J6QWxpZ24AAAAHZGVmYXVsdAAAAAl2ZXJ0QWxpZ25lbnVtAAAAD0VTbGljZVZlcnRBbGlnbgAAAAdkZWZhdWx0AAAAC2JnQ29sb3JUeXBlZW51bQAAABFFU2xpY2VCR0NvbG9yVHlwZQAAAABOb25lAAAACXRvcE91dHNldGxvbmcAAAAAAAAACmxlZnRPdXRzZXRsb25nAAAAAAAAAAxib3R0b21PdXRzZXRsb25nAAAAAAAAAAtyaWdodE91dHNldGxvbmcAAAAAADhCSU0EKAAAAAAADAAAAAI/8AAAAAAAADhCSU0EFAAAAAAABAAAAAM4QklNBCEAAAAAAFUAAAABAQAAAA8AQQBkAG8AYgBlACAAUABoAG8AdABvAHMAaABvAHAAAAATAEEAZABvAGIAZQAgAFAAaABvAHQAbwBzAGgAbwBwACAAQwBTADYAAAABADhCSU0EBgAAAAAABwAEAAAAAQEA/+EOKWh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8APD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS4zLWMwMTEgNjYuMTQ1NjYxLCAyMDEyLzAyLzA2LTE0OjU2OjI3ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M2IChXaW5kb3dzKSIgeG1wOkNyZWF0ZURhdGU9IjIwMTktMDEtMzFUMjA6MDQ6MDIrMDI6MDAiIHhtcDpNb2RpZnlEYXRlPSIyMDE5LTAxLTMxVDIwOjEyOjE5KzAyOjAwIiB4bXA6TWV0YWRhdGFEYXRlPSIyMDE5LTAxLTMxVDIwOjEyOjE5KzAyOjAwIiBkYzpmb3JtYXQ9ImltYWdlL2pwZWciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4MEUyNjBCRjgzMjVFOTExQjI5OEUyQUMzNTU4RjFCMyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3RkUyNjBCRjgzMjVFOTExQjI5OEUyQUMzNTU4RjFCMyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjdGRTI2MEJGODMyNUU5MTFCMjk4RTJBQzM1NThGMUIzIj4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDo3RkUyNjBCRjgzMjVFOTExQjI5OEUyQUMzNTU4RjFCMyIgc3RFdnQ6d2hlbj0iMjAxOS0wMS0zMVQyMDowNDowMiswMjowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249ImNvbnZlcnRlZCIgc3RFdnQ6cGFyYW1ldGVycz0iZnJvbSBpbWFnZS9wbmcgdG8gaW1hZ2UvanBlZyIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6ODBFMjYwQkY4MzI1RTkxMUIyOThFMkFDMzU1OEYxQjMiIHN0RXZ0OndoZW49IjIwMTktMDEtMzFUMjA6MTI6MTkrMDI6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDUzYgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8P3hwYWNrZXQgZW5kPSJ3Ij8+/+IMWElDQ19QUk9GSUxFAAEBAAAMSExpbm8CEAAAbW50clJHQiBY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" style="height: 575px; position: absolute; left: 0px; top: 0px;" alt="">
+
+			<script>
+				const Картинка_Запятая = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAADCAIAAAA2iEnWAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAfSURBVHjaYmRLDLI2MGFSU1LRdHZh4v315+uzZ4ABADGSBz5/OkllAAAAAElFTkSuQmCC",
+				Картинка_Нету_запятой = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAADCAYAAAC56t6BAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAdSURBVHjaYvz//z8DAwMDAxMDFMAZAAAAAP//AwBLIQMDKwH89AAAAABJRU5ErkJggg==",
+				Цифры = [];
+				Цифры[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAH8SURBVHjaAO8BEP4BEDkvAAYICBRqhny2FyIbIwYHBwbx3eLPn4WFRPv8/gIEFiEeAAgKCAXk3tvU4NzX2v7+/gHdxMif7PT5AmVtapUE79rdABsiIBr+8/fjy7W1iejw7vYFBAoARFtaYRMXEiYCHUM7AEBjXU9MX1x+DxkTDQwREgD/Dg8HMj45fNrT0tYC9vr4ABESEijo5OPm6+zq6/sCBAASGhogExkVIurt7soCAPz/BA8ODSG9qqh88+zw/vsBAwAbHB0qEwkPAOri4tQDCxELCdvTztbJtrivAQoLAAcQDwASEQ0NAvr35sCqqrIEAPX59Qr/BL8MFB4A7e/tAO7w0wD37efL7t7by+/n6gACIjIyEmdvcj8NExEOBgkLAA0hIQD8Dw8A9PX4HwoaGgACJDUxYSQmKMAQHRITEBcQAPjl9QBMTFZzRk5LZwIOBQAELzIyM/T6+O8mJiLiFBceAAIDCyZRVFGMsqGZWBcXGQAE6dTT4/jh26HOycj9ChQeAC43OTX3/PUA8/DxzxYVFwAEqqOglP4IBOcRFBcA+vb5APTx8if9+fr27enl5fr6+QAEcIeJzAQBAeXM1M/LAvj67tbb273k4eNC7Ont9QMEBAADAR0SEjVKREUUHBk4KisuNuPT0bLSxMS8697c3vz29gADAF092E3E1OrGAAAAAElFTkSuQmCC";
+				Цифры[1] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAEkSURBVHjaYvz//z8DMhD2MGFgYGBg+PHzB0NmbGIiCwMaYGWCCDGyczGJyMn4YCiQkVdi+PP7N4Oqvl4QrxCvKBO6gmfPXzA8e/GSwcbLteva+bPXMBT8Z2Vl4JeQkBOTkVR88fr1CQwFf/79Y5CWktGUYBdleHn/wXkMBRwcjAyMDN9f79u9tvvhlSt3GNG9yagvziAgJMigICfPcPvwUQYME3jVlBl+8fMxffr8XZFbSgZTwY+Hnxm8vEJT/cOC81kE2TEVeEdFakYnxMx49vzRHkkpaUwFApICpl9+fmL48unLRWEhMQaMkBQSFjX6++Pnn3evnj7/z/AfU8GBXbtXSYjy2799+e4PGwcHpoIvz9+cO7Vle+fXV28YfrGxMQAGAJVQZVh9evTEAAAAAElFTkSuQmCC";
+				Цифры[2] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAHrSURBVHjaJM3ba5JhHAfw7+95H/XVmToPqeSorWx6kYVrm0Ub1NbN6HIEHQi2GEHRfzCom9FtFx0uRzd104kYgy4iyJWjtgYpkanhgXK6TXOWx/d93i76/AMfskZC0Muy88ad+WX3wL6DeoOsr2XyG4sLC5NdRTDuCfhhtph7qlvlQj6byiidrsisrC5u/2mzuZvX75N76hQUpQMFLZhlExq/a5AlIyYuXZwZDvlnGQhgjMFglEGSBMlkAaxWQ3j8xPz3+JevTGY6MCFAbQGfrx9kNMPm9R5weF0D5Z3KR243mFGqVtAiDccCg6g3W3C5vQGHyYZyPp+QPEE/dmsVaFyi46Mj+8cikd6O6PRs/8plo8+ev2LEGJhJxuzctQfT5y9nI2MTaerUDz++d/d2rViqc5vbZb9w9UoollhfepOOvYtH3zdXXjx9DY2BSRLYodGhmfHTZ97msqn1QjL5pLpZfKl0u02JcwAAOxoOD9Vbjarf37/1d6cKTQgQEQANmhDgpUS80MqlHsU/r6nOXg9KmQIMZAF1GYxWB2jw3Mk+IfOifa9Hse2xIRFdBec6QNMAxkAP49ESJ/q5ltj4pFPE7oflpVuqqjb+N4BEfXb78NTkWafPGwkGj4xs/vgWy2eSaSIVQm3j3wAEXsTFHitAJgAAAABJRU5ErkJggg==";
+				Цифры[3] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAHxSURBVHjaBME/TBNRAAfg33t3tse1XHvQclxaoxRLq5iGSEqq0ZKIDjo4aUxwMJrooNE4GsNKcHLSQRc2ZZClIUYjTDSRyIBAQ4ilDbRg5Npi/5e7vt75fcQVi8AmCJ6nM1NflIBv0GYXbJVMbm12evpam5mU7w8H4ZScjn8FLZ/bTWeY0TYzyZXZYl2nj549eUeUm5fBmAGGYzgFEc1yBQLXhYl7kw+ikeBDSigF5TjYBQGE48CJEuBy2S/EL0793tzYoqauw9R1EMOC3z8A0uWEW1VP96regFY6+snrmgbLBEiPGyPhEGqtY3gVNdwruqHlcilOUGRYpokTDpGMjkVPXYnFZMM0HMU/e7vL8/MJSNEQxJEAffnpw/tko2Att4rs/ttXj73jQXQPusC5I2fB2wVYkr3M+8XvicTcx28LC5+lbo/foqTCOX1emJTCBMvJPVJqce7rdvzWneeR4aH49k5qiRK9CaPdgtynIpsu4Pyl8aHbk3ffVOvldUVRQVmHATAhiQ4UC3+hDKjRFqujVq6s9XkV8B6lP9AglsbqtTqrVNGo1kId3WiWDg8ODEMH/+L1zIqNkv0fv1ZXzxido610eml/L3+1eFhqcDwPDn5ZHr0xcd170hc7NxwZy2+uJzaSycVCdifLmk38HwANAdG8ODtIgAAAAABJRU5ErkJggg==";
+				Цифры[4] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAHeSURBVHjaJM7NS5NxAMDx7549a5tzz3RzzzPdBlq0WSBSGIVRoL1Qh6BLZjsURlGHgg5BHYpugXXsVlAUHSqIBCnx4KXA0jCwrJggbGMvtunmS2s++839OvgPfPhYpJRoO1vZ9NhpllbqDQ5MlxMhBBcHY4MqwKYQmBt16rYGLBKsiord5XT5QsETKkCkZ1/P/pP9Z7+8G3loCpFXjTa6D/ae8fi0DgWg7+rQqeOxgZuukF8RjU4KxdK2vYcO3J2f+x5XANyaFinksn9yuUzhb62ONxRs97Ua2/PF4rQK4Pc2d46/fH7LaGrZLCl2DL11l97YRD6Z+mGRUtJ7feDIz5nZiaHLV/RgsI25VCIaCLQcezU8/AApJUo0wJ03T59NmSX5WazIS4/v3dD7Img7NFQAb7jdMvnr2xP7bv+H2Y+fKhMjo2Oa2xckYMmoALVqVebT6clCIsX0+BT9py9ca3OrobevX9xWAMLRCP5wBwvxAt2Hj3aeOx97VFpdnjGMAApAo95MZaNCLpPEo7v3rFfXWF9ZnW3xGVuH5EICALNSobOrq0sK8a9YyGZMc2NLqAlBTQhkXRL/HX+fTaXnlhaXy+U1c0tw2xwAYHNQXlya+To6dr+cz6NYVf4PAA5XwzizN9yfAAAAAElFTkSuQmCC";
+				Цифры[5] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAHrSURBVHjaNMxtaBJxAMfx3+5OTZtNz0vPhnO3ssIeGFRQ0WLEgmCjUS96MxzS+4RBDIKoNwW13tSLYm+jsBfBwiAiCnJtklsLk6jNNnXzYYqamzufTr3790L6vv7w7TCc7QdNM503pu74LX3dDpVKoxUTm9+99+4PLL72txizYINKre5Mx6O/42srEUKINhZYmC7kiy0AYLYjUViFnn2kImWWfL6HWbFUVLbK0DAqAABlGzqHQbfr0mWXa1JvYSkTx2LXbh1odRswYr0Kdq/pWCadSKU30wWj0QitU0CtUm0fSFMGazAK770v7rJ6A66OXgPH81AotEFjdV3jffzo1ud3n54PjVyxd9vsgkal0eN/pv796HCYMfly+mlA+ku+NIvE/ey2x3DhIAghYGjeCrbBIRRffsXGF4M/ZucqH97MfLQfcPYCWGeoeg0yzSC7sTGfiqzNz/lmMTjq8pw66ugBcJOCVIPUqGKP2YronxycZ873jl0ffxJZ/hkGAEqWWwBR0KXTIZ/LgBf4E3W5htJWMQQADGfh+3bk1nazXCkqYhliSTwkNySpkE0lAYCZmHqwQBMlHQwtBQ4T7HwLhd8mY4nhfCZfAgBasXYZTw5fHOFs1tPOI8cHkuHQzK+vQX8uthqdcHvwbwAoI9IeO9VBGQAAAABJRU5ErkJggg==";
+				Цифры[6] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAH4SURBVHjaLI5bSFMBAIZ/z87ZaeloO7u4XHMeSQfTdWHTJJoYSARZog/2YBOLnoJGRQS91EuBFUH51GNjIFFhWEhEgYOxWlObwzRHbcoubrmxuc3ddGenh/U9f3x8dZKTxyAQkA3XH99zNLaq2yiKFuVCm4tTDx6aPW8cFVLJakAJhQ3R9cDq+p81P8/zoqDr+4tkIlUBAHLbH8BBtrmJz5djCzMzj+K5TKqa3gFNUgAAQtN/Cn3jlrMXLJY74kaGkMkZ7KvfD4GwJpC5UgGMQmaIRUOR6GY0KZVKIdKzKOYLtQK/x4GRSNmPU/b7jFiC4cERyFUqVAnUhJI/QNufTtx1zH6x9Q8MadUaLUtTtBj/IagyV/7p/jF39dqNyeGLlzZ0XT1BpVJ+ORmP1R4OdRoY68jQ0bl516wj4P667HQVP72b/qw9rG8BsEG2dh8f7e09PWl7a9OKnHTI9cGJvkGLtauzrRnAbcJoNBnS+dzfdh0bSicL0J0wt4xeGXvu/7XsAwBya201uxsJvlryeFCvYNFhMhlLXBGZdMoLAORr+8tnnJDIMAoVKqU97GxnddxuuZyMR8IAQN6aeOKtq3LRxZUll7DCZee9vvfhYOhcIpbIAICAbzog7T5/ZkCmVvXoO46Ywz7v9Mo3t2Mr+Dtwc9yKfwMAONHO4dfU5kcAAAAASUVORK5CYII=";
+				Цифры[7] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAGnSURBVHjaTI8/aBNxHMU/9z+XXoxDQ2xiTGKFdhHEIoh/ECEoWkFQ2kFBHDq4CCKICLoKgoNDXVxcnUV01YJSFxXSViu2Bq2mJkai8ZJe87v7OpwWH7zt8XnvaSLCgctTE0cmT17LlHPDluUkgnpz7t71G2PrkbgmQHHnSPZX+0fz87OlZdVXzvLz2bsr7Q6Xrl65r4kI7v4RHC+B5w7Qbf8kabjsO31q8tDeXRd1AMt2cBIJLNvC8jajBjwOHqvcWnjzat4EkChEIoisFEZSkUylCoP5bGm10Zg1AbzMFjTDQkVCKEIulx/N2oM0arXXJoCbSoIIIJimhqEFrRczj+/UqnNLmoigj+X4JxEhnU4zXNrO4tMZ4opykf/VV5HR+d3b4RW2LeoArKoNB598jo9PXKiMHz2vbzJjwp7K4Q2867rlM+fOTj+Yvn1iaCgfBwLpAaCUYmuhsHtNden5fjWTycaBj+8/ABAEAcVSaVStr4Wtxpd6JIIOEKqQUIXoaLxdePfo28rX+Wb9e7/T9v++MJx4vgF+vVV9+fDJzW6zRd+2+TMAeyCwCrdTvrsAAAAASUVORK5CYII=";
+				Цифры[8] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAH8SURBVHjaAO8BEP4BEDkvAAYICBRqhny2FyIbIwYHBwbx3eLPn4WFRPv8/gIEFiEeAAgKCAXk3tvU4NzX2v7+/gHdxMif7PT5AmVtapUE79rdABsiIBr+8/fjy7W1iejw7vYFBAoARFtaYRMXEiYCHUM7AEBjXU9MX1x+DxkTDQwREgD/Dg8HMj45fNrT0tYC9vr4ABESEijo5OPm5+fm6/j/AQASGhogExkVIurt7soEAPz/BA8NDSG7qKV6FA4S/vIECQAXGBkoEwoQAOri4tQDCxELCd3V0NXRys2xT1ZaHz87OxH5/fkL7Obh4MOtrbIAIT0zAAowIQB1pJeWxfbr/8P37PxflHpmFT8lAA0jDwAEITEyEmlLRy7H08y1v9/Jw9PExfe9trS3DhIYHwH9AuECIzUwYT5AQb/j4t3N0cHGp8i3xrBCT11qSE9MZwIOBQACLzIyM/P49u8lJSDr8Oz2ACk3PiZUWleO8vTw0RcXGQAE6dTT4/jh26HQysr9CBMeAC84JjX3/PQA8/DxzxYVFwAEqqOglP4IBOcRFBcA+vf5APTx8if9+fr27enl5fr6+QAEcIeJzAQBAeXM1M/LAvj67tbb273k4eNC7Ont9QMEBAADAR0SEjVKREUUHBk4KisuNuPT0bLSxMS8697c3vz29gADAEE+6NDxgHulAAAAAElFTkSuQmCC";
+				Цифры[9] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAH8SURBVHjaAO8BEP4BEDkvAAYICBRqhny2FyIbIwYHBwbx3eLPn4WFRPv8/gIEFiEeAAgKCAXk3tvU4NzX2v7+/gHdxMif7PT5AmVtapUE79rdABsiIBr+8/fjy7W1iejw7vYFBAoARFtaYRMXEiYCHUM7AEBjXU9MX1x+DxkTDQwREgD/Dg8HMj45fNrT0tYC9vr4ABESEijo5OPm5+fm6/j/AQASGhogExkVIurt7soEAPz/BA8NDSG7qKV6FA4S/vIECQAXGBkoEwoQAOri4tQDDRMNCd7X0tXPyMyxUFZaHz87OxH5/fkL7Obh4MOtrbIAETAiAAMnGAB3ppmZxfbr/8P37PxflHpmFT8lAA0jDwADDjArAAgMDgEBDwfwAxwKu7KyqKa5tLSsDg0UHP8CAfEDDBsVAP4CAgD+APziERIO1LyouNg+TlVuLismPtjc1L0CAfn2APr79wARFhkA3tvrACw6PyZUWleO8vTw0RcXGQAC/P38AAAA/gAOCgsA7OvoABchGTX3/PQA8/DxzxYVFwAEFBcYIvUB/+r89PP0/PHyAPXy8yf9+fr27enl5fr6+QAEcIiHyAYCAeTH0MvLJPr97tbb273k4eNC7Ont9QMEBAADABwRETNJQ0UVHRs4KisuNuPT0bLSxMS8697c3vz29gADAAxm3vpw6niNAAAAAElFTkSuQmCC";
+				Цифры[10] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAABmSURBVHjaYvz//z8DPsDEQAAMKgVyvnZinfvWFi2+fKgkqKNAFa7i////DP///2eYumfT2if///+/8////5otcxfDxFlgCrdcPr7xtRLXh0eXr7zbMWVKTbN3EgMDAwMD47AIKMAAJ0gyLtt3l4IAAAAASUVORK5CYII=";
+				Цифры[11] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAFJSURBVHjaYvz//z8DPsDEQAiIW+gx2KVFGy9+eGG+RbirsIazEcP////hmEnWwYJBy9PJjlOYP+EvJ8s/djEBFANYPn7/yiAsKqr/7vWrF2/fv33PysqKqoDhz38GKQlJne1L5ld8ff2GgZWNDUUBo6yLBYuUuqz7lQMHtjIxMzMwMDAwfLr4HOELpm8//rB8+72VW0ia4Q8TD8NfZl5Ub0ppafPnlVY6cQsK8jBxcDAwc3KiukHZwihMXVNrFr80vwwbP8sXRibUoGExMjLWffvl81t1TZWnDAyMDEzoCt7cuvHt6pvnK8+fPMEgISbD8PbRSwaGbCQFqxfOn/yXg+WTqKQMAzeHIMPd59dQTSjs7LnEzsz05OTFswc4GJl+v3x4u5WBgeE9TAHzH3EeXjM/dz8haQlrDS0dq//fP131NLS7BFMAGAC/lWwutYtByQAAAABJRU5ErkJggg==";
+				Цифры[12] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAGvSURBVHjaXI87SFthAIXP/8jNvTEPk2gexqQgkta3UIModim2XUo7VhBpFxdFKmIp7kLQxcnFoQVLBxHX4iAOoggRFJtgLSZWqUk0mtrkGp+5/g5Sq35wto/DOcTaXA9QaugbGVy0ex0PdDpJPkmkwsszM8Ofe4OT3FHmA+PM9Du2EY6uhyNCCGVzITS2G92cRW8Q/O/PGJxej1vkThOhyanB/bPjrHaQhcQ4AID6Wlvw5F176+uOtx8KnFZRXGyHYjKC6SUAAM+c5GArKqqNx7eS6cO0qpcVmNyFEEJcC9rpBVxOR9W3L58+HqcPcSHlAIIbSOnTACvxe59F5uamGee4TXY1Cc7PNU3OY9po80JVVRBC7ki0tLrG1tM/8FyxWoxUkcEMyk0AgJcF6tr8DytGLR5ziWyTjgihdxp4w+NAzb6aTfkflScpoSDsnrC3vpbRdrcnwkshuF0+pH4l/u/oBvjU1/HRvI5mrA43DPpC/NlZBb/1hr8PDn3nQmwvRVbmFcou49Ef/YTS838Cu3SZzY2vXry0e1xNldV1jcnY2vzO1kYMyKPrTSeuBgAfypR7BS1U0AAAAABJRU5ErkJggg==";
+				Цифры[13] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAFRSURBVHjahI+/SwJxAMXfeV+9OzM8ywQvlaLBFCEMtKFapIbGtlqK/gIRXBqbdG6x0bnccnLIoSWrRaUCE4lKtFT8gT+r89tQgxrhB970Pjx4jG7VCUop7z8O3IiS3sRxHN8tlO5vY7FA2BeMEMO8GQyr0LxkM+nHh3SKggq5y6tQMZu7gC8IUsvkYDBJUr/dyydOI0flj05TLtWhYgkAQGHZWMP63q5ne//ArzHoYJiZgjCpAeFVAABSbTeg0087869PpUqt0uR4ARqjCFD6I6Arw2K2uM7DJ95OpYpPVQuDMCaPizXZ5rZS8XiUJWSobCQLIGzvS1b25KhaN4tWswWGYYYkhWSzi17/4aZaq51gBQGDAQCysLK8s2h1hLRm0cjr+dboAnG73EtvzVrZ7rAWCVFiFFLPP/fv3vNnyesEeI7/IzD09+9/KDCGscL3AG20cqVSYSCRAAAAAElFTkSuQmCC";
+				Цифры[14] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAHpSURBVHjaJNBvSBNxAMbx5353t9sa0223btfclgm9yCsrLOwvvUjpjWUEZhRRBL0oiEaUL4LeCSNf1KsIIhAio1DfVBDRisxFZriiDZvedrly3rWM3Ja5s92uF/f+ywOfh/Ls2gIQsurSzb53fEhYy7I2+/J8IZmIxfoHItEhRmgKg2Zo1/esnMykkynTNB3K24k7WkZ5hUgUzOJ0Fv5QwxpzqTI/MTTS91P/WzIWSrDRDACAhNv3YO/pE+1dJ09dcfo9Js97YHc6QNtYAABTXF6C1+dryedzqqqpZZ73QpCaoOsr1oJR+QfRL0iPB+72rnZ7cfhgN+p9PhgMZQX6jEIP3ui/Ovrs5f2OziONgWB4HcdyLgqEAACxGzAm34w/Pxfpvd3Vffxr847dSjAYOAP9jwsAmIAkeS8cvbb1xfjoE7fyfuzT6/jK2PDDpwZqFQAgja0tx/bv64gpcjqRl+UHv+a+DRtVo0IzloJsa92+SSv/LmyQ1muLagEUIaAoAKhZzB/pqaKh5R6lEpMQhRDU6VlwVD1QtRTMyOC9W1WWFD2CCKfdjfJCCTaOAwzTCi5Gr39mTDP3IfUx7iB0LZ/5cpkixHoJAF0T6+raDh3o5BvEnc0bN7ep2an43KycBao433MW/wcAuJC7AtJoDxYAAAAASUVORK5CYII=";
+				Цифры[15] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAPCAYAAADZCo4zAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAAeSURBVHjaYvz//z8DPsDEQACMKhhCCgAAAAD//wMA4HQDGzVCUrIAAAAASUVORK5CYII=";
+
+				for (let сч = 0; сч < 12; сч++) {
+					document.write('<img class="разряд" data-название="Знакоместо_' + сч + '" src="' + Цифры[15] + '" style="left: ' + (59 + 13 * сч) + 'px; top: 79px;" alt="" />');
+					document.write('<img class="разряд" data-название="Запятая_' + сч + '" src="' + Картинка_Нету_запятой + '" style="left: ' + (66 + 13 * сч) + 'px; top: 93px;" alt="" />');
+				}
+			</script>
+			<span class="прозр_перекл" style="width: 30px; left: 49px; top: 261px;" onclick="Включить_выключить();"></span>
+			<span class="прозр_перекл" style="width: 12px; left: 181px; top: 260px;" onclick="Изменить_меру_угла('Р');"></span>
+			<span class="прозр_перекл" style="width: 12px; left: 193px; top: 260px;" onclick="Изменить_меру_угла('ГРД');"></span>
+			<span class="прозр_перекл" style="width: 12px; left: 205px; top: 260px;" onclick="Изменить_меру_угла('Г');"></span>
+
+			<img class="перекл" data-название="ВКЛ" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAPCAYAAAAyPTUwAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAGMSURBVHjaPJHLbhNBEEVPVde0ZzKWFSkEb0FIyHwEiP//BDZESOxIZMiM3eN+FItxXKtW6ejc7tvy9dt3P3z5zOl0QkSY55llSbjD8XgkxsjDwzue/7xgOWdKKQzDwDAMjONIKYWcM7vdjtYah8OBp5+/kA8fP/m47dls4s0eY6TWiqrS9z3u8PL8F1MVVAPDcEfOFbPA4+N7TqeZaZqJscfdCRYwdzAzluXCOsL5fMYdVJVaK8tyWZNghXPOuDu1Vl5fX4kxst/vr7vCeDdirTVSSoQQbnDXdUzTxLIs9P2GWiu1+Gp+A0IIDMPAdrvl/v4eM0NEGceRlNL6QBEhpUQphRgjOWdyzrfrTdOEu2PuzjTN1Fpun+LulFKotV7twnbcYa05aZkBWbsQwd1prQGQUmKz6am1YCICrMB6Xtt5gwG6zgjBqplZC9ppbXV1O7Tq1yTBLHjQ7uLuyVprWUQtKHK1O46LioiIi+hZRP4BL6aqU9dZ31oL1+gmIk1VXVUvwLOq/gZ+/B8A1kTtVjG9RVEAAAAASUVORK5CYII=" style="left: 51px; top: 262px;" onclick="Включить_выключить();" alt="">
+			<img class="перекл" data-название="Р_ГРД_Г" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAUCAYAAACAl21KAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAMdSURBVHjaXJJdbxRHEEXPreqZWW92bSdriKMA8gPwkPfw/38GQSJSrAQJY1ib2Y/Zme6uPOBFQL9U60rnqm5V6eWLP+Li8SP6vme735FrZdZ1BJBrxd3pWuf8/BxJ3N3dsdvtiAi6rmOxWLBcLknuztPfn5BL5vbjRz7dr1ldPKLWyjhNeJOoeaTWSq2Vk5MTTk9PKaXQti2vXv1J32/RsydXcfnbr6TUsD8MHMYDUymYGZUgpcQwDJgZ7k7btqSUSCmRc+bq6oq+70nuCZMxHAYEjMMBS4nDeMBkTNP0tZtSCiYxTRM/zeeUUrh5f0NqGpK3RljFGyPnjLmYpoFnT5/Rdi3X19fkqEAQNXBBzoXGBCamw54omVRqjVyKSimM4wiCiGC5XJDciYfhj+NIEEzjiLuTc6aWwsVqRQ1IRLDf75FE13W0bUvOmdevXyOJlNLXeJKQxHw+p2kadrsdXddRapAk6fz8jNXqgs+fP7Pb7bi8vGS/35NzZrlcUkrh9vaWruuYz+eYGavVis1mw9nZGeu7e1JKic12S9fN6PuecRzJOTMMA5Lo+56cM23bAjCbzdhut19TvHnzBpmj5y9e5vX9J0/+ZZ1mBoAkfnxHLSKoD8dqZvyyeoSVmg9uHpIwM76tR+g4m28NjyZt0+BuJGBjZk1ENEfgR0gSEfGdZmZ0XXfcYDU3W6eURknh7t9BR6DW+p3m7iRPuCeapo2maatFjQ8KekOZGlADBUStEAEBLnAZhjA5YIQlAo9QKqUymaQbwQY4AAWIL2f85SeCY1AzCzfHU0Nq2uopFWRjDfpkZjdIa0nziJCkFrCHGAKZpJAs3D3MPcxTNbMi2cHdt25+kyT9K+kx4ECNiJmk7sFMktxkgaxICpMmM5uAAeITcCNxnUB/mdlM0gjcAafAiaSZJANckmQ2mtno7gdz32K2kfRfjXgLvE1m9tbdUynlPiJ+jogzYAEsJCVJ7m7FPA2Sdu6+kdk+pLXM/jGzvz2ld0nig5m5mb2LiC4iFsCpmZ08dJRS8izzAbiXtA0Yga1Ja5PeS9r9PwCqIZ5PuTVGbQAAAABJRU5ErkJggg==" style="left: 182px; top: 262px;" onclick="Изменить_меру_угла(Мера_угла == 10 || Мера_угла == 11 ? 'ГРД' : event.offsetX < 9 ? 'Р' : 'Г');" alt="">
+
+			<input type="button" class="прозр_кнопка" style="left: 43px; top: 303px;" onclick="Нажатие_кнопки(11,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 83px; top: 303px;" onclick="Нажатие_кнопки(7,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 123px; top: 303px;" onclick="Нажатие_кнопки(9,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 162px; top: 303px;" onclick="Нажатие_кнопки(4,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 200px; top: 303px;" onclick="Нажатие_кнопки(2,9);" value=" ">
+
+			<input type="button" class="прозр_кнопка" style="left: 43px; top: 347px;" onclick="Нажатие_кнопки(10,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 83px; top: 347px;" onclick="Нажатие_кнопки(8,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 122px; top: 347px;" onclick="Нажатие_кнопки(6,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 162px; top: 347px;" onclick="Нажатие_кнопки(3,9);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 200px; top: 347px;" onclick="Нажатие_кнопки(5,9);" value=" ">
+
+			<input type="button" class="прозр_кнопка" style="left: 43px; top: 390px;" onclick="Нажатие_кнопки(9,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 83px; top: 390px;" onclick="Нажатие_кнопки(10,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 122px; top: 390px;" onclick="Нажатие_кнопки(11,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 162px; top: 390px;" onclick="Нажатие_кнопки(3,8);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 200px; top: 390px;" onclick="Нажатие_кнопки(5,8);" value=" ">
+
+			<input type="button" class="прозр_кнопка" style="left: 44px; top: 434px;" onclick="Нажатие_кнопки(6,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 83px; top: 434px;" onclick="Нажатие_кнопки(7,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 122px; top: 434px;" onclick="Нажатие_кнопки(8,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 162px; top: 434px;" onclick="Нажатие_кнопки(2,8);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 200px; top: 434px;" onclick="Нажатие_кнопки(4,8);" value=" ">
+
+			<input type="button" class="прозр_кнопка" style="left: 44px; top: 477px;" onclick="Нажатие_кнопки(3,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 83px; top: 477px;" onclick="Нажатие_кнопки(4,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 123px; top: 477px;" onclick="Нажатие_кнопки(5,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 161px; top: 477px;" onclick="Нажатие_кнопки(6,8);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 200px; top: 477px;" onclick="Нажатие_кнопки(11,8);" value=" ">
+
+			<input type="button" class="прозр_кнопка" style="left: 44px; top: 521px;" onclick="Нажатие_кнопки(2,1);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 83px; top: 521px;" onclick="Нажатие_кнопки(7,8);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 122px; top: 521px;" onclick="Нажатие_кнопки(8,8);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 162px; top: 521px;" onclick="Нажатие_кнопки(9,8);" value=" ">
+			<input type="button" class="прозр_кнопка" style="left: 200px; top: 521px;" onclick="Нажатие_кнопки(10,8);" value=" ">
+		</div>
+	</div>
+
+	<script>
+		"use strict";
+
+		const ПЗУ = {
+			ИК1302: {
+				команды: [
+					0x00204E4E, 0x00117360, 0x00114840, 0x01040240,
+					0x00164040, 0x001B3240, 0x00064640, 0x015B4013,
+					0x00D93130, 0x00001040, 0x01A52014, 0x00000000,
+					0x00000000, 0x00000000, 0x00000000, 0x00C12040,
+					0x00D0536D, 0x00517740, 0x00B43130, 0x00B22223,
+					0x00C15340, 0x00FD2040, 0x002D1D1D, 0x0008403B,
+					0x00092140, 0x00094061, 0x000A2140, 0x00082140,
+					0x000D7076, 0x010D400D, 0x000A403B, 0x00056D40,
+					0x00100259, 0x010B1340, 0x00242044, 0x010B7840,
+					0x00064002, 0x01FF2008, 0x0008565A, 0x0126403F,
+					0x016C400D, 0x00C12077, 0x00517740, 0x00517740,
+					0x00083240, 0x010C400D, 0x01FF200A, 0x010B3568,
+					0x00117B5A, 0x0021206D, 0x01222034, 0x01015C5B,
+					0x01D03454, 0x00005E5D, 0x010E400D, 0x010E0044,
+					0x00F44E40, 0x009A206D, 0x00F44E5A, 0x00000000,
+					0x00000000, 0x00000000, 0x00000000, 0x00C11D1D,
+					0x00063333, 0x010B403B, 0x01344043, 0x00096A6A,
+					0x000A4443, 0x00792120, 0x01D32047, 0x00081E1E,
+					0x01AF1140, 0x00AB1D1D, 0x0039324C, 0x000B324C,
+					0x0008326D, 0x000D404C, 0x00854D40, 0x00134040,
+					0x0009404C, 0x006D7770, 0x006D7240, 0x01001640,
+					0x00A54C7E, 0x00F44E40, 0x01536900, 0x000A580E,
+					0x003C5262, 0x0005716D, 0x013C4013, 0x00104070,
+					0x00056F6D, 0x00A62070, 0x00106F40, 0x01056F40,
+					0x001F3E3D, 0x0028595A, 0x001E2223, 0x00064B40,
+					0x00524A40, 0x00692120, 0x001B4940, 0x00093240,
+					0x011F0140, 0x00154840, 0x00062423, 0x00062423,
+					0x01057340, 0x015E400D, 0x00095828, 0x00092223,
+					0x00992F40, 0x00982F40, 0x00622040, 0x005D5820,
+					0x00740F40, 0x00B81C20, 0x00D05373, 0x005B205C,
+					0x006D2062, 0x0133200A, 0x010B7D62, 0x00A52120,
+					0x01054072, 0x01494013, 0x01040540, 0x00217362,
+					0x013D6A40, 0x00067840, 0x01AB6C6D, 0x01332014,
+					0x000E7C6C, 0x00050B3F, 0x00C15340, 0x00950853,
+					0x00E0417A, 0x00E04240, 0x00532120, 0x00365562,
+					0x008F1E20, 0x013D1740, 0x004C2120, 0x0170406A,
+					0x00C05340, 0x00061D1D, 0x00814545, 0x00063333,
+					0x00061E1E, 0x00091E1E, 0x00900720, 0x01514078,
+					0x00081D1D, 0x01622206, 0x001E4545, 0x00114060,
+					0x000B2E40, 0x000F2D40, 0x010E1F40, 0x000D7677,
+					0x00D33C40, 0x01D32032, 0x00116E60, 0x011D3440,
+					0x00FF7440, 0x00073240, 0x001B430A, 0x01D32047,
+					0x00113434, 0x001E6E40, 0x00D33C40, 0x00937540,
+					0x00D01E20, 0x00043277, 0x00CA4020, 0x00107F54,
+					0x00212068, 0x000B7840, 0x017C400C, 0x00056F6D,
+					0x01470C40, 0x01716B62, 0x006B2120, 0x00332120,
+					0x006D204C, 0x00E67362, 0x010D0940, 0x00062423,
+					0x001A3A3A, 0x018F406F, 0x0151334C, 0x010D1716,
+					0x01D35340, 0x00D24061, 0x00CA6554, 0x00104064,
+					0x00512223, 0x00782120, 0x00263130, 0x001E3434,
+					0x00193838, 0x00183939, 0x000D6654, 0x010D7A40,
+					0x010E1740, 0x00057340, 0x00B86140, 0x00045263,
+					0x00122773, 0x008F5373, 0x002E5150, 0x0151404C,
+					0x001E3737, 0x00894E40, 0x001E3636, 0x006D563D,
+					0x00E07A41, 0x00E12973, 0x00082640, 0x00062540,
+					0x00D87967, 0x0005565A, 0x0005286C, 0x00762041,
+					0x00952040, 0x008F1D1D, 0x01D35340, 0x008F2040,
+					0x00CC4F4F, 0x00114060, 0x00054040, 0x001E3434,
+					0x01047340, 0x011E3434, 0x00C62C2B, 0x00C53130,
+					0x003E1D1D, 0x01041740, 0x001E3535, 0x00D35353,
+					0x00DE4077, 0x00E24057, 0x00064E68, 0x01E53812,
+					0x00D84067, 0x00064069, 0x000A402A, 0x00EF202A,
+					0x01015C5B, 0x00090F40, 0x00005E5D, 0x010B3613,
+					0x00144740, 0x01176806, 0x000A5A5A, 0x01D3200D
+				],
+				синхропрограммы: [
+					0x00, 0x00, 0x00, 0x10, 0x03, 0x1D, 0x00, 0x07, 0x1E,
+					0x10, 0x03, 0x1C, 0x0B, 0x07, 0x0C, 0x1E, 0x00, 0x00,
+					0x15, 0x18, 0x09, 0x16, 0x18, 0x09, 0x16, 0x18, 0x24,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x03, 0x0E, 0x1E, 0x33, 0x00, 0x00, 0x00, 0x00,
+					0x23, 0x00, 0x00, 0x00, 0x2F, 0x00, 0x2C, 0x00, 0x01,
+					0x11, 0x32, 0x00, 0x00, 0x00, 0x03, 0x00, 0x0E, 0x1A,
+					0x0F, 0x0E, 0x0D, 0x19, 0x03, 0x2F, 0x0E, 0x0D, 0x08,
+					0x1C, 0x0C, 0x0D, 0x01, 0x00, 0x00, 0x03, 0x24, 0x0F,
+					0x1C, 0x0C, 0x2F, 0x09, 0x1E, 0x34, 0x0E, 0x1E, 0x0C,
+					0x06, 0x0A, 0x0D, 0x00, 0x00, 0x00, 0x00, 0x09, 0x0F,
+					0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0A, 0x26, 0x06,
+					0x35, 0x34, 0x0D, 0x24, 0x1E, 0x1A, 0x09, 0x0C, 0x0F,
+					0x3D, 0x00, 0x00, 0x1C, 0x03, 0x0E, 0x0A, 0x0F, 0x06,
+					0x3D, 0x00, 0x0E, 0x3F, 0x03, 0x01, 0x00, 0x00, 0x0E,
+					0x3F, 0x33, 0x0D, 0x01, 0x08, 0x00, 0x01, 0x08, 0x04,
+					0x06, 0x03, 0x0E, 0x2B, 0x3A, 0x09, 0x12, 0x1E, 0x33,
+					0x35, 0x03, 0x07, 0x0C, 0x1E, 0x1A, 0x00, 0x00, 0x00,
+					0x35, 0x0C, 0x2F, 0x0E, 0x03, 0x01, 0x00, 0x00, 0x15,
+					0x24, 0x1E, 0x1A, 0x23, 0x1D, 0x00, 0x00, 0x00, 0x00,
+					0x09, 0x0C, 0x2F, 0x09, 0x03, 0x00, 0x24, 0x0C, 0x0F,
+					0x3D, 0x09, 0x1E, 0x3F, 0x03, 0x07, 0x0B, 0x22, 0x03,
+					0x07, 0x0B, 0x0D, 0x0C, 0x03, 0x0E, 0x1E, 0x3A, 0x2B,
+					0x3C, 0x03, 0x00, 0x09, 0x34, 0x0E, 0x1E, 0x0C, 0x1E,
+					0x2E, 0x01, 0x31, 0x2E, 0x01, 0x31, 0x00, 0x00, 0x00,
+					0x2E, 0x30, 0x03, 0x2E, 0x30, 0x03, 0x00, 0x00, 0x00,
+					0x2E, 0x2D, 0x00, 0x2E, 0x2D, 0x00, 0x00, 0x00, 0x00,
+					0x3B, 0x04, 0x2F, 0x37, 0x12, 0x00, 0x00, 0x00, 0x00,
+					0x14, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x01, 0x13, 0x00, 0x01, 0x13, 0x00, 0x01, 0x13, 0x04,
+					0x2E, 0x00, 0x00, 0x2E, 0x00, 0x00, 0x2E, 0x00, 0x00,
+					0x3D, 0x07, 0x10, 0x3F, 0x03, 0x00, 0x2C, 0x07, 0x1E,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04,
+					0x00, 0x0F, 0x10, 0x03, 0x00, 0x1C, 0x03, 0x0F, 0x1D,
+					0x03, 0x32, 0x00, 0x2B, 0x14, 0x00, 0x00, 0x08, 0x00,
+					0x04, 0x14, 0x00, 0x00, 0x32, 0x00, 0x00, 0x32, 0x0C,
+					0x0A, 0x32, 0x00, 0x00, 0x32, 0x00, 0x00, 0x32, 0x00,
+					0x21, 0x15, 0x18, 0x21, 0x16, 0x18, 0x00, 0x17, 0x18,
+					0x19, 0x1A, 0x18, 0x19, 0x16, 0x18, 0x09, 0x16, 0x18,
+					0x2B, 0x15, 0x00, 0x00, 0x17, 0x00, 0x00, 0x17, 0x00,
+					0x12, 0x1B, 0x0E, 0x0F, 0x1B, 0x0E, 0x23, 0x2B, 0x0A,
+					0x2C, 0x18, 0x00, 0x2A, 0x18, 0x07, 0x0B, 0x03, 0x04,
+					0x32, 0x14, 0x00, 0x32, 0x32, 0x11, 0x00, 0x08, 0x00,
+					0x09, 0x0C, 0x15, 0x03, 0x00, 0x00, 0x06, 0x3C, 0x00,
+					0x00, 0x2C, 0x00, 0x00, 0x2A, 0x00, 0x09, 0x16, 0x00,
+					0x00, 0x00, 0x11, 0x00, 0x09, 0x16, 0x18, 0x09, 0x1E,
+					0x00, 0x00, 0x07, 0x0A, 0x29, 0x3E, 0x33, 0x29, 0x00,
+					0x0F, 0x0B, 0x0F, 0x10, 0x03, 0x08, 0x24, 0x03, 0x23,
+					0x32, 0x01, 0x1D, 0x32, 0x08, 0x00, 0x32, 0x08, 0x32,
+					0x32, 0x08, 0x23, 0x32, 0x08, 0x0F, 0x23, 0x23, 0x04,
+					0x09, 0x1E, 0x0F, 0x00, 0x00, 0x14, 0x00, 0x00, 0x08,
+					0x37, 0x00, 0x00, 0x37, 0x00, 0x00, 0x37, 0x00, 0x00,
+					0x01, 0x31, 0x00, 0x01, 0x31, 0x00, 0x01, 0x31, 0x36,
+					0x1A, 0x30, 0x0D, 0x00, 0x30, 0x0D, 0x00, 0x30, 0x0D,
+					0x30, 0x03, 0x00, 0x30, 0x03, 0x00, 0x30, 0x03, 0x2B,
+					0x2D, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x2D, 0x00, 0x00,
+					0x0A, 0x30, 0x03, 0x00, 0x30, 0x03, 0x00, 0x30, 0x03,
+					0x00, 0x01, 0x31, 0x00, 0x01, 0x31, 0x00, 0x01, 0x31,
+					0x00, 0x2D, 0x00, 0x00, 0x2D, 0x00, 0x00, 0x2D, 0x00,
+					0x2C, 0x00, 0x00, 0x2A, 0x00, 0x00, 0x09, 0x18, 0x00,
+					0x07, 0x1E, 0x0F, 0x01, 0x00, 0x08, 0x1C, 0x0A, 0x08,
+					0x14, 0x00, 0x00, 0x32, 0x00, 0x00, 0x32, 0x2B, 0x00,
+					0x32, 0x00, 0x00, 0x32, 0x27, 0x36, 0x08, 0x09, 0x0C,
+					0x1E, 0x02, 0x1D, 0x0F, 0x0C, 0x0F, 0x26, 0x07, 0x22,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x1D, 0x23, 0x23, 0x09, 0x23, 0x0C, 0x03, 0x23, 0x23,
+					0x02, 0x35, 0x03, 0x0F, 0x00, 0x00, 0x00, 0x04, 0x0C,
+					0x01, 0x12, 0x00, 0x08, 0x00, 0x32, 0x0A, 0x00, 0x00,
+					0x06, 0x18, 0x00, 0x17, 0x18, 0x00, 0x17, 0x18, 0x00,
+					0x00, 0x01, 0x13, 0x00, 0x01, 0x13, 0x04, 0x01, 0x13,
+					0x00, 0x00, 0x00, 0x09, 0x15, 0x18, 0x00, 0x35, 0x03,
+					0x0E, 0x03, 0x09, 0x0C, 0x1B, 0x1E, 0x0F, 0x1B, 0x08,
+					0x00, 0x00, 0x1C, 0x03, 0x1E, 0x15, 0x02, 0x0C, 0x00,
+					0x07, 0x1E, 0x10, 0x0F, 0x09, 0x32, 0x1E, 0x0F, 0x08,
+					0x09, 0x1E, 0x1A, 0x18, 0x1D, 0x17, 0x03, 0x0F, 0x3D,
+					0x07, 0x0B, 0x1A, 0x1D, 0x28, 0x00, 0x0E, 0x28, 0x08,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x03, 0x00, 0x09,
+					0x00, 0x04, 0x2B, 0x23, 0x04, 0x08, 0x08, 0x00, 0x08,
+					0x0E, 0x03, 0x00, 0x2B, 0x2F, 0x0D, 0x12, 0x03, 0x04,
+					0x01, 0x08, 0x00, 0x01, 0x08, 0x00, 0x01, 0x08, 0x04,
+					0x0F, 0x1D, 0x2F, 0x0E, 0x03, 0x23, 0x07, 0x1E, 0x0D,
+					0x0F, 0x12, 0x00, 0x23, 0x24, 0x1E, 0x23, 0x0F, 0x04,
+					0x26, 0x12, 0x15, 0x03, 0x12, 0x04, 0x24, 0x2F, 0x0F,
+					0x12, 0x04, 0x01, 0x0F, 0x07, 0x1E, 0x0F, 0x00, 0x01,
+					0x0E, 0x0F, 0x20, 0x05, 0x00, 0x07, 0x12, 0x0E, 0x08,
+					0x1E, 0x00, 0x10, 0x03, 0x0F, 0x04, 0x00, 0x00, 0x00,
+					0x32, 0x00, 0x00, 0x32, 0x00, 0x00, 0x00, 0x03, 0x00,
+					0x00, 0x00, 0x01, 0x00, 0x00, 0x05, 0x00, 0x17, 0x0D,
+					0x00, 0x00, 0x00, 0x0A, 0x1A, 0x18, 0x00, 0x17, 0x03,
+					0x32, 0x09, 0x0F, 0x32, 0x07, 0x0C, 0x0C, 0x1A, 0x0F,
+					0x14, 0x00, 0x00, 0x32, 0x00, 0x00, 0x32, 0x00, 0x00,
+					0x0E, 0x1E, 0x15, 0x00, 0x00, 0x02, 0x00, 0x00, 0x02,
+					0x00, 0x0E, 0x08, 0x0E, 0x1D, 0x23, 0x1E, 0x3A, 0x3A,
+					0x1D, 0x04, 0x15, 0x00, 0x00, 0x3A, 0x00, 0x00, 0x3A,
+					0x00, 0x00, 0x3A, 0x00, 0x0D, 0x0E, 0x03, 0x0F, 0x00,
+					0x3B, 0x3C, 0x2F, 0x37, 0x3C, 0x01, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00, 0x30, 0x00, 0x02, 0x24, 0x1E,
+					0x00, 0x00, 0x00, 0x00, 0x07, 0x0B, 0x22, 0x03, 0x04,
+					0x00, 0x00, 0x39, 0x04, 0x25, 0x08, 0x03, 0x07, 0x0F,
+					0x12, 0x2C, 0x00, 0x2B, 0x2A, 0x26, 0x0D, 0x07, 0x0F,
+					0x04, 0x0B, 0x08, 0x01, 0x10, 0x0D, 0x09, 0x00, 0x00,
+					0x00, 0x01, 0x08, 0x04, 0x01, 0x08, 0x23, 0x01, 0x08,
+					0x00, 0x00, 0x1B, 0x00, 0x00, 0x1B, 0x1F, 0x0E, 0x1B,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x2C, 0x00, 0x1B, 0x00,
+					0x00, 0x00, 0x01, 0x0F, 0x0D, 0x01, 0x09, 0x1E, 0x2B,
+					0x00, 0x23, 0x1A, 0x07, 0x1E, 0x0C, 0x0F, 0x00, 0x00,
+					0x1E, 0x12, 0x00, 0x00, 0x12, 0x00, 0x00, 0x12, 0x1A,
+					0x1E, 0x00, 0x10, 0x0F, 0x24, 0x1E, 0x34, 0x1D, 0x00,
+					0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09, 0x2F, 0x01,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x12, 0x09, 0x15,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x00, 0x00, 0x28,
+					0x00, 0x00, 0x2B, 0x00, 0x00, 0x00, 0x09, 0x0C, 0x23,
+					0x24, 0x0C, 0x1E, 0x0F, 0x00, 0x07, 0x03, 0x0F, 0x00,
+					0x00, 0x00, 0x01, 0x0F, 0x07, 0x0B, 0x0F, 0x25, 0x0F,
+					0x0F, 0x04, 0x00, 0x00, 0x00, 0x12, 0x09, 0x0C, 0x12,
+					0x00, 0x00, 0x00, 0x12, 0x00, 0x00, 0x00, 0x09, 0x0C,
+					0x03, 0x00, 0x00, 0x00, 0x04, 0x32, 0x24, 0x0F, 0x23,
+					0x0E, 0x0D, 0x00, 0x00, 0x00, 0x00, 0x09, 0x1E, 0x1A,
+					0x07, 0x0B, 0x0F, 0x07, 0x0C, 0x1E, 0x1A, 0x0F, 0x00,
+					0x0E, 0x0D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x08,
+					0x12, 0x00, 0x01, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x09,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x0B,
+					0x00, 0x00, 0x12, 0x00, 0x00, 0x12, 0x04, 0x0C, 0x12,
+					0x32, 0x00, 0x00, 0x32, 0x00, 0x00, 0x08, 0x36, 0x00,
+					0x02, 0x0D, 0x00, 0x01, 0x0F, 0x0D, 0x00, 0x0E, 0x1E,
+					0x1E, 0x00, 0x10, 0x0F, 0x07, 0x0B, 0x34, 0x0F, 0x1D,
+					0x1D, 0x04, 0x08, 0x36, 0x00, 0x08, 0x12, 0x00, 0x00,
+					0x03, 0x1E, 0x0F, 0x26, 0x0A, 0x02, 0x26, 0x3E, 0x08
+				],
+				микрокоманды: [
+					0x0000000, 0x0800001, 0x0A00820, 0x0040020,
+					0x0A03120, 0x0203081, 0x0A00181, 0x0803800,
+					0x0818001, 0x0800400, 0x0A00089, 0x0A03C20,
+					0x0800820, 0x0080020, 0x0800120, 0x1400020,
+					0x0800081, 0x0210801, 0x0040000, 0x0058001,
+					0x0808001, 0x0A03081, 0x0A01081, 0x0A01181,
+					0x0040090, 0x0800401, 0x0A00081, 0x0040001,
+					0x0800801, 0x1000000, 0x0800100, 0x1200801,
+					0x0013C01, 0x0800008, 0x0A00088, 0x0010200,
+					0x0800040, 0x0800280, 0x1801200, 0x1000208,
+					0x0080001, 0x0A00082, 0x0A01008, 0x1000001,
+					0x0A00808, 0x0900001, 0x8010004, 0x0080820,
+					0x0800002, 0x0140002, 0x0008000, 0x0A00090,
+					0x0A00220, 0x0801001, 0x1203200, 0x4800001,
+					0x0011801, 0x1008001, 0x0A04020, 0x4800801,
+					0x0840801, 0x0840020, 0x0013081, 0x0010801,
+					0x0818180, 0x0800180, 0x0A00081, 0x0800001
+				]
+			},
+			ИК1303: {
+				команды: [
+					0x00386050, 0x005B3F3E, 0x000F5970, 0x00152470,
+					0x000C3D50, 0x0011312F, 0x005B4544, 0x00165050,
+					0x000C3404, 0x005B3F3E, 0x00D40450, 0x00162424,
+					0x000C4962, 0x01FB5250, 0x000D4924, 0x01BB2222,
+					0x00155050, 0x010F5247, 0x00182525, 0x00080505,
+					0x000E041E, 0x00123433, 0x007F6425, 0x007F0D25,
+					0x01650950, 0x01176553, 0x007E2432, 0x00087150,
+					0x007E2455, 0x00135076, 0x00085977, 0x005B4544,
+					0x000C2E26, 0x00310D2E, 0x00100E35, 0x00316B47,
+					0x01381250, 0x0011302E, 0x01385F50, 0x00050250,
+					0x011C0101, 0x00195050, 0x00382C2C, 0x016F2222,
+					0x013A2222, 0x002F6B56, 0x00093D6C, 0x00F04D50,
+					0x000C1750, 0x00074A50, 0x01B45047, 0x003C2020,
+					0x01AA2B6A, 0x00123432, 0x001D4933, 0x0113500C,
+					0x00052556, 0x00087C50, 0x01130000, 0x00142B2B,
+					0x004A1D50, 0x006E5756, 0x00496050, 0x00E57D58,
+					0x011E5D22, 0x01F35F50, 0x00EA0505, 0x001C7A50,
+					0x01080B50, 0x0054244B, 0x000C4050, 0x002A2121,
+					0x00135C5C, 0x000A4650, 0x00152504, 0x009D2B60,
+					0x00064350, 0x00192020, 0x00292C2C, 0x01235C50,
+					0x006D3C3C, 0x0031017D, 0x00092D2D, 0x004E2D2D,
+					0x01596A7E, 0x00E3396E, 0x006E3654, 0x016E6E47,
+					0x00534950, 0x00EE2062, 0x0016226E, 0x00660525,
+					0x00135C5C, 0x000A4241, 0x00383B3B, 0x000C7277,
+					0x00360404, 0x00042020, 0x00100A2E, 0x00155050,
+					0x00532404, 0x0004642B, 0x01843C47, 0x01A35047,
+					0x01847250, 0x015C112F, 0x00080434, 0x00152F23,
+					0x00080505, 0x00906047, 0x0113150C, 0x006D2224,
+					0x00747250, 0x000C632B, 0x00AD672B, 0x000A612E,
+					0x01B97463, 0x00417374, 0x00BD0658, 0x00EA2450,
+					0x00087166, 0x01BD3950, 0x001A2E50, 0x00BD6047,
+					0x00175079, 0x005E6035, 0x000A3847, 0x01067F47,
+					0x008C5251, 0x0013612E, 0x0087602E, 0x005B3F3E,
+					0x00DC2121, 0x00177374, 0x00182525, 0x00286050,
+					0x00064F4E, 0x000C5251, 0x006E2926, 0x008F602F,
+					0x008C502A, 0x00172928, 0x00814F4E, 0x003F534B,
+					0x000F075B, 0x00082525, 0x01E85047, 0x00790505,
+					0x00152F23, 0x0017506A, 0x00095047, 0x00082525,
+					0x00E63A62, 0x00DA0B47, 0x01174150, 0x00182525,
+					0x00090450, 0x01175B50, 0x00094850, 0x001B2F50,
+					0x00806047, 0x000A3720, 0x0010382F, 0x002C0505,
+					0x009B5021, 0x00160505, 0x01ED3A50, 0x00040505,
+					0x00082525, 0x01080F50, 0x01B35047, 0x000D3D4C,
+					0x00180404, 0x01C03A50, 0x00E20421, 0x00287B50,
+					0x00097F26, 0x0013612E, 0x01B6112F, 0x00322425,
+					0x01B81847, 0x00BA714B, 0x00182450, 0x00080505,
+					0x00182525, 0x004F1D24, 0x00736F5C, 0x00A67569,
+					0x00AD2726, 0x01BE5022, 0x000A5E04, 0x00173A62,
+					0x00CB752E, 0x00B11E25, 0x00CB0953, 0x00085068,
+					0x002B2020, 0x01984150, 0x00C77C04, 0x00DA0950,
+					0x00160404, 0x00F56040, 0x00DE0450, 0x01CB1160,
+					0x00CF4950, 0x000A4747, 0x001F210B, 0x00145050,
+					0x01171050, 0x00052075, 0x001D3D37, 0x00365555,
+					0x00130101, 0x01D57424, 0x00D66047, 0x01C47850,
+					0x004D2C2C, 0x01174150, 0x00174847, 0x00C90350,
+					0x000A2760, 0x0019502E, 0x00D72C2C, 0x01174850,
+					0x006C224B, 0x000A495B, 0x00100E35, 0x00312104,
+					0x01C00850, 0x00115A2F, 0x00EA0505, 0x00080574,
+					0x00152F23, 0x005C6050, 0x01C94122, 0x01A42222,
+					0x00DF2847, 0x00C9202E, 0x00A76047, 0x0117502F,
+					0x002E2020, 0x01205048, 0x00F8606D, 0x002D604C,
+					0x00443A62, 0x000D3D2E, 0x015C3950, 0x01625022,
+					0x006E136E, 0x0031602E, 0x01085D1A, 0x010F6F50,
+					0x0017506A, 0x00FB5020, 0x000A3C47, 0x00174D50
+				],
+				синхропрограммы: [
+					0x2C, 0x23, 0x00, 0x2C, 0x23, 0x00, 0x2C, 0x23, 0x30,
+					0x31, 0x32, 0x00, 0x31, 0x32, 0x12, 0x31, 0x32, 0x30,
+					0x00, 0x00, 0x00, 0x11, 0x23, 0x00, 0x1F, 0x06, 0x00,
+					0x31, 0x00, 0x1C, 0x31, 0x00, 0x00, 0x31, 0x08, 0x1D,
+					0x2C, 0x02, 0x0E, 0x2C, 0x02, 0x01, 0x2C, 0x02, 0x08,
+					0x08, 0x3A, 0x00, 0x00, 0x3A, 0x01, 0x05, 0x3A, 0x11,
+					0x18, 0x0A, 0x2B, 0x00, 0x01, 0x33, 0x02, 0x24, 0x25,
+					0x37, 0x3A, 0x18, 0x31, 0x3A, 0x1F, 0x31, 0x3A, 0x3D,
+					0x37, 0x02, 0x06, 0x31, 0x02, 0x12, 0x31, 0x10, 0x19,
+					0x39, 0x02, 0x26, 0x33, 0x09, 0x08, 0x19, 0x19, 0x08,
+					0x01, 0x14, 0x0C, 0x00, 0x00, 0x00, 0x1B, 0x06, 0x01,
+					0x26, 0x00, 0x21, 0x12, 0x14, 0x24, 0x06, 0x12, 0x00,
+					0x39, 0x00, 0x21, 0x08, 0x22, 0x00, 0x10, 0x14, 0x00,
+					0x20, 0x00, 0x00, 0x39, 0x02, 0x00, 0x06, 0x25, 0x25,
+					0x19, 0x02, 0x16, 0x09, 0x11, 0x19, 0x16, 0x11, 0x13,
+					0x18, 0x08, 0x10, 0x18, 0x00, 0x01, 0x1F, 0x06, 0x12,
+					0x1A, 0x12, 0x2E, 0x19, 0x02, 0x00, 0x33, 0x38, 0x00,
+					0x0D, 0x06, 0x3B, 0x13, 0x0A, 0x02, 0x00, 0x27, 0x00,
+					0x00, 0x00, 0x33, 0x13, 0x3C, 0x00, 0x11, 0x14, 0x04,
+					0x11, 0x1D, 0x34, 0x13, 0x01, 0x00, 0x14, 0x27, 0x00,
+					0x2C, 0x10, 0x21, 0x2C, 0x02, 0x33, 0x00, 0x00, 0x00,
+					0x37, 0x12, 0x2A, 0x31, 0x02, 0x00, 0x12, 0x06, 0x09,
+					0x37, 0x12, 0x2A, 0x31, 0x14, 0x0C, 0x00, 0x00, 0x00,
+					0x39, 0x0D, 0x12, 0x10, 0x0F, 0x00, 0x00, 0x27, 0x03,
+					0x37, 0x12, 0x0C, 0x31, 0x05, 0x00, 0x31, 0x00, 0x00,
+					0x37, 0x20, 0x0A, 0x31, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x11, 0x13, 0x0E, 0x01, 0x0D, 0x11, 0x05, 0x25, 0x24,
+					0x0A, 0x24, 0x0C, 0x08, 0x0D, 0x21, 0x00, 0x00, 0x00,
+					0x37, 0x06, 0x3A, 0x31, 0x05, 0x02, 0x0A, 0x1D, 0x16,
+					0x38, 0x14, 0x0C, 0x00, 0x08, 0x06, 0x20, 0x1B, 0x34,
+					0x0E, 0x02, 0x06, 0x00, 0x02, 0x1F, 0x19, 0x20, 0x08,
+					0x37, 0x10, 0x21, 0x31, 0x12, 0x0C, 0x00, 0x00, 0x00,
+					0x01, 0x2D, 0x30, 0x01, 0x2D, 0x00, 0x01, 0x2D, 0x30,
+					0x33, 0x34, 0x06, 0x01, 0x18, 0x00, 0x01, 0x18, 0x08,
+					0x31, 0x20, 0x34, 0x31, 0x20, 0x05, 0x31, 0x20, 0x08,
+					0x1F, 0x3A, 0x20, 0x14, 0x3A, 0x20, 0x0C, 0x00, 0x20,
+					0x0A, 0x20, 0x06, 0x30, 0x1F, 0x0C, 0x00, 0x20, 0x00,
+					0x35, 0x20, 0x05, 0x34, 0x14, 0x09, 0x30, 0x20, 0x11,
+					0x08, 0x18, 0x18, 0x08, 0x18, 0x18, 0x08, 0x33, 0x20,
+					0x04, 0x16, 0x06, 0x36, 0x06, 0x0C, 0x01, 0x03, 0x00,
+					0x2F, 0x08, 0x18, 0x1C, 0x00, 0x18, 0x00, 0x20, 0x18,
+					0x00, 0x18, 0x14, 0x35, 0x1D, 0x06, 0x14, 0x00, 0x3B,
+					0x06, 0x20, 0x05, 0x34, 0x14, 0x09, 0x19, 0x00, 0x21,
+					0x05, 0x3A, 0x3A, 0x06, 0x3A, 0x3A, 0x05, 0x3A, 0x3A,
+					0x01, 0x23, 0x00, 0x01, 0x23, 0x00, 0x01, 0x23, 0x08,
+					0x01, 0x32, 0x02, 0x01, 0x32, 0x02, 0x01, 0x32, 0x02,
+					0x15, 0x04, 0x03, 0x15, 0x17, 0x03, 0x15, 0x17, 0x03,
+					0x07, 0x2B, 0x03, 0x07, 0x17, 0x03, 0x07, 0x17, 0x03,
+					0x04, 0x1E, 0x06, 0x1E, 0x3F, 0x0E, 0x09, 0x11, 0x13,
+					0x0F, 0x29, 0x05, 0x09, 0x28, 0x09, 0x09, 0x09, 0x01,
+					0x08, 0x0B, 0x0B, 0x1B, 0x0B, 0x0B, 0x1E, 0x0B, 0x00,
+					0x08, 0x0B, 0x0B, 0x0E, 0x0B, 0x0B, 0x1A, 0x0B, 0x00,
+					0x11, 0x1D, 0x06, 0x08, 0x10, 0x04, 0x02, 0x06, 0x2F,
+					0x1F, 0x1C, 0x2F, 0x00, 0x1C, 0x1C, 0x09, 0x18, 0x11,
+					0x0B, 0x0C, 0x0C, 0x0B, 0x02, 0x30, 0x00, 0x00, 0x00,
+					0x25, 0x1C, 0x04, 0x01, 0x1C, 0x1D, 0x1D, 0x06, 0x08,
+					0x01, 0x30, 0x21, 0x3F, 0x2E, 0x11, 0x19, 0x25, 0x01,
+					0x16, 0x00, 0x00, 0x03, 0x0C, 0x0A, 0x19, 0x0A, 0x19,
+					0x0E, 0x16, 0x1B, 0x11, 0x1D, 0x10, 0x3C, 0x3A, 0x05,
+					0x20, 0x08, 0x10, 0x06, 0x22, 0x19, 0x02, 0x22, 0x18,
+					0x06, 0x0C, 0x01, 0x10, 0x00, 0x00, 0x00, 0x11, 0x13,
+					0x0A, 0x2B, 0x03, 0x0A, 0x17, 0x03, 0x0A, 0x17, 0x03,
+					0x12, 0x14, 0x06, 0x12, 0x02, 0x00, 0x0A, 0x02, 0x00,
+					0x0A, 0x24, 0x0C, 0x00, 0x0A, 0x21, 0x06, 0x20, 0x18,
+					0x0A, 0x21, 0x21, 0x35, 0x02, 0x08, 0x10, 0x02, 0x05,
+					0x00, 0x12, 0x0F, 0x11, 0x24, 0x21, 0x35, 0x02, 0x05,
+					0x06, 0x25, 0x0C, 0x06, 0x02, 0x12, 0x14, 0x02, 0x18,
+					0x12, 0x20, 0x14, 0x00, 0x00, 0x21, 0x18, 0x12, 0x0B,
+					0x0A, 0x24, 0x06, 0x00, 0x20, 0x08, 0x25, 0x02, 0x00,
+					0x24, 0x02, 0x35, 0x18, 0x12, 0x14, 0x34, 0x00, 0x18,
+					0x12, 0x14, 0x0C, 0x00, 0x0A, 0x21, 0x35, 0x02, 0x00,
+					0x00, 0x26, 0x03, 0x06, 0x27, 0x03, 0x06, 0x27, 0x03,
+					0x26, 0x03, 0x00, 0x27, 0x03, 0x00, 0x27, 0x03, 0x00,
+					0x11, 0x04, 0x03, 0x00, 0x36, 0x03, 0x00, 0x36, 0x03,
+					0x06, 0x04, 0x03, 0x07, 0x17, 0x03, 0x07, 0x17, 0x03,
+					0x0A, 0x20, 0x24, 0x25, 0x03, 0x06, 0x08, 0x02, 0x0B,
+					0x12, 0x04, 0x16, 0x0A, 0x17, 0x03, 0x0A, 0x17, 0x03,
+					0x07, 0x2B, 0x00, 0x07, 0x17, 0x00, 0x07, 0x17, 0x25,
+					0x00, 0x07, 0x2B, 0x03, 0x07, 0x17, 0x03, 0x07, 0x17,
+					0x03, 0x36, 0x03, 0x11, 0x24, 0x1D, 0x24, 0x03, 0x06,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x15, 0x04, 0x03, 0x15, 0x17, 0x03, 0x15, 0x17,
+					0x03, 0x12, 0x1D, 0x1D, 0x14, 0x06, 0x12, 0x06, 0x00,
+					0x1C, 0x1C, 0x00, 0x1C, 0x2F, 0x00, 0x06, 0x20, 0x20,
+					0x00, 0x0B, 0x02, 0x00, 0x0B, 0x02, 0x00, 0x36, 0x00,
+					0x01, 0x18, 0x18, 0x01, 0x18, 0x18, 0x01, 0x18, 0x18,
+					0x00, 0x00, 0x00, 0x33, 0x00, 0x08, 0x18, 0x04, 0x28,
+					0x1F, 0x0C, 0x08, 0x25, 0x06, 0x0E, 0x06, 0x00, 0x18,
+					0x06, 0x0E, 0x00, 0x16, 0x16, 0x00, 0x1D, 0x20, 0x20,
+					0x18, 0x07, 0x06, 0x35, 0x10, 0x34, 0x05, 0x09, 0x24,
+					0x05, 0x09, 0x09, 0x09, 0x09, 0x01, 0x0D, 0x10, 0x09,
+					0x08, 0x25, 0x33, 0x2E, 0x06, 0x1B, 0x06, 0x00, 0x13,
+					0x1C, 0x00, 0x00, 0x1C, 0x00, 0x00, 0x1C, 0x00, 0x38,
+					0x1D, 0x3D, 0x05, 0x1D, 0x3D, 0x05, 0x1D, 0x3D, 0x05,
+					0x1D, 0x20, 0x1D, 0x00, 0x18, 0x00, 0x33, 0x34, 0x06,
+					0x39, 0x3C, 0x21, 0x01, 0x3C, 0x01, 0x06, 0x1F, 0x19,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08,
+					0x0A, 0x17, 0x03, 0x11, 0x13, 0x14, 0x00, 0x05, 0x35,
+					0x00, 0x05, 0x34, 0x00, 0x00, 0x34, 0x00, 0x00, 0x34,
+					0x38, 0x04, 0x02, 0x33, 0x00, 0x11, 0x04, 0x00, 0x00,
+					0x0C, 0x00, 0x26, 0x33, 0x09, 0x09, 0x20, 0x08, 0x18,
+					0x0F, 0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x27, 0x05,
+					0x30, 0x09, 0x20, 0x20, 0x06, 0x20, 0x21, 0x00, 0x00,
+					0x0A, 0x3A, 0x10, 0x2B, 0x18, 0x38, 0x38, 0x0E, 0x02,
+					0x16, 0x0C, 0x35, 0x05, 0x00, 0x00, 0x19, 0x30, 0x00,
+					0x08, 0x1C, 0x18, 0x00, 0x1C, 0x00, 0x00, 0x05, 0x3A,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x20,
+					0x1F, 0x0C, 0x08, 0x25, 0x06, 0x08, 0x00, 0x00, 0x34,
+					0x06, 0x1C, 0x05, 0x25, 0x1C, 0x25, 0x1F, 0x18, 0x34,
+					0x33, 0x20, 0x26, 0x0B, 0x02, 0x00, 0x34, 0x09, 0x09,
+					0x00, 0x06, 0x36, 0x00, 0x00, 0x11, 0x24, 0x0B, 0x34,
+					0x20, 0x20, 0x00, 0x00, 0x39, 0x02, 0x08, 0x1D, 0x00,
+					0x00, 0x08, 0x00, 0x3E, 0x00, 0x00, 0x37, 0x08, 0x1D,
+					0x00, 0x00, 0x20, 0x00, 0x35, 0x20, 0x05, 0x34, 0x34,
+					0x12, 0x14, 0x24, 0x34, 0x2E, 0x30, 0x1F, 0x06, 0x08,
+					0x01, 0x05, 0x30, 0x04, 0x30, 0x2E, 0x06, 0x0E, 0x00,
+					0x36, 0x00, 0x00, 0x00, 0x00, 0x00, 0x34, 0x34, 0x00,
+					0x0A, 0x06, 0x1B, 0x1F, 0x00, 0x00, 0x25, 0x00, 0x3B,
+					0x25, 0x10, 0x06, 0x00, 0x00, 0x0A, 0x10, 0x07, 0x03,
+					0x0A, 0x10, 0x01, 0x00, 0x00, 0x00, 0x16, 0x19, 0x35,
+					0x06, 0x12, 0x10, 0x19, 0x10, 0x00, 0x00, 0x00, 0x3A,
+					0x11, 0x06, 0x09, 0x35, 0x16, 0x10, 0x3E, 0x13, 0x0D,
+					0x24, 0x3D, 0x10, 0x0E, 0x12, 0x33, 0x03, 0x06, 0x30,
+					0x00, 0x26, 0x00, 0x00, 0x27, 0x00, 0x00, 0x3B, 0x08,
+					0x06, 0x0C, 0x0C, 0x20, 0x0A, 0x06, 0x11, 0x14, 0x00,
+					0x18, 0x24, 0x06, 0x0A, 0x10, 0x18, 0x11, 0x24, 0x18,
+					0x10, 0x25, 0x05, 0x06, 0x3C, 0x05, 0x06, 0x00, 0x00,
+					0x06, 0x0C, 0x0C, 0x00, 0x00, 0x12, 0x24, 0x1D, 0x1D
+				],
+				микрокоманды: [
+					0x0000000, 0x0800001, 0x0040020, 0x1440090,
+					0x0A00081, 0x1000000, 0x1400020, 0x0800008,
+					0x0A03180, 0x1002200, 0x0800400, 0x1418001,
+					0x0080020, 0x0841020, 0x0203100, 0x0203088,
+					0x0A00820, 0x0800120, 0x08001C0, 0x0810081,
+					0x0A00089, 0x0800401, 0x0A010A0, 0x0A01081,
+					0x0818001, 0x1A00220, 0x0201100, 0x0203420,
+					0x0008000, 0x0801020, 0x0201420, 0x0801190,
+					0x0040000, 0x0080820, 0x0800002, 0x0140002,
+					0x0800100, 0x0A03C20, 0x0A00808, 0x0A01008,
+					0x0200540, 0x0601209, 0x0083100, 0x0A03081,
+					0x8800004, 0x0058001, 0x1001280, 0x1008001,
+					0x1200209, 0x4018001, 0x0040002, 0x1000001,
+					0x0010200, 0x0800840, 0x0A01181, 0x4018801,
+					0x0A10181, 0x0800801, 0x0040001, 0x0011190,
+					0x0858001, 0x0040020, 0x3200209, 0x08000C0,
+					0x4000020, 0x0600081, 0x1000000, 0x1000180
+				]
+			},
+			ИК1306: {
+				команды: [
+					0x0070000, 0x0060040, 0x0076A2F, 0x00B4C00,
+					0x0090000, 0x00B4D00, 0x0090000, 0x0055300,
+					0x0090000, 0x00B5400, 0x0090000, 0x0054600,
+					0x0061000, 0x00B4800, 0x0065657, 0x0057300,
+					0x0090000, 0x0075655, 0x0071700, 0x0060040,
+					0x0070000, 0x0070000, 0x0074444, 0x00C4545,
+					0x0280058, 0x0682825, 0x08A0000, 0x0280059,
+					0x0800058, 0x0800059, 0x04D5F5F, 0x0FB2F22,
+					0x0FB2F21, 0x0F80000, 0x0FB2F20, 0x0940000,
+					0x0B80059, 0x0B80058, 0x0830000, 0x03D4343,
+					0x0075E5E, 0x0075B00, 0x0695900, 0x007002B,
+					0x0070028, 0x0070003, 0x0070028, 0x0070052,
+					0x0070015, 0x00C0037, 0x00F5C00, 0x0075C01,
+					0x0075D5D, 0x007285F, 0x0DC585B, 0x00C005C,
+					0x0680000, 0x0070A0A, 0x0075B59, 0x0070254,
+					0x02A5F5F, 0x0075F5F, 0x00B0076, 0x0077700,
+					0x00B0039, 0x0063A2A, 0x01B3B2A, 0x0682828,
+					0x0680000, 0x0F05800, 0x00B003D, 0x04A0000,
+					0x0053200, 0x0502800, 0x0054E00, 0x0560000,
+					0x0530000, 0x00B0076, 0x0077700, 0x03E5F5F,
+					0x0DC0058, 0x0050032, 0x0682828, 0x005002A,
+					0x0682C2C, 0x0682828, 0x0050039, 0x0682828,
+					0x0682C2C, 0x0CA0025, 0x0070013, 0x0070066,
+					0x0070014, 0x0070066, 0x0070014, 0x0F6005F,
+					0x00B3E00, 0x0065300, 0x00B4E00, 0x0065300,
+					0x0063B58, 0x0052A00, 0x0070058, 0x0184343,
+					0x0FC7576, 0x00A2828, 0x0052A00, 0x0065300,
+					0x00C0000, 0x0180000, 0x0682F2F, 0x0053C00,
+					0x0065300, 0x00C0000, 0x0182F2F, 0x0680000,
+					0x007042E, 0x0051600, 0x07A0000, 0x0070447,
+					0x00B164B, 0x0770000, 0x00C3119, 0x0180000,
+					0x007005D, 0x0DC585F, 0x0830000, 0x0680000,
+					0x0695E5E, 0x0830000, 0x0680000, 0x00A0009,
+					0x00B0016, 0x00B0061, 0x0185A5A, 0x0075866,
+					0x0F00900, 0x0840004, 0x0052F26, 0x068002F,
+					0x0680027, 0x0056D00, 0x0180000, 0x0920000,
+					0x0F00959, 0x0180000, 0x00A0000, 0x0B50015,
+					0x0070011, 0x0070052, 0x0070066, 0x0070001,
+					0x0070001, 0x0070066, 0x0070001, 0x0070066,
+					0x0070001, 0x0070001, 0x0070066, 0x0070001,
+					0x0070066, 0x0070002, 0x0070066, 0x0070001,
+					0x0075D5D, 0x0070052, 0x0075D5D, 0x0075D5D,
+					0x0590003, 0x00A5A00, 0x00B2A00, 0x01C7400,
+					0x00B3F00, 0x0185E00, 0x00B7458, 0x0B2005F,
+					0x0F00947, 0x0AE0000, 0x00B5E63, 0x0090000,
+					0x0186B2C, 0x00C006E, 0x0180000, 0x0180001,
+					0x0072828, 0x00B3000, 0x0680000, 0x00C3636,
+					0x0C10000, 0x0F07259, 0x0A90000, 0x0C45F00,
+					0x0073131, 0x0A95A5A, 0x0C45A5A, 0x0680000,
+					0x00A0000, 0x0690059, 0x0CA2C00, 0x0DC5931,
+					0x0DC596B, 0x08D0000, 0x00A5A5A, 0x007000E,
+					0x0072E2E, 0x0074242, 0x0073334, 0x00B6265,
+					0x0DB5E5E, 0x0070064, 0x007075F, 0x0075F51,
+					0x00B1A03, 0x00F0051, 0x0D40068, 0x0075F5F,
+					0x0070052, 0x0070065, 0x0CF0038, 0x0180067,
+					0x00A4242, 0x005004E, 0x0070051, 0x0066000,
+					0x0065300, 0x005004F, 0x0065300, 0x0064650,
+					0x005004F, 0x0070050, 0x0070059, 0x0070052,
+					0x01B353E, 0x005002A, 0x0070058, 0x007000E,
+					0x0063B51, 0x005004E, 0x0075800, 0x0184343,
+					0x00A4242, 0x0066000, 0x0063B00, 0x0070000,
+					0x0075000, 0x0605259, 0x0837125, 0x0680000,
+					0x0070023, 0x0070024, 0x0072F29, 0x0070041,
+					0x1060040, 0x0074900, 0x0075F5F, 0x0094A4A
+				],
+				синхропрограммы: [
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x2C, 0x2A, 0x27, 0x13, 0x2B, 0x27, 0x13, 0x2B, 0x27,
+					0x34, 0x2A, 0x27, 0x13, 0x2B, 0x27, 0x13, 0x2B, 0x27,
+					0x29, 0x2A, 0x35, 0x29, 0x2B, 0x35, 0x29, 0x2B, 0x35,
+					0x29, 0x12, 0x35, 0x29, 0x3F, 0x35, 0x29, 0x3F, 0x35,
+					0x2E, 0x00, 0x00, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x2A, 0x02, 0x00, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x03, 0x12, 0x05, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x0E, 0x02, 0x00, 0x24, 0x02, 0x00, 0x24, 0x02, 0x00,
+					0x30, 0x1D, 0x05, 0x2F, 0x1D, 0x00, 0x00, 0x1D, 0x00,
+					0x22, 0x00, 0x00, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x0C, 0x00, 0x00, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x25, 0x00,
+					0x31, 0x00, 0x00, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x0E, 0x0F, 0x0F, 0x00, 0x00, 0x00, 0x0F, 0x0F, 0x0F,
+					0x0E, 0x34, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00, 0x03, 0x18, 0x00, 0x00, 0x00,
+					0x18, 0x25, 0x00, 0x03, 0x18, 0x00, 0x00, 0x00, 0x00,
+					0x1B, 0x03, 0x39, 0x00, 0x00, 0x00, 0x14, 0x18, 0x00,
+					0x36, 0x00, 0x00, 0x03, 0x0B, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x03, 0x18, 0x00, 0x00, 0x00, 0x00,
+					0x37, 0x1E, 0x00, 0x00, 0x1E, 0x00, 0x00, 0x00, 0x00,
+					0x01, 0x06, 0x07, 0x01, 0x06, 0x07, 0x01, 0x06, 0x07,
+					0x34, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x3C, 0x00, 0x00, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x3E, 0x00, 0x00, 0x2D, 0x02, 0x00, 0x00, 0x00, 0x00,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x01, 0x25, 0x00, 0x01, 0x25, 0x00, 0x24, 0x02, 0x00,
+					0x03, 0x04, 0x02, 0x03, 0x04, 0x02, 0x24, 0x02, 0x00,
+					0x01, 0x06, 0x07, 0x01, 0x06, 0x07, 0x24, 0x02, 0x00,
+					0x01, 0x04, 0x08, 0x01, 0x04, 0x08, 0x24, 0x00, 0x1A,
+					0x03, 0x06, 0x09, 0x03, 0x06, 0x09, 0x24, 0x00, 0x02,
+					0x03, 0x25, 0x00, 0x03, 0x25, 0x00, 0x24, 0x25, 0x00,
+					0x03, 0x00, 0x38, 0x03, 0x00, 0x0B, 0x03, 0x25, 0x00,
+					0x24, 0x25, 0x00, 0x24, 0x25, 0x0E, 0x05, 0x00, 0x00,
+					0x03, 0x25, 0x00, 0x03, 0x25, 0x00, 0x03, 0x25, 0x00,
+					0x00, 0x00, 0x19, 0x05, 0x00, 0x19, 0x05, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x12,
+					0x00, 0x21, 0x00, 0x00, 0x21, 0x24, 0x25, 0x03, 0x25,
+					0x00, 0x0D, 0x02, 0x00, 0x0D, 0x02, 0x00, 0x0D, 0x02,
+					0x00, 0x17, 0x00, 0x00, 0x17, 0x24, 0x05, 0x00, 0x00,
+					0x24, 0x00, 0x05, 0x24, 0x00, 0x05, 0x24, 0x00, 0x05,
+					0x24, 0x25, 0x00, 0x24, 0x25, 0x00, 0x24, 0x25, 0x00,
+					0x13, 0x0A, 0x00, 0x00, 0x03, 0x0B, 0x00, 0x28, 0x00,
+					0x00, 0x03, 0x05, 0x00, 0x03, 0x05, 0x00, 0x03, 0x05,
+					0x1B, 0x03, 0x00, 0x0B, 0x03, 0x0B, 0x00, 0x00, 0x00,
+					0x2C, 0x02, 0x00, 0x24, 0x02, 0x00, 0x24, 0x02, 0x00,
+					0x0E, 0x0F, 0x0F, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00,
+					0x0E, 0x0F, 0x0F, 0x00, 0x00, 0x00, 0x0F, 0x0F, 0x00,
+					0x00, 0x16, 0x00, 0x00, 0x16, 0x00, 0x00, 0x16, 0x00,
+					0x00, 0x17, 0x00, 0x00, 0x17, 0x00, 0x00, 0x00, 0x21,
+					0x00, 0x00, 0x17, 0x00, 0x00, 0x17, 0x24, 0x02, 0x00,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x12, 0x00,
+					0x14, 0x0F, 0x0F, 0x00, 0x00, 0x00, 0x0F, 0x00, 0x00,
+					0x24, 0x0F, 0x0F, 0x00, 0x00, 0x00, 0x0F, 0x00, 0x00,
+					0x13, 0x0A, 0x00, 0x00, 0x03, 0x0B, 0x00, 0x00, 0x00,
+					0x1B, 0x18, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x13, 0x0F, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00,
+					0x1B, 0x03, 0x3D, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x3B, 0x00, 0x00, 0x3B, 0x00, 0x12, 0x14, 0x00,
+					0x0E, 0x00, 0x00, 0x0F, 0x00, 0x00, 0x05, 0x24, 0x02,
+					0x03, 0x00, 0x25, 0x03, 0x00, 0x25, 0x03, 0x00, 0x25,
+					0x00, 0x00, 0x20, 0x00, 0x00, 0x20, 0x00, 0x00, 0x20,
+					0x00, 0x11, 0x05, 0x00, 0x11, 0x05, 0x00, 0x11, 0x05,
+					0x00, 0x11, 0x25, 0x00, 0x11, 0x25, 0x00, 0x11, 0x25,
+					0x0E, 0x0F, 0x0F, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00,
+					0x03, 0x00, 0x00, 0x33, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x0E, 0x0F, 0x0F, 0x2A, 0x0F, 0x0F, 0x12, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x1B, 0x1C, 0x00, 0x00, 0x00, 0x00,
+					0x03, 0x15, 0x00, 0x03, 0x15, 0x00, 0x03, 0x15, 0x00,
+					0x1B, 0x02, 0x00, 0x00, 0x00, 0x00, 0x1B, 0x02, 0x00,
+					0x00, 0x00, 0x00, 0x03, 0x00, 0x12, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x03, 0x12, 0x12, 0x12, 0x12, 0x00,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x23, 0x02,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x24, 0x23, 0x02, 0x00,
+					0x26, 0x27, 0x00, 0x28, 0x27, 0x00, 0x28, 0x27, 0x00,
+					0x00, 0x26, 0x27, 0x00, 0x28, 0x27, 0x00, 0x28, 0x27,
+					0x29, 0x2A, 0x27, 0x29, 0x2B, 0x27, 0x29, 0x2B, 0x3A,
+					0x0E, 0x12, 0x12, 0x12, 0x00, 0x00, 0x10, 0x00, 0x00,
+					0x0E, 0x12, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00,
+					0x0E, 0x0F, 0x0F, 0x00, 0x00, 0x0F, 0x0F, 0x0F, 0x00,
+					0x00, 0x00, 0x00, 0x25, 0x00, 0x0E, 0x0F, 0x0F, 0x0F,
+					0x0E, 0x0F, 0x0F, 0x00, 0x00, 0x0F, 0x0F, 0x0F, 0x0F,
+					0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0E, 0x18, 0x00,
+					0x24, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x1D, 0x00, 0x00, 0x1D, 0x00, 0x00, 0x1D, 0x00,
+					0x1F, 0x1A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x16, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x16, 0x05, 0x00, 0x16, 0x05, 0x00, 0x16, 0x05,
+					0x00, 0x16, 0x02, 0x00, 0x16, 0x02, 0x00, 0x16, 0x02,
+					0x03, 0x21, 0x02, 0x03, 0x21, 0x02, 0x03, 0x21, 0x02,
+					0x18, 0x0F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x1B, 0x03, 0x0B, 0x00, 0x00, 0x00,
+					0x03, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x00, 0x1B, 0x03, 0x3D, 0x00, 0x00, 0x00,
+					0x24, 0x18, 0x03, 0x18, 0x05, 0x03, 0x18, 0x05, 0x00,
+					0x03, 0x00, 0x32, 0x03, 0x00, 0x32, 0x03, 0x00, 0x32,
+					0x24, 0x33, 0x00, 0x00, 0x33, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x21, 0x00, 0x00, 0x21, 0x00, 0x00, 0x00,
+					0x00, 0x2C, 0x2A, 0x27, 0x13, 0x2B, 0x27, 0x00, 0x00,
+					0x03, 0x25, 0x00, 0x03, 0x25, 0x00, 0x13, 0x09, 0x00,
+					0x00, 0x3B, 0x05, 0x00, 0x3B, 0x05, 0x00, 0x3B, 0x05,
+					0x00, 0x0D, 0x05, 0x00, 0x0D, 0x05, 0x00, 0x0D, 0x05,
+					0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x07,
+					0x1B, 0x18, 0x0B, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x17, 0x00, 0x00, 0x17, 0x0E, 0x05, 0x0D, 0x02,
+					0x18, 0x00, 0x25, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+					0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00,
+					0x13, 0x09, 0x00, 0x00, 0x09, 0x00, 0x00, 0x09, 0x00,
+					0x0E, 0x0F, 0x02, 0x24, 0x25, 0x00, 0x24, 0x25, 0x00,
+					0x00, 0x00, 0x00, 0x29, 0x0F, 0x0F, 0x0F, 0x12, 0x00,
+					0x00, 0x29, 0x12, 0x00, 0x29, 0x3F, 0x00, 0x13, 0x0F,
+					0x00, 0x3D, 0x00, 0x00, 0x3D, 0x00, 0x00, 0x3D, 0x00,
+					0x1B, 0x03, 0x00, 0x0B, 0x03, 0x0B, 0x13, 0x39, 0x24,
+					0x0E, 0x02, 0x00, 0x24, 0x02, 0x00, 0x13, 0x07, 0x00,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F,
+					0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F, 0x3F
+				],
+				микрокоманды: [
+					0x0000000, 0x0800008, 0x0040020, 0x0800001,
+					0x0800021, 0x0080020, 0x0A00028, 0x0040100,
+					0x4000100, 0x0010100, 0x0A00101, 0x0201089,
+					0x0213201, 0x0800004, 0x0800800, 0x0800820,
+					0x0200088, 0x4810002, 0x0A00820, 0x0800400,
+					0x0801000, 0x0100000, 0x8800004, 0x0008000,
+					0x1400020, 0x0800005, 0x4000020, 0x0A00180,
+					0x0100000, 0x4000001, 0x8241004, 0x0400000,
+					0x0080001, 0x0040001, 0x0212801, 0x0200808,
+					0x0800000, 0x0010020, 0x0A00808, 0x0040090,
+					0x0A01008, 0x0800401, 0x0A00081, 0x0A01081,
+					0x0803400, 0x0A01001, 0x0A11801, 0x0011001,
+					0x0A10801, 0x0213801, 0x0098001, 0x0818001,
+					0x0800420, 0x0880090, 0x0203C08, 0x0200809,
+					0x0A00089, 0x0203090, 0x0840090, 0x0810002,
+					0x0210801, 0x0210081, 0x0010000, 0x0200090,
+					0x0210081, 0x0212801, 0x0A01020, 0x0A01020
+				]
+			}
+		}
+
+		class ИР2 {
+			constructor() {
+				this.Сброс();
+			}
+
+			Сброс() {
+				this.M = new Array(252).fill(0);
+				[this.вход, this.выход, this.такт] = new Array(3).fill(0);
+			}
+
+			Такт() {
+				this.выход = this.M[this.такт];
+				this.M[this.такт] = this.вход;
+				this.такт++;
+				if (this.такт == 252) this.такт = 0;
+			}
+		}
+
+		class ИК13 {
+			constructor(ПЗУ) {
+				[this.ПЗУ_микрокоманд, this.ПЗУ_синхропрограмм, this.ПЗУ_команд] =
+					[ПЗУ.микрокоманды, ПЗУ.синхропрограммы, ПЗУ.команды];
+				this.Сброс();
+			}
+
+			Сброс() {
+				[this.M, this.R, this.ST] = [new Array(42).fill(0), new Array(42).fill(0), new Array(42).fill(0)];
+				[
+					this.S, this.S1, this.L, this.T, this.П,
+					this.такт, this.команда, this.АСП,
+					this.вход, this.выход,
+					this.клав_x, this.клав_y, this.запятая
+				] = new Array(13).fill(0);
+				this.индик_зпт = new Array(14).fill(false);
+				this.обн_индик = false;
+			}
+
+			Выполнить_микроприказ(номер, сумматор) {
+				let x, y, z;
+				switch (номер) {
+					case 0: сумматор.альфа |= this.R[this.такт]; break;
+					case 1: сумматор.альфа |= this.M[this.такт]; break;
+					case 2: сумматор.альфа |= this.ST[this.такт]; break;
+					case 3: сумматор.альфа |= ~this.R[this.такт] & 0b1111; break;
+					case 4: if (this.L == 0) сумматор.альфа |= 0xA; break;
+					case 5: сумматор.альфа |= this.S; break;
+					case 6: сумматор.альфа |= 4; break;
+					case 7: сумматор.бета |= this.S; break;
+					case 8: сумматор.бета |= ~this.S & 0b1111; break;
+					case 9: сумматор.бета |= this.S1; break;
+					case 10: сумматор.бета |= 6; break;
+					case 11: сумматор.бета |= 1; break;
+					case 12: сумматор.гамма |= this.L & 1; break;
+					case 13: сумматор.гамма |= ~this.L & 1; break;
+					case 14: сумматор.гамма |= ~this.T & 1; break;
+					case 15: this.R[this.такт] = this.R[(this.такт + 3) % 42]; break;
+					case 16: this.R[this.такт] = сумматор.сигма; break;
+					case 17: this.R[this.такт] = this.S; break;
+					case 18: this.R[this.такт] = this.R[this.такт] | this.S | сумматор.сигма; break;
+					case 19: this.R[this.такт] = this.S | сумматор.сигма; break;
+					case 20: this.R[this.такт] = this.R[this.такт] | this.S; break;
+					case 21: this.R[this.такт] = this.R[this.такт] | сумматор.сигма; break;
+					case 22: this.R[(this.такт + 41) % 42] = сумматор.сигма; break;
+					case 23: this.R[(this.такт + 40) % 42] = сумматор.сигма; break;
+					case 24: this.M[this.такт] = this.S; break;
+					case 25: this.L = this.П; break;
+					case 26: this.S = this.S1; break;
+					case 27: this.S = сумматор.сигма; break;
+					case 28: this.S = this.S1 | сумматор.сигма; break;
+					case 29: this.S1 = сумматор.сигма; break;
+					case 30: this.S1 = this.S1; break;
+					case 31: this.S1 = this.S1 | сумматор.сигма; break;
+					case 32:
+						this.ST[(this.такт + 2) % 42] = this.ST[(this.такт + 1) % 42];
+						this.ST[(this.такт + 1) % 42] = this.ST[this.такт];
+						this.ST[this.такт] = сумматор.сигма;
+					break;
+					case 33:
+						x = this.ST[this.такт];
+						this.ST[this.такт] = this.ST[(this.такт + 1) % 42];
+						this.ST[(this.такт + 1) % 42] = this.ST[(this.такт + 2) % 42];
+						this.ST[(this.такт + 2) % 42] = x;
+					break;
+					case 34:
+						x = this.ST[this.такт];
+						y = this.ST[(this.такт + 1) % 42];
+						z = this.ST[(this.такт + 2) % 42];
+						this.ST[this.такт] = сумматор.сигма | y;
+						this.ST[(this.такт + 1) % 42] = x | z;
+						this.ST[(this.такт + 2) % 42] = y | x;
+					break;
+				}
+			}
+
+			Такт() {
+				if (this.такт == 0) {
+					this.команда = this.ПЗУ_команд[this.R[36] + 16 * this.R[39]];
+					if ((this.команда >>> 18 & 0b111111) == 0) this.T = 0;
+				}
+
+				const девятка_тактов = this.такт / 9 | 0, такт_в_девятке = this.такт - девятка_тактов * 9;
+				if (такт_в_девятке == 0) {
+					if (девятка_тактов < 3) this.АСП = this.команда & 0b11111111;
+					else if (девятка_тактов == 3) this.АСП = this.команда >>> 8 & 0b11111111;
+					else if (девятка_тактов == 4) {
+						this.АСП = this.команда >>> 16 & 0b11111111;
+						if (this.АСП > 31) {
+							if (this.такт == 36) {
+								this.R[37] = this.АСП & 0b1111;
+								this.R[40] = this.АСП >>> 4;
+							}
+							this.АСП = 95;
+						}
+					}
+				}
+
+				let АМК = this.ПЗУ_синхропрограмм[
+					this.АСП * 9 +
+					(this.такт < 6 ? this.такт : this.такт < 21 ? this.такт % 3 + 3 : такт_в_девятке)
+				];
+				АМК &= 0b111111;
+				if (АМК > 59) {
+					АМК = (АМК - 60) * 2;
+					if (this.L == 0) АМК++;
+					АМК += 60;
+				}
+				let микрокоманда = this.ПЗУ_микрокоманд[АМК], микроприказы = [];
+				for (let сч = 0; сч < 28; сч++) {
+					микроприказы.push(микрокоманда & 1);
+					микрокоманда >>>= 1;
+				}
+
+				const тройка_тактов = this.такт / 3 | 0;
+				const сумматор = { альфа: 0, бета: 0, гамма: 0, сигма: 0 };
+
+				if (микроприказы[25] == 1)
+					if (тройка_тактов != this.клав_x - 1)
+						this.S1 |= this.клав_y;
+
+				for (let сч = 0; сч < 12; сч++)
+					if (микроприказы[сч] == 1)
+						this.Выполнить_микроприказ(сч, сумматор);
+
+				if ((this.команда >>> 18 & 0b111111) > 0) {
+					if (this.клав_y == 0) this.T = 0;
+				}
+				else {
+					if (тройка_тактов == this.клав_x - 1)
+						if (this.клав_y > 0) {
+							this.S1 = this.клав_y;
+							this.T = 1;
+						}
+					if (тройка_тактов < 12)
+						if (this.L > 0) this.запятая = тройка_тактов;
+					this.индик_зпт[тройка_тактов] = this.L > 0;
+					this.обн_индик = true;
+				}
+
+				for (let сч = 12; сч < 15; сч++)
+					if (микроприказы[сч] == 1)
+						this.Выполнить_микроприказ(сч, сумматор);
+
+				const сумма = сумматор.альфа + сумматор.бета + сумматор.гамма;
+				сумматор.сигма = сумма & 0b1111;
+				this.П = сумма >>> 4 & 1;
+
+				if ((this.команда >>> 24 & 0b11111111) == 0 || this.такт >= 36) {
+					const поле_микрокоманды = микроприказы[17] << 2 | микроприказы[16] << 1 | микроприказы[15];
+					if (поле_микрокоманды > 0)
+						this.Выполнить_микроприказ(поле_микрокоманды + 14, сумматор);
+					for (let сч = 18; сч < 20; сч++)
+						if (микроприказы[сч] == 1)
+							this.Выполнить_микроприказ(сч + 4, сумматор);
+				}
+
+				for (let сч = 20; сч < 22; сч++)
+					if (микроприказы[сч] == 1)
+						this.Выполнить_микроприказ(сч + 4, сумматор);
+
+				for (let сч = 0; сч < 3; сч++) {
+					const поле_микрокоманды = микроприказы[23 + сч * 2] << 1 | микроприказы[22 + сч * 2];
+					if (поле_микрокоманды > 0)
+						this.Выполнить_микроприказ(поле_микрокоманды + 25 + сч * 3, сумматор);
+				}
+
+				this.выход = this.M[this.такт];
+				this.M[this.такт] = this.вход;
+				this.такт++;
+				if (this.такт == 42) this.такт = 0;
+			}
+		}
+
+		let Мера_угла = 10;
+		let Индикатор = [], Индик_зпт = [], Индик_ст = [];
+
+		const ИР2_1 = new ИР2(), ИР2_2 = new ИР2();
+		const ИК1302 = new ИК13(ПЗУ.ИК1302), ИК1303 = new ИК13(ПЗУ.ИК1303), ИК1306 = new ИК13(ПЗУ.ИК1306);
+
+		function Такт() {
+			ИК1302.вход = ИР2_2.выход;
+			ИК1302.Такт();
+			ИК1303.вход = ИК1302.выход;
+			ИК1303.Такт();
+      ИК1306.вход = ИК1303.выход;
+      ИК1306.Такт();
+      ИР2_1.вход = ИК1306.выход;
+			ИР2_1.Такт();
+			ИР2_2.вход = ИР2_1.выход;
+			ИР2_2.Такт();
+			ИК1302.M[(ИК1302.такт + 41) % 42] = ИР2_2.выход;
+		}
+
+		let Режим_счёта = false;
+
+		const Символы_разрядов = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-", "L", "С", "Г", "Е", " "];
+
+		function Изменить_яркость_Картинка(ярче) {
+			const прозрачность = ярче ? 1.0 : 0.67;
+			for (let сч = 0; сч < 12; сч++) {
+				Элемент_по_названию("Знакоместо_" + сч).style.opacity = прозрачность;
+				Элемент_по_названию("Запятая_" + сч).style.opacity = прозрачность;
+			}
+		}
+
+		function Отобразить_индикатор_Картинка() {
+			if (Режим_счёта != (ИК1302.запятая == 11)) {
+				Изменить_яркость_Картинка(Режим_счёта);
+				Режим_счёта = !Режим_счёта;
+			}
+			for (let сч = 0; сч < 12; сч++) {
+				Элемент_по_названию("Знакоместо_" + сч).src = Цифры[Индикатор[сч]];
+				Элемент_по_названию("Запятая_" + сч).src = (Индик_зпт[сч] ? Картинка_Запятая : Картинка_Нету_запятой);
+			}
+		}
+
+		function Прочитать_число(микросхема, адрес) {
+			let ссылка;
+			switch (микросхема) {
+				case 1: ссылка = ИР2_1.M; break;
+				case 2: ссылка = ИР2_2.M; break;
+				case 3: ссылка = ИК1302.M; break;
+				case 4: ссылка = ИК1303.M; break;
+				case 5: ссылка = ИК1306.M; break;
+			}
+			let цифра1 = ссылка[адрес];
+			let цифра2 = ссылка[адрес - 3];
+			let цифра3 = ссылка[адрес - 6];
+			let порядок = цифра1 * 100 + цифра2 * 10 + цифра3;
+			if (порядок > 900) {
+				порядок = - (1000 - порядок);
+			}
+			let сч = 0;
+			while (ссылка[адрес - 33 + сч * 3] == 0) {
+				if (порядок == 7 - сч || сч == 7) break;
+				сч++;
+			}
+			const цифры = [];
+			while (сч < 8) {
+				цифры.push(ссылка[адрес - 33 + сч * 3]);
+				сч++;
+			}
+			цифры.reverse();
+			let мантисса = " "
+			if (ссылка[адрес - 9] != 0) {
+				мантисса = Символы_разрядов[ссылка[адрес - 9] + 1]
+			}
+			let зпт = false;
+			for (сч = 0; сч < цифры.length; сч++) {
+				мантисса += Символы_разрядов[цифры[сч]];
+				if ((сч == 0 && (порядок < 0 || порядок > 7)) || сч == порядок) {
+					мантисса += "."; 
+					зпт = true;
+				}
+			}
+			if (!зпт) мантисса += ".";
+			let результат = мантисса;
+			if (порядок < 0 || порядок > 7) {
+				for (сч = 0; сч < 10-мантисса.length; сч++)
+					результат += " ";
+        результат += "^";
+        if (порядок < 0) {
+          результат += "-";
+          if (порядок >= -9) результат += "0";
+          результат += -порядок;
+        }
+        else {
+          if (порядок > 0 && порядок < 100) {
+            результат += " ";
+            if (порядок < 10) результат += "0";
+          }
+          результат += порядок;
+        }
+      }
+			if (цифра2 > 9 || цифра3 > 9) {
+        if (цифра1 != 9) 
+          цифра1 = 15;
+        else {
+          if (цифра3 != 0) { 
+            цифра3 = 10 - цифра3;
+            if (цифра3 < 0) цифра3 += 16;
+            цифра2++;
+          }
+          цифра2 = 10 - цифра2;
+          if (цифра2 < 0) цифра2 += 16;
+          цифра1++;
+        }
+				результат += "|" + Символы_разрядов[цифра1] + Символы_разрядов[цифра2] + Символы_разрядов[цифра3];
+      }
+			return результат;
+		}
+
+		const
+			Адреса_страниц_памяти = [
+				[1, 41], [1, 83], [1, 125], [1, 167], [1, 209], [1, 251], [2, 41], [2, 83], [2, 125], [2, 167], [2, 209], [2, 251], [3, 41], [4, 41], [5, 41]
+			],
+			Перестановки_адресов_страниц_памяти = [
+				[ 1, 2, 3, 4, 5, 14, 13, 12, 6, 7, 8, 9, 10, 11, 0 ],
+				[ 10, 11, 6, 7, 2, 3, 4, 5, 0, 1, 14, 13, 12, 8, 9 ],
+				[ 14, 13, 12, 10, 11, 6, 7, 8, 9, 4, 5, 0, 1, 2, 3 ]
+			],
+			Адреса_стека = [
+				[1, 34], [1, 76], [1, 118], [1, 160], [1, 202], [1, 244], [2, 34], [2, 76], [2, 118], [2, 160], [2, 202], [2, 244], [3, 34], [4, 34], [5, 34]
+			],
+			Перестановки_адресов_стека = [
+				[ 8, 9, 10, 11, 0 ],
+				[ 14, 13, 12, 8, 9 ],
+				[ 5, 0, 1, 2, 3 ]
+			],
+			Адреса_возвратов = [28, 22, 16, 10, 4],
+			Адрес_счётчика_команд = 34,
+			Перестановки_адресов_страниц_памяти_ = [
+				[ 1, 2, 3, 4, 5, 13, 12, 6, 7, 8, 9, 10, 11, 0 ],
+				[ 3, 4, 5, 0, 1, 13, 12, 8, 9, 10, 11, 6, 7, 2 ],
+				[ 5, 0, 1, 2, 3, 13, 12, 10, 11, 6, 7, 8, 9, 4 ]
+			],
+			Перестановки_адресов_стека_ = [
+				[ 8, 9, 10, 11, 0 ],
+				[ 10, 11, 6, 7, 2 ],
+				[ 6, 7, 8, 9, 4 ]
+			];
+
+		function Заполнить_поля(перестановка) {
+			for (let сч = 0; сч < 15; сч++)
+				document.getElementById("Р" + сч).value =
+					Прочитать_число(Адреса_страниц_памяти[Перестановки_адресов_страниц_памяти[перестановка][сч]][0], Адреса_страниц_памяти[Перестановки_адресов_страниц_памяти[перестановка][сч]][1] - 8);
+			for (let сч = 0; сч < 5; сч++)
+				document.getElementById("С_" + сч).value =
+					Прочитать_число(Адреса_стека[Перестановки_адресов_стека[перестановка][сч]][0], Адреса_стека[Перестановки_адресов_стека[перестановка][сч]][1]);
+			document.getElementById("СК").value = Символы_разрядов[ИК1302.R[Адрес_счётчика_команд]] + Символы_разрядов[ИК1302.R[Адрес_счётчика_команд - 3]];
+			for (let сч = 0; сч < 5; сч++)
+				document.getElementById("В_" + сч).value = Символы_разрядов[ИК1302.R[Адреса_возвратов[сч]]] + Символы_разрядов[ИК1302.R[Адреса_возвратов[сч] - 3]];
+		}
+
+		let Исполнение = false, Пауза = false;
+
+		function Шаг() {
+			ИК1303.клав_y = 1;
+			ИК1303.клав_x = Мера_угла;
+			for (let сч = 1; сч <= 560; сч++) {
+				for (let i = 0; i < 42; i++) Такт();
+				if (ИК1302.обн_индик) {
+					for (let i = 0; i < 9; i++) Индикатор[i] = ИК1302.R[(8 - i) * 3];
+					for (let i = 0; i < 3; i++) Индикатор[i + 9] = ИК1302.R[(11 - i) * 3];
+					for (let i = 0; i < 9; i++) Индик_зпт[i] = ИК1302.индик_зпт[9 - i];
+					for (let i = 0; i < 3; i++) Индик_зпт[i + 9] = ИК1302.индик_зпт[12 - i];
+					ИК1302.обн_индик = false;
+				}
+			}
+			let обновить = false;
+			for (сч = 0; сч < 12; сч++) {
+				if (Индик_ст[сч] != Индикатор[сч]) обновить = true;
+				Индик_ст[сч] = Индикатор[сч];
+			}
+			if (обновить) {
+				Отобразить_индикатор_Картинка();
+			}
+			ИК1302.клав_x = 0;
+			ИК1302.клав_y = 0;
+			if (ИР2_1.такт == 84) Заполнить_поля(1);
+		}
+
+		function Нажатие_кнопки(x, y) {
+			if (Исполнение !== false) {
+				ИК1302.клав_x = x;
+				ИК1302.клав_y = y;
+				if (!Пауза) Шаг();
+			}
+		}
+
+		function Сбросить() {
+			ИР2_1.Сброс(); ИР2_2.Сброс();
+			ИК1302.Сброс(); ИК1303.Сброс(); ИК1306.Сброс();
+		}
+		
+		function Включить() {
+			Исполнение = setInterval(Шаг, 300);
+			Шаг();
+		}
+
+		function Выключить() {
+			clearInterval(Исполнение);
+			Исполнение = false;
+			for (let сч = 0; сч < 12; сч++)
+				Элемент_по_названию("Знакоместо_" + сч).value = "";
+			Сбросить();
+			Индикатор = [], Индик_ст = [], Индик_зпт = [];
+			for (let сч = 0; сч < 15; сч++) document.getElementById("Р" + сч).value = "";
+			for (let сч = 0; сч < 5; сч++) document.getElementById("С_" + сч).value = "";
+			for (let сч = 0; сч < 5; сч++) document.getElementById("В_" + сч).value = "";
+			document.getElementById("СК").value = "";
+			Пауза = false;
+			document.getElementById("Пауза").value = "Стоп";
+			Режим_счёта = false;
+		}
+
+		function Приостановить() {
+			if (Исполнение !== false) {
+				if (Пауза) {
+					Пауза = false;
+					document.getElementById("Пауза").value = "Стоп";
+					Исполнение = setInterval(Шаг, 300);
+					Шаг();
+				}
+				else {
+					clearInterval(Исполнение);
+					Заполнить_поля(ИР2_1.такт / 84);
+					Пауза = true;
+					document.getElementById("Пауза").value = "Пуск";
+				}
+			}
+		}
+
+		function Нажатие_клавиши(код) {
+			if ((код >= 48) && (код <= 57)) Нажатие_кнопки(код-46, 1);
+			else if ((код >= 96) && (код <= 105)) Нажатие_кнопки(код-94, 1);
+			else
+				switch (код) {
+					case 13: case 38: case 32: Нажатие_кнопки(11, 8); break; // В^
+					case 27: case 46: Нажатие_кнопки(10, 8); break; // Сx
+					case 70: Нажатие_кнопки(11, 9); break; // F
+					case 75: Нажатие_кнопки(10, 9); break; // K
+					case 106: Нажатие_кнопки(4, 8); break; // *
+					case 107: Нажатие_кнопки(2, 8); break; // +
+					case 109: Нажатие_кнопки(3, 8); break; // -
+					case 111: Нажатие_кнопки(5, 8); break; // /
+					case 110: Нажатие_кнопки(7, 8); break; // ,
+					case 37: Нажатие_кнопки(7, 9); break; // ШГ<-
+					case 39: Нажатие_кнопки(9, 9); break; // ШГ->
+					default: break;
+				}
+		}
+
+		/****************************************************************************************************/
+
+		const Мнемоники_команд = [
+			[	0x15,
+				["F10ˣ", "10ˣ", "F10^x", "10^x", "10x", "F10x", "10**x", "F10**x"],
+				0, 3
+			],
+			[	0x54,
+				["KНОП", "НОП", "КНОП", "Kноп", "Кноп"],
+				0, 1
+			],
+			[	0x55,
+				["K1", "К1"],
+				0, 1
+			],
+			[	0x56,
+				["K2", "К2"],
+				0, 1
+			],
+			[	0x16,
+				["Feˣ", "eˣ", "Fe^x", "e^x", "ex", "Fex", "Fe**x", "e**x"],
+				0, 3
+			],
+			[	0x17,
+				["Flg", "lg", "FLg", "Lg"],
+				0, 3
+			],
+			[	0x18,
+				["Fln", "ln", "FLn", "Ln"],
+				0, 3
+			],
+			[	0x30,
+				["KЧ→М", "КЧ→М", "KЧМ", "ЧМ", "КЧМ"],
+				0, 3
+			],
+			[	0x19,
+				["Fsinᐨ¹", "sinᐨ¹", "Fsin-1", "Farcsin", "arcsin", "sin-1"],
+				0, 3
+			],
+			[	0x31,
+				["K|x|", "|x|", "К|x|"],
+				0, 3
+			],
+			[	0x1A,
+				["Fcosᐨ¹", "cosᐨ¹", "Fcos-1", "Farccos", "arccos"],
+				0, 3
+			],
+			[	0x32,
+				["Kзн", "KЗН", "ЗН", "КЗН"],
+				0, 3
+			],
+			[	0x1B,
+				["Ftgᐨ¹", "tgᐨ¹", "Ftg-1", "Farctg", "arctg"],
+				0, 3
+			],
+			[	0x33,
+				["KГ→М", "КГ→М", "Г→М", "KГМ", "ГМ", "КГМ"],
+				0, 3
+			],
+			[	0x1C,
+				["Fsin", "sin"],
+				0, 3
+			],
+			[	0x34,
+				["K[x]", "[x]", "К[x]"],
+				0, 3
+			],
+			[	0x1D,
+				["Fcos", "cos"],
+				0, 3
+			],
+			[	0x35,
+				["K{x}", "{x}", "(x)", "К{x}", "K(x)", "К(x)"],
+				0, 3
+			],
+			[	0x1E,
+				["Ftg", "tg"],
+				0, 3
+			],
+			[	0x36,
+				["Kmax", "max", "Кmax"],
+				0, 3
+			],
+			[	0x10,
+				["+"],
+				0, 3
+			],
+			[	0x11,
+				["-", "–"],
+				0, 3
+			],
+			[	0x12,
+				["×", "⋅", "x", "*", "х"],
+				0, 3
+			],
+			[	0x13,
+				["÷", "/", ":"],
+				0, 3
+			],
+			[	0x20,
+				["Fπ", "пи", "π", "Fпи"],
+				0, 0
+			],
+			[	0x26,
+				["KМ→Г", "М→Г", "КМ→Г", "KМГ", "МГ", "КМГ"],
+				0, 3
+			],
+			[	0x21,
+				["F√", "КвКор", "квкор", "корень", "√", "FКвКор", "Fквкор", "Fкорень"],
+				0, 3
+			],
+			[	0x22,
+				["Fx²", "x^2", "x2", "x²", "Fx^2", "Fx2"],
+				0, 3
+			],
+			[	0x23,
+				["F1/x", "1/x"],
+				0, 3
+			],
+			[	0x14,
+				["<->", "↔", "XY", "X↔Y", "⟷"],
+				0, 1
+			],
+			[	0x0E,
+				["В↑", "^", "В^", "↑"],
+				0, 1
+			],
+			[	0x3E,
+				["x←y"],
+				0, 1
+			],
+			[	0x24,
+				["Fxʸ", "xʸ", "Fx^y", "x^y", "xy", "Fxy"],
+				0, 3
+			],
+			[	0x27,
+				["K-", "К-"],
+				0, 0
+			],
+			[	0x28,
+				["K×", "К×", "Kx", "Кх", "K*", "К*"],
+				0, 0
+			],
+			[	0x29,
+				["K÷", "K/", "К/", "K:", "К:", "К÷"],
+				0, 0
+			],
+			[	0x2A,
+				["KМ→Ч", "М→Ч", "КМ→Ч", "KМ→Ч", "М→Ч", "КМ→Ч"],
+				0, 3
+			],
+			[	0x0F,
+				["FВх", "FBx", "Вх", "Bx", "FВx", "FBх", "Bх", "Вx"],
+				0, 1
+			],
+			[	0x3B,
+				["KСЧ", "СЧ", "КСЧ"],
+				0, 0
+			],
+			[	0x0A,
+				[".", ","],
+				0, 0
+			],
+			[	0x0B,
+				["/-/", "+/-"],
+				0, 0
+			],
+			[	0x0C,
+				["ВП", "вп"],
+				0, 0
+			],
+			[	0x0D,
+				["Cx", "Cх", "Сx", "Сх"],
+				0, 1
+			],
+			[	0x25,
+				["Fѻ", "ѻ", "F↻", "->", "↻", "→", "F->", "F→"],
+				0, 1
+			],
+			[	0x37,
+				["KɅ", "КɅ", "K^", "K⋀", "K∧", "∧", "К∧", "К/\\", "K/\\", "/\\", "⋀", "К⋀", "К^"],
+				0, 3
+			],
+			[	0x38,
+				["KV", "Kv", "K⋁", "K∨", "∨", "К∨", "К\\/", "K\\/", "\\/", "⋁", "К⋁", "Кv", "КV"],
+				0, 3
+			],
+			[	0x39,
+				["K(+)", "K⊕", "(+)", "⊕", "К(+)", "К⊕"],
+				0, 3
+			],
+			[	0x3A,
+				["Kинв", "KИНВ", "ИНВ", "КИНВ"],
+				0, 3
+			],
+			[	0x52,
+				["В/О", "В/0"],
+				0, 4
+			],
+			[	0x50,
+				["С/П", "с/п"],
+				0, 4
+			],
+			[	0x59,
+				["Fx≥0", "x>=0", "x≥0", "x≥0", "x⩾0", "Fx>=0", "Fx≥0", "Fx⩾0"],
+				2, 4
+			],
+			[	0x57,
+				["Fx≠0", "x#0", "x!=0", "x<>0", "x≠0", "Fx#0", "Fx!=0", "Fx<>0"],
+				2, 4
+			],
+			[	0x51,
+				["БП", "бп"],
+				2, 4
+			],
+			[	0x53,
+				["ПП", "пп"],
+				2, 4
+			],
+			[	0x58,
+				["FL2", "L2"],
+				2, 4
+			],
+			[	0x5A,
+				["FL3", "L3"],
+				2, 4
+			],
+			[	0x5C,
+				["Fx<0", "x<0"],
+				2, 4
+			],
+			[	0x5E,
+				["Fx=0", "x=0"],
+				2, 4
+			],
+			[	0x5D,
+				["FL0", "L0"],
+				2, 4
+			],
+			[	0x5B,
+				["FL1", "L1"],
+				2, 4
+			],
+			[	0x40,
+				["xП", "x→П", "X→П", "XП", "П"],
+				1, 2
+			],
+			[	0x60,
+				["Пx", "П→x", "ИП", "П→X", "ИП", "ПX"],
+				1, 2
+			],
+			[	0x70,
+				["Kx≠0", "Kx#0", "Кx#0", "Kx!=0", "Кx!=0", "Kx<>0", "Кx<>0", "Кx≠0"],
+				1, 4
+			],
+			[	0x80,
+				["KБП", "КБП", "Kбп", "Кбп"],
+				1, 4
+			],
+			[	0x90,
+				["Kx≥0", "Kx⩾0", "Kx>=0", "Кx>=0", "Кx≥0", "Кx⩾0"],
+				1, 4
+			],
+			[	0xA0,
+				["KПП", "КПП", "Kпп", "Кпп"],
+				1, 4
+			],
+			[	0xB0,
+				["KxП", "KП", "КП", "KXП", "КXП", "Kx→П", "KX→П", "КX→П", "Kx→П", "Кx→П"],
+				1, 2
+			],
+			[	0xC0,
+				["Kx<0", "Кx<0"],
+				1, 4
+			],
+			[	0xD0,
+				["KПx", "KИП", "КИП", "KПX", "КПX", "KП→x", "KП→X", "КП→X"],
+				1, 2
+			],
+			[	0xE0,
+				["Kx=0", "Кx=0"],
+				1, 4
+			]
+		];
+
+		function Адрес_команды(номер, перестановка) {
+			const целчасть = номер / 7 | 0;
+			const остаток = номер % 7;
+        	if (остаток == 0) 
+				return Адреса_страниц_памяти[Перестановки_адресов_страниц_памяти[перестановка][целчасть]];
+        	else 
+				return [Адреса_страниц_памяти[Перестановки_адресов_страниц_памяти[перестановка][целчасть]][0], Адреса_страниц_памяти[Перестановки_адресов_страниц_памяти[перестановка][целчасть]][1] 
+					- 42 + остаток * 6];
+		}
+
+		function Ввести_код() {
+			if (Исполнение === false) Шаг();
+			else clearInterval(Исполнение);
+
+			const Записать_в_память = (номер, код) => {
+				const ст = код / 16 | 0;
+				const мл = код % 16;
+				const адрес = Адрес_команды(номер, ИР2_1.такт / 84);
+				switch (адрес[0]) {
+					case 1: ИР2_1.M[адрес[1]] = ст; ИР2_1.M[адрес[1]-3] = мл; break;
+					case 2: ИР2_2.M[адрес[1]] = ст; ИР2_2.M[адрес[1]-3] = мл; break;
+					case 3: ИК1302.M[адрес[1]] = ст; ИК1302.M[адрес[1]-3] = мл; break;
+					case 4: ИК1303.M[адрес[1]] = ст; ИК1303.M[адрес[1]-3] = мл; break;
+					case 5: ИК1306.M[адрес[1]] = ст; ИК1306.M[адрес[1]-3] = мл; break;
+				}
+			}
+
+			const Номер_регистра = (номер) => {
+				switch (номер) {
+					case "А": return 10; 
+					case "В": return 11; 
+					case "С": return 12; 
+					case "Д": return 13; 
+					case "Е": return 14;
+					default: return parseInt(номер, 16);
+				}
+			}
+
+			const Добавить_команду = (команда, номер) => {
+				if (команда == "") return;
+				if ( (!isNaN(parseInt(команда[0], 10)) || (команда[0] == "A") || (команда[0] == "-") || (команда[0] == ".")) && (!isNaN(parseInt(команда[1], 10)) && (команда[2] == ".")) ) {
+					if ((команда[0] == "A") || (команда[0] == "-") || (команда[0] == ".")) {
+						if (parseInt(команда[1], 10) < 5) номер = 100 + parseInt(команда[1], 10);
+					}
+					else
+						номер = parseInt(команда.slice(0, 2), 10);
+					команда = команда.slice(3);
+				}
+				let индекс = -1;
+				for (let сч = 0; сч < Мнемоники_команд.length; сч++) {
+					индекс = Мнемоники_команд[сч][1].indexOf((Мнемоники_команд[сч][2] == 1) ? команда.slice(0, -1) : команда);
+					if (индекс != -1) {
+						if (Мнемоники_команд[сч][2] == 1)
+							Записать_в_память(номер, Мнемоники_команд[сч][0] + Номер_регистра(команда.slice(-1)));
+						else
+							Записать_в_память(номер, Мнемоники_команд[сч][0]);
+						break;
+					}
+				}
+				if (индекс == -1)
+					Записать_в_память(номер, parseInt(команда.replace(/(\-|\.)/g, "A"), 16));
+			}
+
+			document.getElementById("Код").innerHTML = document.getElementById("Код").innerHTML.replace(/(<)(br|div|p)/g, " <$2");
+			const команды = document.getElementById("Код").textContent.replace(/^\s+|\s+$/g, "").split(/\s+/).slice(0, 105);
+			for (let сч = 0; сч < команды.length; сч++) Добавить_команду(команды[сч], сч);
+			if (Исполнение !== false)
+				for (let сч = команды.length; сч < 105; сч++)
+					Записать_в_память(сч, 0);
+			else {
+				Элемент_по_названию("ВКЛ").style.left = "63px";
+			}
+			Исполнение = setInterval(Шаг, 300);
+		}
+
+		function Прочитать_код() {
+			if (Исполнение === false) {
+				document.getElementById("Код").innerHTML = "<br />";
+				return;
+			}
+			clearInterval(Исполнение);
+			document.getElementById("Код").innerHTML = "";
+			const команды = [];
+			let адрес, код, команда_с_адресом = false;
+			let сч, сч_к, доп_сч;
+			const группы_команд = [];
+			for (сч = 0; сч < 105; сч++) {
+				адрес = Адрес_команды(сч, ИР2_1.такт / 84);
+				switch (адрес[0]) {
+					case 1: код = ИР2_1.M[адрес[1]] * 16 + ИР2_1.M[адрес[1]-3]; break;
+					case 2: код = ИР2_2.M[адрес[1]] * 16 + ИР2_2.M[адрес[1]-3]; break;
+					case 3: код = ИК1302.M[адрес[1]] * 16 + ИК1302.M[адрес[1]-3]; break;
+					case 4: код = ИК1303.M[адрес[1]] * 16 + ИК1303.M[адрес[1]-3]; break;
+					case 5: код = ИК1306.M[адрес[1]] * 16 + ИК1306.M[адрес[1]-3]; break;
+				}
+				команды[сч] = "";
+				if (команда_с_адресом) {
+					if ((код >= 0xA0) && (код < 0xA5) && !document.getElementById("Числовые_значения").checked)
+						команды[сч] += "." + (код % 0xA0).toString(16).toUpperCase();
+					else {
+						if (код < 10) команды[сч] += "0";
+						команды[сч] += код.toString(16).toUpperCase();
+						группы_команд[сч] = "адр";
+					}
+					команда_с_адресом = false;
+				}
+				else {
+					for (сч_к = 0; сч_к < Мнемоники_команд.length; сч_к++) {
+						if (Мнемоники_команд[сч_к][2] == 1) {
+							if ((((код / 0x10) | 0) == Мнемоники_команд[сч_к][0] / 0x10) && (код % 0x10 < 0xF)) {
+								if (document.getElementById("Числовые_значения").checked)
+									команды[сч] += (код / 0x10 | 0).toString(16).toUpperCase() + (код % 0x10).toString(16).toUpperCase();
+								else
+									команды[сч] += Мнемоники_команд[сч_к][1][0] + (код % 0x10).toString(16).toUpperCase();
+								break;
+							}
+						}
+						else {
+							if (код == Мнемоники_команд[сч_к][0]) {
+								if (document.getElementById("Числовые_значения").checked)
+									команды[сч] += (код / 0x10 | 0).toString(16).toUpperCase() + (код % 0x10).toString(16).toUpperCase();
+								else
+									команды[сч] += Мнемоники_команд[сч_к][1][0];
+								break;
+							}
+						}
+					}
+					if (сч_к == Мнемоники_команд.length) {
+						if (document.getElementById("Числовые_значения").checked)
+							команды[сч] += (код / 0x10 | 0).toString(16).toUpperCase() + (код % 0x10).toString(16).toUpperCase();
+						else
+							команды[сч] += код.toString(16).toUpperCase();
+						команда_с_адресом = false;
+						группы_команд[сч] = 0;
+					}
+					else {
+						команда_с_адресом = (Мнемоники_команд[сч_к][2] == 2);
+						группы_команд[сч] = Мнемоники_команд[сч_к][3];
+					}
+				}
+			}
+			const ширины_столбцов = new Array(10).fill(1);
+			for (доп_сч = 0; доп_сч < 10; доп_сч++)
+				for (сч = 0; сч < 10; сч++)
+					if (команды[доп_сч * 10 + сч].length > ширины_столбцов[сч])
+						ширины_столбцов[сч] = команды[доп_сч * 10 + сч].length;
+			for (сч = 0; сч < 5; сч++)
+				if (команды[100 + сч].length > ширины_столбцов[сч])
+					ширины_столбцов[сч] = команды[100 + сч].length;
+			for (сч = 0; сч < 105; сч++) {
+				if (document.getElementById("Подсветка").checked) {
+					if (!document.getElementById("Простой_код").checked)
+						document.getElementById("Код").innerHTML +=
+							'<span class="подсв_ном">' + (сч < 100 ? (сч < 10 ? "0" + сч : сч) : "A" + (сч % 10)) + ".</span>";
+  				    document.getElementById("Код").innerHTML += '<span class="подсв_' + группы_команд[сч] + '">' + команды[сч] + "</span>";
+				}
+				else {
+					if (!document.getElementById("Простой_код").checked)
+						document.getElementById("Код").innerHTML += (сч < 100 ? (сч < 10 ? "0" + сч : сч) : "A" + (сч % 10)) + ".";
+					document.getElementById("Код").innerHTML += команды[сч];
+				}
+				if (сч % 10 == 9)
+					document.getElementById("Код").innerHTML += "\n<br />";
+				else
+					for (доп_сч = 0; доп_сч <= ширины_столбцов[сч % 10] - команды[сч].length; доп_сч++)
+						document.getElementById("Код").innerHTML += "&nbsp;";
+			}
+			if (!Пауза) Исполнение = setInterval(Шаг, 300);
+		}
+
+		function Прочитать_состояние() {
+			if (Исполнение !== false) {
+				clearInterval(Исполнение);
+				const микросхемы = [ИР2_1, ИР2_2, ИК1302, ИК1303, ИК1306];
+				let состояние = Мера_угла.toString(16);
+				for (let сч = 0; сч < 2; сч++) {
+					микросхемы[сч].M.forEach(зн => состояние += зн.toString(16));
+					состояние += микросхемы[сч].вход.toString(16);
+					состояние += микросхемы[сч].выход.toString(16);
+					состояние += микросхемы[сч].такт.toString(16).padStart(2, "0");
+				}
+				for (let сч = 2; сч < 5; сч++) {
+					микросхемы[сч].M.forEach(зн => состояние += зн.toString(16));
+					микросхемы[сч].R.forEach(зн => состояние += зн.toString(16));
+					микросхемы[сч].ST.forEach(зн => состояние += зн.toString(16));
+					состояние += микросхемы[сч].S.toString(16);
+					состояние += микросхемы[сч].S1.toString(16);
+					состояние += микросхемы[сч].L.toString(16);
+					состояние += микросхемы[сч].T.toString(16);
+					состояние += микросхемы[сч].П.toString(16);
+					состояние += микросхемы[сч].такт.toString(16).padStart(2, "0");
+					let ком = микросхемы[сч].команда.toString(16), дл = 7 - ком.length;
+					while (дл > 0) { состояние += "0"; дл--; }
+					состояние += ком;
+					состояние += микросхемы[сч].АСП.toString(16).padStart(2, "0");
+					состояние += микросхемы[сч].вход.toString(16);
+					состояние += микросхемы[сч].выход.toString(16);
+					состояние += микросхемы[сч].клав_x.toString(16);
+					состояние += микросхемы[сч].клав_y.toString(16);
+					состояние += микросхемы[сч].запятая.toString(16);
+					микросхемы[сч].индик_зпт.forEach(зн => состояние += (зн ? "1" : "0"));
+					состояние += микросхемы[сч].обн_индик ? "1" : "0";
+				}
+				const Русский_алфавит = "АБВГҐДЕЄЁЖЗИІЇЙКЛМНОПРСТУЎФХЦЧШЩЪЫЬЭЮЯ";
+				let вывод = "", сч_1 = 0;
+				while (сч_1 < состояние.length) {
+					let сч_2 = 0;
+					while ((сч_1 < состояние.length) && (состояние[сч_1] == "0")) { сч_2++; сч_1++; }
+					if (сч_2 > 0)
+						while (сч_2 != 0) {
+							вывод += Русский_алфавит[сч_2 % Русский_алфавит.length];
+							сч_2 = сч_2 / Русский_алфавит.length | 0;
+						}
+					else {
+						вывод += состояние[сч_1];
+						сч_1++;
+					}
+				}
+				let окно = window.open("", "Состояние", "width=400px, height=150px");
+				окно.document.body.innerHTML = '<div style="margin: auto;"><textarea style="width: 350px; height: 125px;">' + вывод + "</textarea></div>";
+				if (!Пауза) Исполнение = setInterval(Шаг, 300);
+			}
+		}
+
+		function Ввести_состояние() {
+			const Русский_алфавит = "АБВГҐДЕЄЁЖЗИІЇЙКЛМНОПРСТУЎФХЦЧШЩЪЫЬЭЮЯ";
+			let ввод = prompt("Введите сохранённое состояние:"), состояние = "";
+			let сч_1 = 0, сч_2;
+			while (сч_1 < ввод.length) {
+				let число = "", количество_нулей = 0;
+				while ((сч_1 < ввод.length) && (Русский_алфавит.indexOf(ввод[сч_1]) != -1)) { число += ввод[сч_1]; сч_1++; }
+				if (число.length > 0) {
+					for (сч_2 = 0; сч_2 < число.length; сч_2++)
+						количество_нулей += Русский_алфавит.indexOf(число[сч_2]) * Math.pow(Русский_алфавит.length, сч_2);
+					for (сч_2 = 0; сч_2 < количество_нулей; сч_2++)
+						состояние += "0";
+				}
+				else {
+					состояние += ввод[сч_1];
+					сч_1++;
+				}
+			}
+			Выключить();
+			const микросхемы = [ИР2_1, ИР2_2, ИК1302, ИК1303, ИК1306];
+			Мера_угла = parseInt(состояние[0], 16);
+			Элемент_по_названию("Р_ГРД_Г").style.left = (Мера_угла == 10 ? "181px" : Мера_угла == 11 ? "198px" : "190px");
+			for (сч_1 = 0; сч_1 < 2; сч_1++) {
+				for (сч_2 = 0; сч_2 < 252; сч_2++)
+					микросхемы[сч_1].M[сч_2] = parseInt(состояние[сч_2 + 1 + 256 * сч_1], 16);
+				микросхемы[сч_1].вход = parseInt(состояние[253 + 256 * сч_1], 16);
+				микросхемы[сч_1].выход = parseInt(состояние[254 + 256 * сч_1], 16);
+				микросхемы[сч_1].такт = parseInt(состояние.substr(255 + 256 * сч_1, 2), 16);
+			}
+			for (сч_1 = 2; сч_1 < 5; сч_1++) {
+				for (сч_2 = 0; сч_2 < 42; сч_2++)
+					микросхемы[сч_1].M[сч_2] = parseInt(состояние[сч_2 + 189 + 162 * сч_1], 16);
+				for (сч_2 = 0; сч_2 < 42; сч_2++)
+					микросхемы[сч_1].R[сч_2] = parseInt(состояние[сч_2 + 231 + 162 * сч_1], 16);
+				for (сч_2 = 0; сч_2 < 42; сч_2++)
+					микросхемы[сч_1].ST[сч_2] = parseInt(состояние[сч_2 + 273 + 162 * сч_1], 16);
+				микросхемы[сч_1].S = parseInt(состояние[315 + 162 * сч_1], 16);
+				микросхемы[сч_1].S1 = parseInt(состояние[316 + 162 * сч_1], 16);
+				микросхемы[сч_1].L = parseInt(состояние[317 + 162 * сч_1], 16);
+				микросхемы[сч_1].T = parseInt(состояние[318 + 162 * сч_1], 16);
+				микросхемы[сч_1].П = parseInt(состояние[319 + 162 * сч_1], 16);
+				микросхемы[сч_1].такт = parseInt(состояние.substr(320 + 162 * сч_1, 2), 16);
+				микросхемы[сч_1].команда = parseInt(состояние.substr(322 + 162 * сч_1, 7), 16);
+				микросхемы[сч_1].АСП = parseInt(состояние.substr(328 + 162 * сч_1, 2), 16);
+				микросхемы[сч_1].вход = parseInt(состояние[331 + 162 * сч_1], 16);
+				микросхемы[сч_1].выход = parseInt(состояние[332 + 162 * сч_1], 16);
+				микросхемы[сч_1].клав_x = parseInt(состояние[333 + 162 * сч_1], 16);
+				микросхемы[сч_1].клав_y = parseInt(состояние[334 + 162 * сч_1], 16);
+				микросхемы[сч_1].запятая = parseInt(состояние[335 + 162 * сч_1], 16);
+				for (сч_2 = 0; сч_2 < 14; сч_2++)
+					микросхемы[сч_1].индик_зпт[сч_2] = parseInt(состояние[сч_2 + 336 + 162 * сч_1]);
+				микросхемы[сч_1].обн_индик = parseInt(состояние[350 + 162 * сч_1]) == 1;
+			}
+			Элемент_по_названию("ВКЛ").style.left = "63px";
+			Исполнение = setInterval(Шаг, 300);
+			Шаг();
+		}
+
+		let ввод_кода = false;
+		document.getElementById("Код").addEventListener("focus", событие => ввод_кода = true);
+		document.getElementById("Код").addEventListener("blur", событие => ввод_кода = false);
+
+		document.body.addEventListener("keydown", событие => {
+			if (!ввод_кода) {
+				const e = событие || window.event;
+				Нажатие_клавиши(e.charCode && e.keyCode == 0 ? e.charCode : e.keyCode);
+			}
+		});
+
+		/****************************************************************************************************/
+
+		function Включить_выключить() {
+			if (Исполнение === false) {
+				Элемент_по_названию("ВКЛ").style.left = "63px";
+				Включить();
+			}
+			else {
+				Элемент_по_названию("ВКЛ").style.left = "51px";
+				for (let сч = 0; сч < 12; сч++) {
+					Элемент_по_названию("Знакоместо_" + сч).src = Цифры[15];
+					Элемент_по_названию("Запятая_" + сч).src = Картинка_Нету_запятой;
+				}
+				Выключить();
+			}
+		}
+
+		function Изменить_меру_угла(мера) {
+			switch (мера) {
+				case "Р": Элемент_по_названию("Р_ГРД_Г").style.left = "181px"; Мера_угла = 10; break;
+				case "ГРД": Элемент_по_названию("Р_ГРД_Г").style.left = "190px"; Мера_угла = 12; break;
+				case "Г": Элемент_по_названию("Р_ГРД_Г").style.left = "198px"; Мера_угла = 11; break;
+			}
+		}
+
+		/****************************************************************************************************/
+
+		let Код;
+		let сч = 0;
+
+		const Общая_таблица = document.getElementById("Общая_таблица");
+		const Элемент_по_названию = (название) => Общая_таблица.querySelector('#Общая_таблица *[data-название="' + название + '"]');
+
+		const Выбрать_калькулятор = () => {
+  		document.getElementById("Калькулятор").innerHTML = document.getElementById("_МК-61").innerHTML;
+			Выключить();
+			document.title = "Эмулятор МК-61";
+		}
+
+		window.addEventListener("load", () => Выбрать_калькулятор());
+		window.addEventListener("popstate", () => Выбрать_калькулятор());
+	</script>
+
+</body></html>
