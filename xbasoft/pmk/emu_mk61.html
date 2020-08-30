@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+4<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -327,7 +327,7 @@
                             <tr><td>1:</td><td><input type="text" id="Р1" readonly="readonly"></td></tr>
                             <tr><td>2:</td><td><input type="text" id="Р2" readonly="readonly"></td></tr>
                             <tr><td>3:</td><td><input type="text" id="Р3" readonly="readonly"></td></tr>
-                            <tr><td>&nbsp;</td></tr>
+                            <tr><td colspan=2>&nbsp;</td></tr>
                             <tr><td>4:</td><td><input type="text" id="Р4" readonly="readonly"></td></tr>
                             <tr><td>5:</td><td><input type="text" id="Р5" readonly="readonly"></td></tr>
                             <tr><td>6:</td><td><input type="text" id="Р6" readonly="readonly"></td></tr>
@@ -354,8 +354,7 @@
                       <tr><td>Z:</td><td><input type="text" id="С_3" readonly="readonly"></td></tr>
                       <tr><td>Y:</td><td><input type="text" id="С_2" readonly="readonly"></td></tr>
                       <tr><td>X:</td><td><input type="text" id="С_1" readonly="readonly"></td></tr>
-                      <tr></tr>
-                      <tr></tr>
+                      <tr><td colspan=2></td></tr>
                       <tr><td>X1:</td><td><input type="text" id="С_0" readonly="readonly"></td></tr>
                     </table>
                   </td>
@@ -1394,7 +1393,7 @@
 				Элемент_по_названию("Запятая_" + сч).src = (Индик_зпт[сч] ? Картинка_Запятая : Картинка_Нету_запятой);
 			}
 		}
-
+		
 		function Прочитать_число(микросхема, адрес) {
 			let ссылка;
 			switch (микросхема) {
@@ -1411,9 +1410,13 @@
 			if (порядок > 900) {
 				порядок = - (1000 - порядок);
 			}
+			let ОбычныйПорядок = true; // Не вида 1.0^-0E
+			if ((цифра1 == 9) && (цифра2 == 9) && (цифра3 > 9)) {
+				ОбычныйПорядок = false;
+			}
 			let сч = 0;
 			while (ссылка[адрес - 33 + сч * 3] == 0) {
-				if (порядок == 7 - сч || сч == 7) {
+				if (((порядок == 7 - сч) && ОбычныйПорядок) || (сч == 7)) {
 					break;
 				}
 				сч++;
@@ -1431,7 +1434,7 @@
 			let зпт = false;
 			for (сч = 0; сч < цифры.length; сч++) {
 				мантисса += Символы_разрядов[цифры[сч]];
-				if ((сч == 0 && (порядок < 0 || порядок > 7)) || сч == порядок) {
+				if ((сч == 0 && (порядок < 0 || порядок > 7 || !ОбычныйПорядок)) || (сч == порядок && ОбычныйПорядок)) {
 					мантисса += "."; 
 					зпт = true;
 				}
@@ -1440,7 +1443,7 @@
 				мантисса += ".";
 			}
 			let результат = мантисса;
-			if (порядок < 0 || порядок > 7) {
+			if (порядок < 0 || порядок > 7 || !ОбычныйПорядок) {
 				for (сч = 0; сч < 10-мантисса.length; сч++) {
 					результат += " ";
 				}
@@ -1503,17 +1506,7 @@
 				[ 5, 0, 1, 2, 3 ]
 			],
 			Адреса_возвратов = [28, 22, 16, 10, 4],
-			Адрес_счётчика_команд = 34,
-			Перестановки_адресов_страниц_памяти_ = [
-				[ 1, 2, 3, 4, 5, 13, 12, 6, 7, 8, 9, 10, 11, 0 ],
-				[ 3, 4, 5, 0, 1, 13, 12, 8, 9, 10, 11, 6, 7, 2 ],
-				[ 5, 0, 1, 2, 3, 13, 12, 10, 11, 6, 7, 8, 9, 4 ]
-			],
-			Перестановки_адресов_стека_ = [
-				[ 8, 9, 10, 11, 0 ],
-				[ 10, 11, 6, 7, 2 ],
-				[ 6, 7, 8, 9, 4 ]
-			];
+			Адрес_счётчика_команд = 34;
 
 		function Заполнить_поля(перестановка) {
 			for (let сч = 0; сч < 15; сч++) {
@@ -1710,7 +1703,7 @@
 				0, 3
 			],
 			[	0x19,
-				["Fsinᐨ¹", "FSINᐨ¹", "SINᐨ¹", "FSIN-1", "FARCSIN", "ARCSIN", "SIN-1"],
+				["Fsinᐨ¹", "FSINᐨ¹", "SINᐨ¹", "FSIN⁻¹", "SIN⁻¹", "FSIN-1", "FARCSIN", "ARCSIN", "SIN-1"],
 				0, 3
 			],
 			[	0x31,
@@ -1718,7 +1711,7 @@
 				0, 3
 			],
 			[	0x1A,
-				["Fcosᐨ¹", "FCOSᐨ¹", "COSᐨ¹", "FCOS-1", "FARCCOS", "ARCCOS", "COS-1"],
+				["Fcosᐨ¹", "FCOSᐨ¹", "COSᐨ¹", "FCOS⁻¹", "COS⁻¹", "FCOS-1", "FARCCOS", "ARCCOS", "COS-1"],
 				0, 3
 			],
 			[	0x32,
@@ -1726,7 +1719,7 @@
 				0, 3
 			],
 			[	0x1B,
-				["Ftgᐨ¹", "FTGᐨ¹", "TGᐨ¹", "FTG-1", "FARCTG", "ARCTG", "TG-1"],
+				["Ftgᐨ¹", "FTGᐨ¹", "TGᐨ¹", "FTG⁻¹", "TG⁻¹", "FTG-1", "FARCTG", "ARCTG", "TG-1"],
 				0, 3
 			],
 			[	0x33,
