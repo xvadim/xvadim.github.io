@@ -1,44 +1,157 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>μBarometer Faq</title>
-    </head>
-    <body>
-        <p>Q: <b>Why does μBarometer not collect data?</b></p>
-        <p>A: There are several reasons:
-            <ul>
-                <li>Doze mode - μBarometer can't collect data when a device is in Doze mode</li>
-                <li>Some kind of task killers/battery savers can kill μBarometer. Exclude μBarometer from the list of
-                killed apps</li>
-                <li>Some tools like Zapper Task Killer, Clean Master, Greenify or any Antivirus software can kill
-                    μBarometer</li>
-            </ul>
-        </p>
-        <hr>
+<html lang="en">
 
-        <p>Q: <b>Why is μBarometer show a notification?</b></p>
-        <p>A: Beginning with Android 8.0 (Oreo), Google changed the way you’re notified 
-            about apps running in the background on your phone. An application which runs background processes should
-            sent a notification to users.
-            μBarometer runs a such process for tracking air pressure data.
-        <p/>
-        <p>Q: <b>Can I turn off the notification?</b></p>
-        <p>A: You cann't turn off the notification, but can hide it:
-            <ol>
-                <li>Press and hold on the notification.</li>
-                <li>Turn the notification off. </li>
-                <li>Tap <b>Done</b>.</li>
-            </ol>
-            The μBarometer app continues to run the tracking process but won't send the notification. 
-        </p>
-        <p>
-            If you hide the μBarometer notification, you’ll receive a different notification from the Android 
-            letting you know the μBarometer app is using battery resources. All apps that run in the background 
-            affect your phone’s battery life. You can hide this notification as well.
-        </p>
-        <hr>
-        <hr>
-        <div align="center"><a href="../index.html">XBASoft</a></div>
-    </body>
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90427694-2"></script>
+  <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-90427694-2');
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>μBarometer :: Simple, useful and nice barometer</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="device-mockups/device-mockups.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/new-age.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <section class="features" id="faq">
+      <hr>
+    <div class="container">
+      <div class="section-heading text-center">
+        <h2>μBarometer :: FAQ</h2>
+      </div>
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Why does μBarometer not collect data?</h3>
+                  <div align="left">
+                  <p>There are several reasons:
+                      <ul>
+                      <li>Doze mode - μBarometer can't collect data when a device is in Doze mode</li>
+                      <li>Some kind of task killers/battery savers can kill μBarometer. Exclude μBarometer from the list of
+                          killed apps</li>
+                      <li>Some tools like Zapper Task Killer, Clean Master, Greenify or any Antivirus software can kill
+                          μBarometer</li>
+                      </ul>
+                    It μBarometer stopped to collect data try to change the tracking interval or just turn off and turn
+                    on again tracking. Also you can put on the home screen any widget - it tries to restart logger if it
+                    needed.
+                  </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Why is μBarometer show a notification?</h3>
+                  <div align="left">
+                      <p>Beginning with Android 8.0 (Oreo), Google changed the way you’re notified 
+                          about apps running in the background on your phone. An application which runs background processes should
+                          sent a notification to users.
+                          μBarometer runs a such process for tracking air pressure data.
+                          <p/>
+                  </div>
+              </div>
+           </div>
+           <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Can I turn off the notification?</h3>
+                  <div align="left">
+                      <p>You cann't turn off the notification, but can hide it:
+                          <ol>
+                              <li>Press and hold on the notification.</li>
+                              <li>Turn the notification off. </li>
+                              <li>Tap <b>Done</b>.</li>
+                          </ol>
+                      </p>
+                      <p>The μBarometer app continues to run the tracking process but won't send the notification. 
+                      </p>
+                      <p>
+                          If you hide the μBarometer notification, you’ll receive a different notification from the Android 
+                          letting you know the μBarometer app is using battery resources. All apps that run in the background 
+                          affect your phone’s battery life. You can hide this notification as well.
+                      </p>
+                  </div>
+              </div>
+           </div>
+           <div class = "col-lg-6">
+               <div class = "feature-item">
+                   <h3> The pressure value in the program differs from that measured by the aneroid barometer. How do I
+                       set the correct value in the program? </h3>
+                   <div align = "left">
+                       <p> The physical sensor is calibrated at the factory and cannot be changed programmatically. 
+                           The µBarometer allows you to set a correction value for the reading. For this
+                           you need to go to <b> Advanced Settings/Pressure Calibration </b> and enter the value,
+                           which will be algebraically (i.e., taking into account the sign) added to the value obtained from
+                           the sensor.
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3>It is raining, but the needle shows the icon "Sunny". Why?</h3>
+                   <div align="left">
+                       <p>μBarometer measures only the current air pressure. Icons are displayed to improve the UI. 
+                           You can change their position or even turn off the display of icons in the settings.
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3>What is the red marker needle used for?</h3>
+                   <div align="left">
+                       <p>This needle allows you to "remember" the pressure value at some point in time 
+                           and compare it with the new value.
+                       </p>
+                   </div>
+               </div>
+           </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; XBASoft 2019. All Rights Reserved.</p>
+      <p><font size=-1><a href="https://startbootstrap.com/themes/new-age/">Bootstrap New Age theme</a></font></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/new-age.min.js"></script>
+
+</body>
+
 </html>
