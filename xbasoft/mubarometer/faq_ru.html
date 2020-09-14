@@ -1,43 +1,197 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>μBarometer ЧАВО</title>
-    </head>
-    <body>
-        <p>В: <b>μBarometer не записывает данные. Почему?</b></p>
-        <p>О: Это может быть объяснено несколькими причинами:
-            <ul>
-                <li>Doze-режим - μBarometer не может записывать данные если устройство находится в Doze-режиме</li>
-                <li>Некоторые виды таск киллеров или "сохранятелей" батареи могут принудительно останавливать
-                μBarometer. Удалите μBarometer из списка останавливаемых приложений</li>
-                <li>Некоторые утилиты типа Zapper Task Killer, Clean Master, Greenify или антивирусы также могут
-                принудительно завершать работу μBarometer</li>
-            </ul>
-        </p>
-        <hr>
-        <p> В: <b> Почему µBarometer показывает уведомление? </b> </p>
-        <p> О: Начиная с Android 8.0 (Oreo), Google изменил способ уведомления
+<html lang="en">
+
+<head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90427694-2"></script>
+  <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-90427694-2');
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>μБарометр :: Простой, красивый и полезный барометр</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+
+  <!-- Plugin CSS -->
+  <link rel="stylesheet" href="device-mockups/device-mockups.min.css">
+
+  <!-- Custom styles for this template -->
+  <link href="css/new-age.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <section class="features" id="faq">
+      <hr>
+    <div class="container">
+      <div class="section-heading text-center">
+          <h2>μБарометр :: <b>ЧА</b>сто задаваемые <b>ВО</b>просы</h2>
+
+            <!--<h2>ЧАВО</h2>-->
+      </div>
+      <div class="row">
+          <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>μBarometer не записывает данные. Почему?</h3>
+                  <div align="left">
+                       <p>Это может быть объяснено несколькими причинами:
+                           <ul>
+                               <li>Doze-режим - μBarometer не может записывать данные если устройство находится в Doze-режиме</li>
+                               <li>Некоторые виды таск киллеров или "сохранятелей" батареи могут принудительно останавливать
+                                   μBarometer. Удалите μBarometer из списка останавливаемых приложений</li>
+                               <li>Некоторые утилиты типа Zapper Task Killer, Clean Master, Greenify или антивирусы также могут
+                                   принудительно завершать работу μBarometer</li>
+                           </ul>
+                       </p>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3> Почему µBarometer показывает уведомление?</h3>
+                  <div align="left">
+                      <p> Начиная с Android 8.0 (Oreo), Google изменил способ уведомления
             о приложениях, работающих в фоновом режиме на вашем телефоне. Приложение, которое запускает фоновые 
             процессы, должно отправлять уведомление пользователям. µBarometer запускает такой процесс для отслеживания 
             данных о давлении воздуха.
-        <p/>
-        <p> В: <b> Могу ли я отключить уведомление? </b> </p>
-        <p> О: Вы не можете отключить уведомление, но можете скрыть его:
-        <ol>
-            <li> Нажмите и удерживайте уведомление. </li>
-            <li> Выключите уведомление. </li>
-            <li> Нажмите <b> Готово </b>. </li>
-        </ol>
-        μBarometer будет запускать процесс для трекинга данных, но не будет отправлять уведомление.
-        </p>
-        <p>
-Если вы скроете уведомление µBarometer, вы получите другое уведомление от Android
-сообщающее, что приложение µBarometer использует ресурсы батареи. Все приложения, которые работают в фоновом режиме
-влияют на время автономной работы телефона. Это уведомление также может быть скрыто .
-</p>
-<hr>
-<hr>
-        <div align="center"><a href="../index.html">XBASoft</a></div>
-    </body>
+            <p/>
+                  </div>
+              </div>
+           </div>
+           <div class="col-lg-6">
+              <div class="feature-item">
+                  <h3>Могу ли я отключить уведомление?</h3>
+                  <div align="left">
+                       <p>Вы не можете отключить уведомление, но можете скрыть его:
+                           <ol>
+                               <li> Нажмите и удерживайте уведомление. </li>
+                               <li> Выключите уведомление. </li>
+                               <li> Нажмите <b> Готово </b>. </li>
+                           </ol>
+                           μBarometer будет запускать процесс для трекинга данных, но не будет отправлять уведомление.
+                       </p>
+                       <p>
+                           Если вы скроете уведомление µBarometer, вы получите другое уведомление от Android
+                           сообщающее, что приложение µBarometer использует ресурсы батареи. Все приложения, 
+                           которые работают в фоновом режиме
+                           влияют на время автономной работы телефона. Это уведомление также может быть скрыто .
+                       </p>
+                  </div>
+              </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3>Значение давления в программе отличается от измеренного барометром-анероидом. Как настроить правильность показаний в программе?</h3>
+                   <div align="left">
+                       <p>Калибровка физического сенсора производится на заводе в момент изготовления и програмно её
+                           изменить нельзя. µBarometer позволяет задать поправочное значение для показаний. Для этого
+                           необходимо зайти в <b>Расширенные настройки/Калибровка давления</b> и ввести значение,
+                           которое будет алгебраически (т.е. с учётом знака) прибавляться к значению полученному от
+                           сенсора.
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3>Идёт дождь, а стрелка барометра показывает на иконку "Солнечно". Почему?</h3>
+                   <div align="left">
+                       <p>μBarometer измеряет лишь текущее давление. Иконки отображаются для улучшения UI. Вы можете
+                           изменить их положение или даже отключить отображение иконок в настройках.
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3>Для чего используется красная стрекла-маркер?</h3>
+                   <div align="left">
+                       <p>Эта стрелка позволяет "запомнить" значение давления в какой-то момент времени и 
+                           сравнивать его с новым значением.
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3>Как определить высоту дома (горы, объекта) или разность абсолютных высот двух точек?</h3>
+                   <div align="left">
+                       <p>Существует <a href="https://elims.org.ua/pritchi/pritcha-barometr-i-bashnya/">множество</a>
+                           способов измерить высоту башни с помощью барометра.</p>
+                       <p>При использовании µBarometer необходимо сделать следующее:
+                           <ol>
+                               <li>В начальной точке подъёма(спуска) перевести текстовый индикатор в режим альтиметра, нажимая на иконку слева (должна
+                                   отображаться иконка линейки)</li>
+                               <li>Перевести альтиметр в режим относительных измерений, нажав на надпись "Абс." - она
+                                   должна смениться на "Отн."</li>
+                               <li>В конечной точке подъёма(спуска) на индикаторе будет высота относительно начальной
+                                   точки</li>
+                           </ol>
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3>Какова точность измерения высоты?</h3>
+                   <div align="left">
+                       <p>В настоящее время высота вычисляется на основе текущего давления в данной точке и некоторого
+                           стандартного давления на уровне моря. Поэтому, во-первых, это значение довольно неточное и
+                           может служить лишь грубой оценкой высоты. А, во-вторых, может колебаться даже при неподвижном
+                           устройстве.
+                           <p>
+                       <p>В будущих версиях µBarometer планируется добавить поддержку GPS, что позволит увеличить
+                           точность альтиметра.
+                       </p>
+                   </div>
+               </div>
+           </div>
+           <div class="col-lg-6">
+               <div class="feature-item">
+                   <h3></h3>
+                   <div align="left">
+                       <p>
+                       </p>
+                   </div>
+               </div>
+           </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>&copy; XBASoft 2019. All Rights Reserved.</p>
+      <p><font size=-1><a href="https://startbootstrap.com/themes/new-age/">Bootstrap New Age theme</a></font></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/new-age.min.js"></script>
+
+</body>
+
 </html>
