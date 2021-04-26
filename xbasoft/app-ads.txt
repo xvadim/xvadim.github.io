@@ -1,2 +1,6 @@
 google.com, pub-5530463802314928, DIRECT, f08c47fec0942fa0
 rubiconproject.com, 22884, DIRECT, 0bfd66d529a55807
+adingo.jp, 24815, DIRECT
+pubmatic.com, 158060, RESELLER, 5d62403b186f2ace
+pubmatic.com, 157962, RESELLER, 5d62403b186f2ace
+pubmatic.com, 158853, RESELLER, 5d62403b186f2ace
