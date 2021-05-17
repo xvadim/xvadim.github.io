@@ -62,3 +62,6 @@ rubiconproject.com, 17346, DIRECT, 0bfd66d529a55807
 smaato.com, 1100041070, DIRECT, 07bcf65f187117b4 #TAM
 smaato.com, 1100004890, DIRECT, 07bcf65f187117b4
 smaato.com, 1100033996, DIRECT #EB
+
+# === Index Exchange
+indexexchange.com, 194895, DIRECT, 50b1c356f2c5c8fc
