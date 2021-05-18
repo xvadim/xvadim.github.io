@@ -65,3 +65,6 @@ smaato.com, 1100033996, DIRECT #EB
 
 # === Index Exchange
 indexexchange.com, 194895, DIRECT, 50b1c356f2c5c8fc
+
+# === Media.net
+media.net, 8CUZB6N57, DIRECT
