@@ -1,0 +1,59 @@
+{
+  "menuPage": {
+    "Title": "Five Fields Kono "
+  },
+  "gameOverDialog": {
+    "GameOver": "Game Over!",
+    "Menu": "Menu",
+    "New": "New",
+    "BlackWon": "Black won!",
+    "WhiteWon": "White won!",
+    "newRating": "Rating: {rating}({diff})",
+    "peerLeftGame": "Opponent left the game!"
+  },
+  "confirmDialog": {
+    "confirmExit": "Do you really want to quit the game and lose it?"
+  },
+  " AIPlayers": {
+    "AIBeginner": "AI Beginner",
+    "AIJunior": "AI Junior",
+    "AIMaster": "AI Master"
+  },
+  "playerNames": {
+    "You": "You",
+    "Friend": "Friend"
+  },
+  "playerInfo": {
+    "stat": "winnings: {wins}, losings: {loses}",
+    "rating": "Rating: {}"
+  },
+  "rules": {
+    "Rules": "Rules",
+    "rule1": "Five Field Kono(\uc624\ubc2d\uace0\ub204) is a Korean abstract strategy game.",
+    "rule2": "The goal of the game is to move all player's pieces into the starting locations of their opponent's pieces.",
+    "rule3": "The players take turns moving one of their pieces diagonally to empty adjacent points.",
+    "rule4": "The first player to move all of their pieces to their opponent's starting squares wins.",
+    "rule5": "If a player leaves a piece in his starting position to permanently block the other player, his opponent may win by occupying just the squares he has vacated."
+  },
+  "prefs": {
+    "Preferences": "Preferences",
+    "AIPreferences": "AI Preferences",
+    "AILevel": "AI Level",
+    "General": "General",
+    "Language": "Language",
+    "GameBoardPreferences": "Game Board Preferences",
+    "GameBoard": "Game Board",
+    "Board1": "Board #1",
+    "Board2": "Board #2"
+  },
+  "about": {
+    "KoreanGame": "Korean abstract game",
+    "privacy": "Privacy policy",
+    "more": "More..."
+  },
+  "online": {
+    "tapToLogin": "Tap to login/logout to/from online games",
+    "connectingError": "Connecting Error:",
+    "connectionIsAbsent": "An Internet connection is absent"
+  }
+}
