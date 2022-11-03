@@ -1,0 +1,59 @@
+{
+  "app": {
+    "title": "Lines of Words",
+    "icon": "assets/images/app_logo.png",
+    "iconSmall": "assets/images/app_logo_small.png"
+  },
+  "menu": {
+    "rules": "How to play",
+    "settings": "Settings",
+    "more": "More games...",
+    "statistic": "Statistic"
+  },
+  "about": {
+    "title": "About"
+  },
+  "gameOver": {
+    "title": "Game over!",
+    "score": "Score:",
+    "words": "Words:",
+    "time": "Game time:"
+  },
+  "settings": {
+    "General": "General",
+    "Language": "Language"
+  },
+  "error": {
+    "Title": "Error",
+    "wordShort": "Word too short: {word}",
+    "wordLong": "Word too long: {word}",
+    "wordWrong": "Wrong word : {word}"
+  },
+  "help": {
+    "rules": "Rules",
+    "goalTitle": "The goal of the game",
+    "goalDescr": "The goal of the game is to form words from letters that appear one by one",
+    "putLetterTitle": "Placement of letters",
+    "putLetterDescr": "To put a letter on the field, just tap on the desired empty cell",
+    "wordSelectionTitle": "Word's selection",
+    "wordSelectionDescr": "A word is formed by letters that are consecutively adjacent horizontally or vertically. Just highlight them letter by letter. As soon as you remove your finger from the screen, the word will be added to the list. Only nouns in the nominative singular are allowed",
+    "wordSelectionTitle2": "Words' selection",
+    "wordSelectionDescr2": "You can highlight several words. One letter can be part of several words",
+    "submitTitle": "Submitting words",
+    "submitDescr": "Click the button to send the selected words. After that, the cells will be cleaned",
+    "clearTitle": "Cleaning the cell",
+    "clearDescr": "Click the clear button and then any occupied cell to clear it. But be careful, the number of cleanses is limited. As a reward for sending words, you can get additional purifications",
+    "undoTitle": "Undo",
+    "undoDescr": "Press the undo button to undo the last letter setting. But be careful, the number of undos is limited. As a reward for sending words, you can get additional undos",
+    "gameOverTitle": "Game over",
+    "gameOverDescr": "The game ends when there are no free cells left",
+    "imagesPrefix": "intro_en"
+  },
+  "stat": {
+    "bestScore": "Best score:",
+    "bestWord": "Best word:",
+    "longestWord": "Longest word:",
+    "bestTime": "Best time:",
+    "totalTime": "Total time:"
+  }
+}
