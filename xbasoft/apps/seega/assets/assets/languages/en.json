@@ -1,0 +1,51 @@
+{
+  "app": {
+    "title": "Seega"
+  },
+  "rate": {
+    "title": "Rate this app",
+    "message": "If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn't take you more than one minute.",
+    "rate": "Rate",
+    "no": "No, thanks",
+    "later": "Maybe later"
+  },
+  "about": {
+    "more": "More...",
+    "privacy": "Privacy policy"
+  },
+  "prefs": {
+    "preferences": "Preferences",
+    "AIPreferences": "AI Preferences",
+    "AILevel": "AI Level",
+    "general": "General",
+    "language": "Language",
+    "sound": "Sound"
+  },
+  "gameOverDialog": {
+    "gameOver": "Game Over!",
+    "menu": "Menu",
+    "new": "New",
+    "blackWon": "Black won!",
+    "whiteWon": "White won!"
+  },
+  "game": {
+    "you": "You",
+    "friend": "Friend",
+    "AIBot": "Android"
+  },
+  "rules": {
+    "title": "Rules",
+    "boardTitle": "A board",
+    "boardDescr": "Seega is played on a board of 5 squares by 5, the central square of which is marked with a pattern. The board starts empty, and each player starts with 12 pieces of his own colour in hand.",
+    "placementTitle": "Placement",
+    "placementDescr": "Players take turns to place 2 pieces each anywhere on the board, except for the central square.",
+    "movingTitle": "Moving",
+    "movingDescr": "When all pieces are placed, the second player begins the movement phase. A piece may move one square in any horizontal or vertical direction. In this phase pieces may move onto the central square. If a player is unable to move, his opponent must take an extra turn and create an opening.",
+    "capturingTitle": "Capturing",
+    "capturingDescr": "If a player in his move traps an enemy piece between two of his own, the enemy is captured and removed from the board. Diagonal entrapment does not count here. After moving a piece to capture an enemy, the player may continue to move the same piece while it can make further captures. If, when moving a piece, two or three enemies become simultaneously trapped, then all these trapped enemies are captured and removed from the board.",
+    "safetyTitle": "Safety",
+    "safetyDescr": "It is permissible to move a piece between two enemies without its being harmed. One of the enemies must move away and back again to effect a capture. A piece on the central square is immune from capture, but may itself be used to capture enemy pieces.",
+    "gameOverTitle": "Game over",
+    "gameOverDescr": "The game is won by the player who has captured all his enemy's pieces."
+  }
+}
