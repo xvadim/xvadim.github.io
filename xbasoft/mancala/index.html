@@ -12,7 +12,51 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mancala: Kalah, Oware, Congkak - The Oldest Board Game</title>
+    <title>Mancala: Kalah, Oware, Congkak, Mangala - The Oldest Board Game</title>
+    <meta name="description" content="Play Mancala (Kalah, Oware, Congkak, Mangala) - the world's oldest strategy board game. Beautiful graphics, smooth gameplay, and online multiplayer.">
+    <meta name="keywords" content="Mancala, Kalah, Oware, Congkak, Mangala, Turkish Mangala, board game, strategy game, mobile game, online multiplayer">
+    <meta name="author" content="Vadym Khokhlov">
+    <link rel="canonical" href="https://xvadim.github.io/xbasoft/apps/mancala/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xvadim.github.io/xbasoft/apps/mancala/">
+    <meta property="og:title" content="Mancala: Kalah, Oware, Congkak, Mangala - The Oldest Board Game">
+    <meta property="og:description" content="Experience the timeless strategy of Mancala on your phone. Play Kalah, Oware, Congkak, or Turkish Mangala.">
+    <meta property="og:image" content="https://xvadim.github.io/xbasoft/apps/mancala/images/image4.webp">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://xvadim.github.io/xbasoft/apps/mancala/">
+    <meta property="twitter:title" content="Mancala: Kalah, Oware, Congkak, Mangala - The Oldest Board Game">
+    <meta property="twitter:description" content="Experience the timeless strategy of Mancala on your phone. Play Kalah, Oware, Congkak, or Turkish Mangala.">
+    <meta property="twitter:image" content="https://xvadim.github.io/xbasoft/apps/mancala/images/image4.webp">
+
+    <!-- Multi-language support -->
+    <link rel="alternate" hreflang="en" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=en" />
+    <link rel="alternate" hreflang="de" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=de" />
+    <link rel="alternate" hreflang="fr" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=fr" />
+    <link rel="alternate" hreflang="tr" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=tr" />
+    <link rel="alternate" hreflang="id" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=id" />
+    <link rel="alternate" hreflang="uk" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=uk" />
+    <link rel="alternate" hreflang="x-default" href="https://xvadim.github.io/xbasoft/apps/mancala/" />
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Mancala Games",
+      "operatingSystem": "Android, iOS",
+      "applicationCategory": "GameApplication",
+      "genre": "Strategy",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -434,7 +478,7 @@
     <h1 data-i18n="appTitle">Mancala Games</h1>
 </header>
 
-<div class="container">
+<main class="container">
     <section class="hero">
         <div class="hero-content">
             <h2 data-i18n="heroTitle">Play the oldest board game on your phone</h2>
@@ -544,7 +588,7 @@
             <div class="dot"></div>
         </div>
     </section>
-</div>
+</main>
 
 <footer>
     <p data-i18n="footerCopyright">&copy; 2026 XBASoft. All rights reserved.</p>
@@ -566,6 +610,9 @@
                 el.innerText = trans[key];
             }
         });
+
+        // Update HTML lang attribute
+        document.documentElement.lang = lang;
 
         // Update active button
         document.querySelectorAll('.lang-btn').forEach(btn => {
@@ -590,12 +637,23 @@
         }
     }
 
-    // Initialize from local storage or browser language
+    // Initialize from local storage, query parameter, or browser language
     window.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
         const savedLang = localStorage.getItem('preferredLang');
         const browserLang = navigator.language.split('-')[0];
         const supported = ['en', 'de', 'fr', 'tr', 'id', 'uk'];
-        const initialLang = savedLang || (supported.includes(browserLang) ? browserLang : 'en');
+        
+        let initialLang = 'en';
+        if (supported.includes(langParam)) {
+            initialLang = langParam;
+        } else if (savedLang && supported.includes(savedLang)) {
+            initialLang = savedLang;
+        } else if (supported.includes(browserLang)) {
+            initialLang = browserLang;
+        }
+        
         setLanguage(initialLang);
     });
 

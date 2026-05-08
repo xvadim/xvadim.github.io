@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://xvadim.github.io/xbasoft/apps/mancala/</loc>
+    <lastmod>2026-05-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=de"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=fr"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=tr"/>
+    <xhtml:link rel="alternate" hreflang="id" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=id"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://xvadim.github.io/xbasoft/apps/mancala/?lang=uk"/>
+  </url>
+</urlset>

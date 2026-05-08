@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xvadim.github.io/xbasoft/apps/mancala/sitemap.xml

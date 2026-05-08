@@ -2,7 +2,7 @@ window.translations = window.translations || {};
 window.translations.tr = {
     "appTitle": "Mangala Oyunları",
     "heroTitle": "Dünyanın en eski oyununu telefonunuzda oynayın",
-    "heroDesc": "Mancala'nın zamansız stratejisini deneyimleyin. Kalah, Oware veya Congkak olsun, bu klasik oyun şimdi güzel grafiklerle parmaklarınızın ucunda.",
+    "heroDesc": "Mancala'nın zamansız stratejisini deneyimleyin. Kalah, Oware, Congkak veya Türk Mangalası olsun, bu klasik oyun şimdi güzel grafiklerle parmaklarınızın ucunda.",
     "coreFeatures": "Temel Özellikler",
     "featVariantsTitle": "Çoklu Varyantlar",
     "featVariantsDesc": "Kalah, Oware, Congkak ve hatta Türk Mangalası oynayın.",

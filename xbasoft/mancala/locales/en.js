@@ -2,7 +2,7 @@ window.translations = window.translations || {};
 window.translations.en = {
     "appTitle": "Mancala Games",
     "heroTitle": "Play the oldest board game on your phone",
-    "heroDesc": "Experience the timeless strategy of Mancala. Whether you call it Kalah, Oware, or Congkak, this classic game is now available at your fingertips with beautiful graphics and smooth gameplay.",
+    "heroDesc": "Experience the timeless strategy of Mancala. Whether you call it Kalah, Oware, Congkak, or Mangala, this classic game is now available at your fingertips with beautiful graphics and smooth gameplay.",
     "coreFeatures": "Core Features",
     "featVariantsTitle": "Multiple Variants",
     "featVariantsDesc": "Play Kalah, Oware, Congkak, and even Turkish Mangala.",
