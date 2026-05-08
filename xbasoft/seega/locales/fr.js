@@ -1,0 +1,26 @@
+window.translations = window.translations || {};
+window.translations.fr = {
+    "appTitle": "Seega : Stratégie Antique",
+    "heroTitle": "Maîtrisez le jeu égyptien antique de Seega",
+    "heroDesc": "Découvrez le défi intemporel du Seega, un jeu de plateau égyptien antique qui allie la simplicité des dames à une stratégie tactique profonde. Maîtrisez l'art du positionnement et de la capture dans des matchs rapides.",
+    "coreFeatures": "Caractéristiques principales",
+    "featAncientTitle": "Héritage Antique",
+    "featAncientDesc": "Découvrez l'un des plus anciens jeux de plateau connus, originaire de l'Égypte antique.",
+    "featCaptureTitle": "Capture Unique",
+    "featCaptureDesc": "Piégez les pièces ennemies entre les vôtres pour vider le plateau. Simple à apprendre, difficile à maîtriser.",
+    "featModesTitle": "Jouez n'importe où",
+    "featModesDesc": "Défiez des niveaux de difficulté d'IA avancés ou affrontez des amis localement et en ligne.",
+    "featStrategyTitle": "Profondeur Stratégique",
+    "featStrategyDesc": "Récompensez la pensée tactique et la prévoyance dans cette expérience relaxante mais stimulante mentalement.",
+    "featQuickTitle": "Matchs Rapides",
+    "featQuickDesc": "Conçu pour des matchs rapides qui s'intègrent parfaitement à votre routine quotidienne.",
+    "aboutTitle": "À propos du jeu",
+    "aboutPara1": "Le Seega est un jeu de plateau égyptien antique, similaire aux dames et à l'Alquerque, pratiqué depuis des siècles. Contrairement à de nombreux autres jeux, le Seega ne commence pas avec des pièces sur le plateau ; au lieu de cela, les joueurs placent tour à tour leurs pièces dans une phase de déploiement stratégique.",
+    "aboutPara2": "Une fois que le plateau est presque plein, la phase de mouvement commence. Vous capturez les pièces de votre adversaire en les entourant sur deux côtés opposés. C'est un jeu de positionnement, de pièges et de manœuvres tactiques.",
+    "aboutPara3": "Notre version apporte ce trésor historique sur votre appareil mobile avec de superbes graphismes, des animations fluides et une communauté multijoueur mondiale. Parfait pour les amateurs de stratégie comme d'histoire.",
+    "screenshotsTitle": "Captures d'écran",
+    "footerCopyright": "© 2026 XBASoft. Tous droits réservés.",
+    "footerDev": "Développé par Vadym Khokhlov",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsConditions": "Conditions générales"
+};

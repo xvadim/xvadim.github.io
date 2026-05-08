@@ -1,0 +1,26 @@
+window.translations = window.translations || {};
+window.translations.en = {
+    "appTitle": "Seega: Ancient Strategy",
+    "heroTitle": "Master the Ancient Egyptian Game of Seega",
+    "heroDesc": "Experience the timeless challenge of Seega, an ancient Egyptian board game that blends the simplicity of checkers with deep tactical strategy. Master the art of positioning and capture in fast-paced matches.",
+    "coreFeatures": "Core Features",
+    "featAncientTitle": "Ancient Heritage",
+    "featAncientDesc": "Discover one of the oldest known board games, originating from ancient Egypt.",
+    "featCaptureTitle": "Unique Capture",
+    "featCaptureDesc": "Trap enemy pieces between your own to clear the board. Simple to learn, hard to master.",
+    "featModesTitle": "Play Anywhere",
+    "featModesDesc": "Challenge advanced AI difficulty levels or compete with friends locally and online.",
+    "featStrategyTitle": "Strategic Depth",
+    "featStrategyDesc": "Reward tactical thinking and foresight in this relaxing yet mentally stimulating experience.",
+    "featQuickTitle": "Quick Matches",
+    "featQuickDesc": "Designed for fast matches that fit perfectly into your daily routine.",
+    "aboutTitle": "About the Game",
+    "aboutPara1": "Seega is an ancient Egyptian board game, similar to checkers and Alquerque, that has been played for centuries. Unlike many other games, Seega doesn't start with pieces on the board; instead, players take turns placing their pieces in a strategic deployment phase.",
+    "aboutPara2": "Once the board is nearly full, the movement phase begins. You capture your opponent's pieces by surrounding them on two opposite sides. It's a game of positioning, traps, and tactical maneuvers.",
+    "aboutPara3": "Our version brings this historical treasure to your mobile device with beautiful graphics, smooth animations, and a global multiplayer community. Perfect for fans of strategy and history alike.",
+    "screenshotsTitle": "Screenshots",
+    "footerCopyright": "© 2026 XBASoft. All rights reserved.",
+    "footerDev": "Developed by Vadym Khokhlov",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions"
+};

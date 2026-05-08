@@ -1,0 +1,26 @@
+window.translations = window.translations || {};
+window.translations.de = {
+    "appTitle": "Seega: Antike Strategie",
+    "heroTitle": "Meistern Sie das altägyptische Spiel Seega",
+    "heroDesc": "Erleben Sie die zeitlose Herausforderung von Seega, einem altägyptischen Brettspiel, das die Einfachheit von Dame mit tiefer taktischer Strategie verbindet. Meistern Sie die Kunst der Positionierung und des Schlagens in rasanten Partien.",
+    "coreFeatures": "Hauptmerkmale",
+    "featAncientTitle": "Antikes Erbe",
+    "featAncientDesc": "Entdecken Sie eines der ältesten bekannten Brettspiele, das seinen Ursprung im alten Ägypten hat.",
+    "featCaptureTitle": "Einzigartiges Schlagen",
+    "featCaptureDesc": "Fangen Sie gegnerische Steine zwischen Ihren eigenen ein, um das Spielfeld zu räumen. Einfach zu lernen, schwer zu meistern.",
+    "featModesTitle": "Überall spielen",
+    "featModesDesc": "Fordern Sie fortgeschrittene KI-Schwierigkeitsstufen heraus oder messen Sie sich lokal und online mit Freunden.",
+    "featStrategyTitle": "Strategische Tiefe",
+    "featStrategyDesc": "Belohnen Sie taktisches Denken und Voraussicht in dieser entspannenden und zugleich geistig anregenden Erfahrung.",
+    "featQuickTitle": "Schnelle Partien",
+    "featQuickDesc": "Entwickelt für schnelle Partien, die perfekt in Ihren Alltag passen.",
+    "aboutTitle": "Über das Spiel",
+    "aboutPara1": "Seega ist ein altägyptisches Brettspiel, ähnlich wie Dame und Alquerque, das seit Jahrhunderten gespielt wird. Im Gegensatz zu vielen anderen Spielen beginnt Seega nicht mit Steinen auf dem Brett; stattdessen setzen die Spieler abwechselnd ihre Steine in einer strategischen Aufstellungsphase.",
+    "aboutPara2": "Sobald das Brett fast voll ist, beginnt die Bewegungsphase. Sie schlagen die Steine Ihres Gegners, indem Sie sie auf zwei gegenüberliegenden Seiten einschließen. Es ist ein Spiel der Positionierung, Fallen und taktischen Manöver.",
+    "aboutPara3": "Unsere Version bringt diesen historischen Schatz mit wunderschönen Grafiken, flüssigen Animationen und einer globalen Multiplayer-Community auf Ihr mobiles Gerät. Perfekt für Fans von Strategie und Geschichte gleichermaßen.",
+    "screenshotsTitle": "Screenshots",
+    "footerCopyright": "© 2026 XBASoft. Alle Rechte vorbehalten.",
+    "footerDev": "Entwickelt von Vadym Khokhlov",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsConditions": "Allgemeine Geschäftsbedingungen"
+};
