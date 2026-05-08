@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mancala: Kalah, Oware, Congkak - The Oldest Board Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #1a120e;
+            --surface-color: #271e1a;
+            --text-primary: #f0dfd8;
+            --text-secondary: #d7c2b9;
+            --accent-primary: #ffb693;
+            --accent-secondary: #d1c88f;
+            --on-accent: #542104;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'El Messiri', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+            position: relative;
+        }
+
+        .lang-switcher {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--surface-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'El Messiri', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .lang-btn:hover {
+            background: var(--surface-color);
+        }
+
+        .lang-btn.active {
+            background: var(--accent-primary);
+            color: var(--on-accent);
+            border-color: var(--accent-primary);
+        }
+
+        @media (max-width: 600px) {
+            .lang-switcher {
+                position: static;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+            padding: 4rem 0;
+        }
+
+        @media (min-width: 992px) {
+            .hero {
+                flex-direction: row;
+                text-align: left;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .hero-content {
+                flex: 1;
+                max-width: 600px;
+            }
+            .hero-media {
+                flex: 0 0 350px;
+            }
+        }
+
+        .hero h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            margin-bottom: 1.5rem;
+            color: var(--accent-secondary);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .store-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        @media (min-width: 992px) {
+            .store-links {
+                justify-content: flex-start;
+            }
+        }
+
+        .store-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            height: 40px; /* Base height for the App Store badge */
+        }
+
+        .store-badge img {
+            height: 100%;
+            width: auto;
+            display: block;
+        }
+
+        /* Google Play badge has extra padding in its source image */
+        .store-badge.google-play {
+            height: 60px; /* Increased height to make the actual button match */
+            margin: -10px 0; /* Compensate for the extra height to keep alignment */
+        }
+
+        .store-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 315px;
+            aspect-ratio: 9 / 16;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 4px solid var(--surface-color);
+            margin: 0 auto;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Features Section */
+        .features {
+            background-color: var(--surface-color);
+            padding: 5rem 0;
+            border-radius: 20px;
+            margin: 4rem 0;
+        }
+
+        .features h3 {
+            text-align: center;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            margin-bottom: 3rem;
+            color: var(--accent-primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background-color: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            border-bottom: 4px solid var(--accent-secondary);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        .feature-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--accent-secondary);
+        }
+
+        /* Description Section */
+        .description {
+            padding: 4rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .description h3 {
+            text-align: center;
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+        }
+
+        .description p {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .variants-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            text-align: left;
+        }
+
+        .variant-item {
+            background-color: rgba(255,255,255,0.02);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .variant-item h4 {
+            color: var(--accent-secondary);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+
+        .variant-item p {
+            font-size: 1rem;
+            margin-bottom: 0;
+            text-align: left;
+        }
+
+        /* Slider Section */
+        .slider-section {
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .slider-section h3 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            margin-bottom: 3rem;
+            color: var(--accent-primary);
+        }
+
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .slider-container {
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            background-color: #000;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 600px;
+            height: auto;
+            display: block;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: calc(100% + 60px);
+            left: -30px;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        @media (max-width: 1000px) {
+            .slider-nav {
+                width: 100%;
+                left: 0;
+                padding: 0 10px;
+            }
+        }
+
+        .slider-nav button {
+            background: var(--accent-primary);
+            color: var(--on-accent);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            pointer-events: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .slider-nav button:hover {
+            transform: scale(1.1);
+            background: #fff;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--surface-color);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .dot.active {
+            background-color: var(--accent-primary);
+            transform: scale(1.3);
+        }
+
+        footer {
+            padding: 4rem 0;
+            text-align: center;
+            border-top: 1px solid var(--surface-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 2rem 0; }
+            .features { padding: 3rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">🇺🇸 EN</button>
+        <button class="lang-btn" data-lang="de" onclick="setLanguage('de')">🇩🇪 DE</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLanguage('fr')">🇫🇷 FR</button>
+        <button class="lang-btn" data-lang="tr" onclick="setLanguage('tr')">🇹🇷 TR</button>
+        <button class="lang-btn" data-lang="id" onclick="setLanguage('id')">🇮🇩 ID</button>
+        <button class="lang-btn" data-lang="uk" onclick="setLanguage('uk')">🇺🇦 UK</button>
+    </div>
+    <h1 data-i18n="appTitle">Mancala Games</h1>
+</header>
+
+<div class="container">
+    <section class="hero">
+        <div class="hero-content">
+            <h2 data-i18n="heroTitle">Play the oldest board game on your phone</h2>
+            <p data-i18n="heroDesc">Experience the timeless strategy of Mancala. Whether you call it Kalah, Oware, or Congkak, this classic game is now available at your fingertips with beautiful graphics and smooth gameplay.</p>
+            
+            <div class="store-links">
+                <a href="https://play.google.com/store/apps/details?id=org.xbasoft.mancala" class="store-badge google-play" target="_blank">
+                    <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play">
+                </a>
+                <a href="https://apps.apple.com/us/app/mancala-games/id6749502881" class="store-badge" target="_blank">
+                    <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-media">
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/mYeIec2B2DA" 
+                    title="Mancala Gameplay" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h3 data-i18n="coreFeatures">Core Features</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4 data-i18n="featVariantsTitle">Multiple Variants</h4>
+                    <p data-i18n="featVariantsDesc">Play Kalah, Oware, Congkak, and even Turkish Mangala.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 data-i18n="featMultiTitle">Multiplayer</h4>
+                    <p data-i18n="featMultiDesc">Play offline with a friend next to you or online multiplayer with players worldwide.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 data-i18n="featAITitle">Strong AI</h4>
+                    <p data-i18n="featAIDesc">Challenge smart AI opponents with different difficulty levels to sharpen your skills.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 data-i18n="featClassicTitle">Classic Experience</h4>
+                    <p data-i18n="featClassicDesc">Enjoy a traditional board game feel with realistic graphics and tactile feedback.</p>
+                </div>
+                <div class="feature-card">
+                    <h4 data-i18n="featSmoothTitle">Smooth Controls</h4>
+                    <p data-i18n="featSmoothDesc">Simple, intuitive controls designed perfectly for mobile screens.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="description">
+        <h3 data-i18n="aboutTitle">About the Game</h3>
+        <p data-i18n="aboutPara1">The mancala games are a family of two-player turn-based strategy board games played with small stones, beans, or seeds and rows of holes or pits. The objective is usually to capture all or some set of the opponent's pieces.</p>
+        <p data-i18n="aboutPara2">This implementation brings the world's oldest strategy games to the modern era. Whether you are a fan of the Western Kalah, the African Oware, or the Southeast Asian Congkak, you will find your favorite variant here.</p>
+        
+        <div class="variants-grid">
+            <div class="variant-item">
+                <h4>Kalah</h4>
+                <p data-i18n="descKalah">The most popular Western variant. Players move seeds counter-clockwise around the board, aiming to land the last seed in their "store" for an extra move or capture opponent's seeds by landing in an empty pit.</p>
+            </div>
+            <div class="variant-item">
+                <h4>Oware</h4>
+                <p data-i18n="descOware">A classic West African game of calculation. The goal is to capture seeds by bringing the count in an opponent's pit to exactly two or three. It is widely considered one of the most strategic variants in the family.</p>
+            </div>
+            <div class="variant-item">
+                <h4>Congkak</h4>
+                <p data-i18n="descCongkak">A traditional Southeast Asian variant played with a boat-shaped board. It features a unique "lap" system where players continue their turn as long as the last seed lands in a non-empty pit, creating long, flowing sequences.</p>
+            </div>
+            <div class="variant-item">
+                <h4>Mangala</h4>
+                <p data-i18n="descMangala">A traditional Turkish variant that introduces unique tactical elements, such as the ability to move seeds from the opponent's side and specific rules for doubling seeds to make captures.</p>
+            </div>
+        </div>
+
+        <p data-i18n="aboutPara3">Perfect for fans of strategy and logic games, Mancala helps you train your strategy skills while enjoying a relaxing yet challenging experience.</p>
+    </section>
+
+    <section class="slider-section">
+        <h3 data-i18n="screenshotsTitle">Screenshots</h3>
+        <div class="slider-wrapper">
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide"><img src="images/image1.png" alt="Mancala Screenshot 1"></div>
+                    <div class="slide"><img src="images/image2.png" alt="Mancala Screenshot 2"></div>
+                    <div class="slide"><img src="images/image3.png" alt="Mancala Screenshot 3"></div>
+                    <div class="slide"><img src="images/image4.png" alt="Mancala Screenshot 4"></div>
+                    <div class="slide"><img src="images/image5.png" alt="Mancala Screenshot 5"></div>
+                    <div class="slide"><img src="images/image6.png" alt="Mancala Screenshot 6"></div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button id="prevBtn" aria-label="Previous Slide">&lsaquo;</button>
+                <button id="nextBtn" aria-label="Next Slide">&rsaquo;</button>
+            </div>
+        </div>
+        <div class="slider-dots" id="sliderDots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p data-i18n="footerCopyright">&copy; 2026 XBASoft. All rights reserved.</p>
+    <p data-i18n="footerDev">Developed by Vadym Khokhlov</p>
+    <div class="footer-links">
+        <a href="https://xvadim.github.io/xbasoft/apps/mancala/policy.html" target="_blank" data-i18n="privacyPolicy">Privacy Policy</a>
+        <a href="https://xvadim.github.io/xbasoft/apps/mancala/tos.html" target="_blank" data-i18n="termsConditions">Terms & Conditions</a>
+    </div>
+</footer>
+
+<script>
+    function applyTranslations(lang) {
+        const trans = window.translations[lang];
+        if (!trans) return;
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (trans[key]) {
+                el.innerText = trans[key];
+            }
+        });
+
+        // Update active button
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+
+        localStorage.setItem('preferredLang', lang);
+    }
+
+    function setLanguage(lang) {
+        if (window.translations && window.translations[lang]) {
+            applyTranslations(lang);
+        } else {
+            const script = document.createElement('script');
+            script.src = `locales/${lang}.js`;
+            script.onload = () => applyTranslations(lang);
+            script.onerror = () => {
+                console.error(`Error loading language: ${lang}`);
+                if (lang !== 'en') setLanguage('en');
+            };
+            document.head.appendChild(script);
+        }
+    }
+
+    // Initialize from local storage or browser language
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedLang = localStorage.getItem('preferredLang');
+        const browserLang = navigator.language.split('-')[0];
+        const supported = ['en', 'de', 'fr', 'tr', 'id', 'uk'];
+        const initialLang = savedLang || (supported.includes(browserLang) ? browserLang : 'en');
+        setLanguage(initialLang);
+    });
+
+    const track = document.getElementById('sliderTrack');
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    let currentIndex = 0;
+
+    function updateSlider() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        updateSlider();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentIndex = index;
+            updateSlider();
+        });
+    });
+
+    // Auto slide
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        updateSlider();
+    }, 5000);
+</script>
+
+</body>
+</html>
