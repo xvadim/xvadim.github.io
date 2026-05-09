@@ -1,0 +1,26 @@
+window.translations = window.translations || {};
+window.translations.en = {
+    "appTitle": "Cards Golf",
+    "heroTitle": "Play the Best Golf Card Games on Your Phone",
+    "heroDesc": "Experience the ultimate collection of card games. Whether you love the strategic Six Cards Golf, the challenging Four Cards Golf, or the classic Scat (31), this app has it all with beautiful graphics and smooth gameplay.",
+    "coreFeatures": "Core Features",
+    "featGamesTitle": "Three Games in One",
+    "featGamesDesc": "Play Golf 4, Golf 6 (Hara Kiri), and Scat (31) all in a single app.",
+    "featMultiTitle": "Online Multiplayer",
+    "featMultiDesc": "Challenge players worldwide or play with friends in real-time online matches.",
+    "featAITitle": "Strong AI",
+    "featAIDesc": "Sharpen your skills against advanced AI opponents with varying difficulty levels.",
+    "featThemesTitle": "Beautiful Themes",
+    "featThemesDesc": "Customize your game with elegant themes like Green Velvet and Classic Wood.",
+    "aboutTitle": "About the Games",
+    "aboutPara1": "This app brings together the most popular variations of the Golf card game family and the classic Scat (31). These games are perfect for fans of strategy, memory, and logic.",
+    "aboutPara2": "Whether you are playing solo against our smart AI or competing with real players online, you will enjoy the premium feel and intuitive controls designed for the best mobile experience.",
+    "descGolf6": "The goal of Six Cards Golf is to earn as few points as possible by combining your six cards into pairs of equal value, which cancel each other out.",
+    "descGolf4": "Four Cards Golf is a challenging variant where you can't see all your cards and must remember their values to make the best pairs and minimize your score.",
+    "descScat": "Scat, also known as 31, is a classic game where the goal is to have a hand with a total value equal to or as close to 31 as possible in a single suit.",
+    "screenshotsTitle": "Screenshots",
+    "footerCopyright": "© 2026 XBASoft. All rights reserved.",
+    "footerDev": "Developed by Vadym Khokhlov",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions"
+};

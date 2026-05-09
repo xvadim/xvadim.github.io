@@ -1,0 +1,27 @@
+window.translations = window.translations || {};
+window.translations.en = {
+    "appTitle": "Dice Games Collection",
+    "heroTitle": "The Ultimate Dice Games Collection for Your Phone",
+    "heroDesc": "Enjoy four classic dice games in one app. Play General (Yahtzee style), Thousand, Dice Dodge, and Pig. Challenge yourself against smart AI or play with friends online and locally.",
+    "coreFeatures": "Core Features",
+    "featGamesTitle": "4 Games in 1",
+    "featGamesDesc": "Play General, Thousand, Dice Dodge, and Pig in a single lightweight package.",
+    "featMultiTitle": "Play with Friends",
+    "featMultiDesc": "Compete against players worldwide online, or play with friends on the same device.",
+    "featAITitle": "Smart AI Opponents",
+    "featAIDesc": "Practice your strategy against advanced AI players when you're offline.",
+    "featModesTitle": "Flexible Game Modes",
+    "featModesDesc": "From casual push-your-luck to deep tactical board games, there's a game for every mood.",
+    "aboutTitle": "About the Games",
+    "aboutPara1": "This collection brings together the best dice games, offering a perfect mix of luck and strategy. Whether you want a quick game of Pig or a deep tactical match in Thousand, we have it all.",
+    "aboutPara2": "Our app is designed for smooth gameplay with a clean interface. Play solo to sharpen your skills or join our online community to prove you are the dice master.",
+    "descGeneral": "General (Yahtzee style) is a classic game where you roll five dice to make specific combinations and score the highest points.",
+    "descThousand": "Thousand is a strategic risk-taking game. Roll dice to collect points, but be careful—if you don't score, you lose your turn's progress!",
+    "descDiceDodge": "Dice Dodge is a unique tactical board game where you use dice to move your pieces and outsmart your opponent.",
+    "descPig": "Pig is a simple and addictive push-your-luck game. Roll a die to accumulate points, but if you roll a 1, you lose everything for that turn!",
+    "screenshotsTitle": "Screenshots",
+    "footerCopyright": "© 2026 XBASoft. All rights reserved.",
+    "footerDev": "Developed by Vadym Khokhlov",
+    "privacyPolicy": "Privacy Policy",
+    "termsConditions": "Terms & Conditions"
+};

@@ -1,0 +1,27 @@
+window.translations = window.translations || {};
+window.translations.fr = {
+    "appTitle": "Collection de Jeux de Dés",
+    "heroTitle": "L'ultime collection de jeux de dés pour votre téléphone",
+    "heroDesc": "Profitez de quatre jeux de dés classiques dans une seule application. Jouez au General (style Yahtzee), au Mille, au Dice Dodge et au Cochon. Relevez le défi contre une IA intelligente ou jouez avec des amis en ligne et localement.",
+    "coreFeatures": "Caractéristiques principales",
+    "featGamesTitle": "4 jeux en 1",
+    "featGamesDesc": "Jouez au General, au Mille, au Dice Dodge et au Cochon dans un seul package léger.",
+    "featMultiTitle": "Jouer avec des amis",
+    "featMultiDesc": "Affrontez des joueurs du monde entier en ligne ou jouez avec des amis sur le même appareil.",
+    "featAITitle": "Adversaires IA intelligents",
+    "featAIDesc": "Pratiquez votre stratégie contre des joueurs IA avancés lorsque vous êtes hors ligne.",
+    "featModesTitle": "Modes de jeu flexibles",
+    "featModesDesc": "Du jeu de chance décontracté aux jeux de plateau tactiques profonds, il y a un jeu pour chaque humeur.",
+    "aboutTitle": "À propos des jeux",
+    "aboutPara1": "Cette collection rassemble les meilleurs jeux de dés, offrant un mélange parfait de chance et de stratégie. Que vous souhaitiez une partie rapide de Cochon ou un match tactique profond au Mille, nous avons tout ce qu'il vous faut.",
+    "aboutPara2": "Notre application est conçue pour un gameplay fluide avec une interface épurée. Jouez en solo pour affiner vos compétences ou rejoignez notre communauté en ligne.",
+    "descGeneral": "Le General (style Yahtzee) est un jeu classique où vous lancez cinq dés pour réaliser des combinaisons spécifiques et obtenir le score le plus élevé.",
+    "descThousand": "Le Mille est un jeu de prise de risque stratégique. Lancez les dés pour collecter des points, mais attention : si vous ne marquez pas, vous perdez votre progression du tour !",
+    "descDiceDodge": "Dice Dodge est un jeu de plateau tactique unique où vous utilisez des dés pour déplacer vos pièces et déjouer votre adversaire.",
+    "descPig": "Le Cochon est un jeu de chance simple et addictif. Lancez un dé pour accumuler des points, mais si vous obtenez un 1, vous perdez tout pour ce tour !",
+    "screenshotsTitle": "Captures d'écran",
+    "footerCopyright": "© 2026 XBASoft. All rights reserved.",
+    "footerDev": "Développé par Vadym Khokhlov",
+    "privacyPolicy": "Politique de confidentialité",
+    "termsConditions": "Conditions générales"
+};

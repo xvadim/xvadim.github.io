@@ -1,0 +1,27 @@
+window.translations = window.translations || {};
+window.translations.de = {
+    "appTitle": "Würfelspiel-Sammlung",
+    "heroTitle": "Die ultimative Würfelspiel-Sammlung für Ihr Handy",
+    "heroDesc": "Genießen Sie vier klassische Würfelspiele in einer App. Spielen Sie General (Yahtzee-Stil), Tausend, Dice Dodge und Pig. Fordern Sie sich gegen intelligente KI heraus oder spielen Sie online und lokal mit Freunden.",
+    "coreFeatures": "Hauptmerkmale",
+    "featGamesTitle": "4 Spiele in 1",
+    "featGamesDesc": "Spielen Sie General, Tausend, Dice Dodge und Pig in einem einzigen, leichten Paket.",
+    "featMultiTitle": "Mit Freunden spielen",
+    "featMultiDesc": "Treten Sie online gegen Spieler weltweit an oder spielen Sie mit Freunden auf demselben Gerät.",
+    "featAITitle": "Intelligente KI-Gegner",
+    "featAIDesc": "Üben Sie Ihre Strategie gegen fortgeschrittene KI-Spieler, wenn Sie offline sind.",
+    "featModesTitle": "Flexible Spielmodi",
+    "featModesDesc": "Vom lockeren Glücksspiel bis hin zu tiefgreifenden taktischen Brettspielen ist für jede Stimmung etwas dabei.",
+    "aboutTitle": "Über die Spiele",
+    "aboutPara1": "Diese Sammlung vereint die besten Würfelspiele und bietet eine perfekte Mischung aus Glück und Strategie. Ob Sie ein schnelles Spiel Pig oder ein tiefgreifendes taktisches Match in Tausend suchen, wir haben alles.",
+    "aboutPara2": "Unsere App ist für flüssiges Gameplay mit einer sauberen Benutzeroberfläche konzipiert. Spielen Sie solo, um Ihre Fähigkeiten zu schärfen, oder treten Sie unserer Online-Community bei.",
+    "descGeneral": "General (Yahtzee-Stil) ist ein klassisches Spiel, bei dem Sie fünf Würfel werfen, um bestimmte Kombinationen zu bilden und die höchste Punktzahl zu erreichen.",
+    "descThousand": "Tausend ist ein strategisches Risikospiel. Würfeln Sie, um Punkte zu sammeln, aber seien Sie vorsichtig – wenn Sie keine Punkte erzielen, verlieren Sie Ihren Fortschritt!",
+    "descDiceDodge": "Dice Dodge ist ein einzigartiges taktisches Brettspiel, bei dem Sie Würfel verwenden, um Ihre Spielfiguren zu bewegen und Ihren Gegner zu überlisten.",
+    "descPig": "Pig ist ein einfaches und fesselndes Glücksspiel. Würfeln Sie, um Punkte zu sammeln, aber wenn Sie eine 1 würfeln, verlieren Sie alles für diesen Zug!",
+    "screenshotsTitle": "Screenshots",
+    "footerCopyright": "© 2026 XBASoft. All rights reserved.",
+    "footerDev": "Entwickelt von Vadym Khokhlov",
+    "privacyPolicy": "Datenschutzerklärung",
+    "termsConditions": "Allgemeine Geschäftsbedingungen"
+};

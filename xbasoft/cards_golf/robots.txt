@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://xvadim.github.io/xbasoft/cards_golf/sitemap.xml

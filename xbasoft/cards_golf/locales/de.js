@@ -1,0 +1,26 @@
+window.translations = window.translations || {};
+window.translations.de = {
+    "appTitle": "Cards Golf",
+    "heroTitle": "Spielen Sie die besten Golf-Kartenspiele auf Ihrem Handy",
+    "heroDesc": "Erleben Sie die ultimative Sammlung von Kartenspielen. Ob Sie das strategische Six Cards Golf, das anspruchsvolle Four Cards Golf oder das klassische Scat (31) lieben, diese App bietet alles mit wunderschöner Grafik und flüssigem Gameplay.",
+    "coreFeatures": "Hauptmerkmale",
+    "featGamesTitle": "Drei Spiele in einem",
+    "featGamesDesc": "Spielen Sie Golf 4, Golf 6 (Hara Kiri) und Scat (31) in einer einzigen App.",
+    "featMultiTitle": "Online-Multiplayer",
+    "featMultiDesc": "Fordern Sie Spieler weltweit heraus oder spielen Sie mit Freunden in Echtzeit-Online-Matches.",
+    "featAITitle": "Starke KI",
+    "featAIDesc": "Schärfen Sie Ihre Fähigkeiten gegen fortgeschrittene KI-Gegner mit verschiedenen Schwierigkeitsgraden.",
+    "featThemesTitle": "Schöne Themes",
+    "featThemesDesc": "Passen Sie Ihr Spiel mit eleganten Themes wie Green Velvet und Holz an.",
+    "aboutTitle": "Über die Spiele",
+    "aboutPara1": "Diese App vereint die beliebtesten Varianten der Golf-Kartenspielfamilie und das klassische Scat (31). Diese Spiele sind perfekt für Fans von Strategie, Gedächtnis und Logik.",
+    "aboutPara2": "Egal, ob Sie solo gegen unsere intelligente KI spielen oder online gegen echte Spieler antreten, Sie werden das erstklassige Gefühl und die intuitiven Steuerungen genießen, die für das beste mobile Erlebnis entwickelt wurden.",
+    "descGolf6": "Das Ziel von Six Cards Golf ist es, so wenige Punkte wie möglich zu erzielen, indem Sie Ihre sechs Karten zu Paaren mit gleichem Wert kombinieren, die sich gegenseitig aufheben.",
+    "descGolf4": "Four Cards Golf ist eine anspruchsvolle Variante, bei der Sie nicht alle Ihre Karten sehen können und sich ihre Werte merken müssen, um die besten Paare zu bilden und Ihre Punktzahl zu minimieren.",
+    "descScat": "Scat, auch bekannt als 31, ist ein klassisches Spiel, bei dem das Ziel darin besteht, eine Hand mit einem Gesamtwert von 31 oder so nah wie möglich an 31 in einer einzigen Farbe zu haben.",
+    "screenshotsTitle": "Screenshots",
+    "footerCopyright": "© 2026 XBASoft. All rights reserved.",
+    "footerDev": "Entwickelt von Vadym Khokhlov",
+    "privacyPolicy": "Datenschutzrichtlinie",
+    "termsConditions": "AGB & Bedingungen"
+};
